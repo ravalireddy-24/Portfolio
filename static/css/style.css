@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1b1b1b, #050505 70%);
+  color: white;
+  overflow: hidden;
+}
+
+.portfolio {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.section {
+  display: none;
+  min-height: 100vh;
+  padding: 50px;
+  text-align: center;
+}
+
+.section.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.avatar {
+  width: 300px;
+  animation: floatAvatar 3s ease-in-out infinite;
+}
+
+.speech-box {
+  max-width: 350px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 22px;
+  text-align: left;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.08);
+}
+
+.speech-box h2 {
+  margin-bottom: 14px;
+}
+
+.speech-box p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.voice-btn {
+  margin-top: 35px;
+  padding: 15px 28px;
+  border: none;
+  border-radius: 40px;
+  background: #0f8cff;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(15, 140, 255, 0.6);
+}
+
+.voice-btn:hover {
+  background: #0074d9;
+}
+
+#status {
+  margin-top: 18px;
+  color: #aaa;
+}
+
+.section h1 {
+  font-size: 52px;
+  margin-bottom: 20px;
+}
+
+.section p {
+  font-size: 22px;
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+.section button {
+  margin-top: 30px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+@keyframes floatAvatar {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
