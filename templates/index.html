@@ -11,10 +11,22 @@
   <main class="portfolio">
 
     <section id="home" class="section active">
-    <div class="avatar-area" aria-label="Interactive portfolio avatar">
-             <button id="avatarBtn" class="avatar-button" type="button" aria-label="Ask the avatar to shake hands and say hi">
-          <img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar" alt="Ravali portfolio avatar" />
-         <span class="avatar-handshake" aria-hidden="true"></span>
+       <div class="avatar-area" aria-label="Interactive portfolio avatar">
+        <button id="avatarBtn" class="avatar-button" type="button" aria-label="Ask the cartoon avatar to wave and say hi">
+          <span class="cartoon-avatar" aria-hidden="true">
+            <span class="cartoon-hair"></span>
+            <span class="cartoon-head">
+              <span class="cartoon-eye cartoon-eye-left"></span>
+              <span class="cartoon-eye cartoon-eye-right"></span>
+              <span class="cartoon-smile"></span>
+            </span>
+            <span class="cartoon-neck"></span>
+            <span class="cartoon-body"></span>
+            <span class="cartoon-arm cartoon-arm-left"></span>
+            <span class="cartoon-arm cartoon-arm-right">
+              <span class="cartoon-hand"></span>
+            </span>
+          </span>
         </button>
 
         <div class="speech-box">

@@ -73,69 +73,225 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+    width: 330px;
+  height: 360px;
   padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 38px;
+   background: transparent;
+  cursor: pointer;
+  overflow: visible;
+  box-shadow: none;
+  animation: floatAvatar 3s ease-in-out infinite;
+}
+
+.avatar-button::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 34px;
   background:
     radial-gradient(circle at 20% 18%, rgba(118, 86, 255, 0.42), transparent 38%),
     radial-gradient(circle at 78% 12%, rgba(0, 204, 255, 0.25), transparent 36%),
     radial-gradient(circle at 55% 82%, rgba(255, 72, 176, 0.18), transparent 42%),
-    linear-gradient(135deg, #050713 0%, #0b1026 45%, #160826 100%);
-  cursor: pointer;
-    overflow: hidden;
-  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.22);
-  animation: floatAvatar 3s ease-in-out infinite;
+     linear-gradient(135deg, rgba(5, 7, 19, 0.66) 0%, rgba(11, 16, 38, 0.58) 45%, rgba(22, 8, 38, 0.62) 100%);
+  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.22), inset 0 0 45px rgba(42, 216, 255, 0.12);
+  pointer-events: none;
+}
+
+.avatar-button:hover::before,
+.avatar-button:focus-visible::before {
+  border: 1px solid rgba(42, 216, 255, 0.42);
+  box-shadow: 0 24px 70px rgba(42, 216, 255, 0.18), inset 0 0 50px rgba(124, 77, 255, 0.18);
 }
 
 .avatar-button:focus-visible {
   outline: 3px solid #2ad8ff;
   outline-offset: 8px;
-  border-radius: 28px;
+  border-radius: 38px;
 }
-.avatar {
-  width: 300px;
+.cartoon-avatar,
+.cartoon-avatar span {
+  position: absolute;
   display: block;
 }
 
-.avatar-handshake {
-  position: absolute;
-  right: 30px;
-  bottom: 31%;
-  width: 72px;
-  height: 36px;
-  opacity: 0;
-
-  pointer-events: none;
-   transform: translateX(26px) rotate(-8deg);
+.cartoon-avatar {
+  left: 50%;
+  bottom: 34px;
+  width: 230px;
+  height: 300px;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 26px 35px rgba(0, 0, 0, 0.3));
+  z-index: 1;
 }
 
-.avatar-handshake::before,
-.avatar-handshake::after {
+.cartoon-head {
+  left: 50%;
+  top: 48px;
+  width: 128px;
+  height: 138px;
+  border: 4px solid rgba(67, 32, 28, 0.55);
+  border-radius: 48% 48% 46% 46%;
+  background: linear-gradient(160deg, #ffd9b9 0%, #f2a978 100%);
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.cartoon-hair {
+  left: 47px;
+  top: 19px;
+  width: 138px;
+  height: 95px;
+  border-radius: 60% 60% 42% 42%;
+  background: linear-gradient(145deg, #2b122d, #120817);
+  z-index: 4;
+}
+
+.cartoon-hair::before,
+.cartoon-hair::after {
   content: "";
   position: absolute;
-  top: 8px;
-  width: 48px;
+  background: inherit;
+}
+
+.cartoon-hair::before {
+  left: -12px;
+  top: 30px;
+  width: 50px;
+  height: 85px;
+  border-radius: 70% 30% 60% 70%;
+}
+
+.cartoon-hair::after {
+  right: 6px;
+  top: 45px;
+  width: 42px;
+  height: 88px;
+  border-radius: 30% 70% 70% 55%;
+}
+
+.cartoon-eye {
+  top: 58px;
+  width: 14px;
   height: 18px;
-  border-radius: 999px 999px 12px 12px;
-  background: linear-gradient(135deg, #ffd2aa, #b9653e);
-  box-shadow: 0 0 18px rgba(42, 216, 255, 0.45);
+  border-radius: 50%;
+  background: #241225;
+  z-index: 5;
 }
 
-.avatar-handshake::before {
-  left: 0;
-  transform: rotate(12deg);
+.cartoon-eye::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: white;
 }
 
-.avatar-handshake::after {
-  right: 0;
-  transform: rotate(168deg);
+.cartoon-eye-left {
+  left: 36px;
 }
 
-.avatar-button.is-shaking-hands .avatar-handshake {
-  animation: handshake 1.35s ease-in-out 2;
+.cartoon-eye-right {
+  right: 36px;
 }
 
-.avatar-button.is-shaking-hands .avatar {
+.cartoon-smile {
+  left: 50%;
+  bottom: 29px;
+  width: 42px;
+  height: 22px;
+  border-bottom: 5px solid #8c3d4d;
+  border-radius: 0 0 44px 44px;
+  transform: translateX(-50%);
+}
+
+.cartoon-neck {
+  left: 50%;
+  top: 174px;
+  width: 42px;
+  height: 42px;
+  border-radius: 0 0 18px 18px;
+  background: linear-gradient(160deg, #efaa7b, #d9855e);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.cartoon-body {
+  left: 50%;
+  bottom: 0;
+  width: 150px;
+  height: 114px;
+  border-radius: 58px 58px 38px 38px;
+  background: linear-gradient(145deg, #7c4dff, #00c8ff);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.cartoon-body::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 52px;
+  height: 30px;
+  border-radius: 0 0 28px 28px;
+  background: rgba(255, 255, 255, 0.86);
+  transform: translateX(-50%);
+}
+
+.cartoon-arm {
+  top: 209px;
+  width: 34px;
+  height: 88px;
+  border-radius: 999px;
+  background: linear-gradient(160deg, #ffd4b2, #df8b61);
+  transform-origin: 50% 12px;
+  z-index: 1;
+}
+
+.cartoon-arm-left {
+  left: 40px;
+  transform: rotate(28deg);
+}
+
+.cartoon-arm-right {
+  right: 37px;
+  transform: rotate(-48deg);
+  z-index: 5;
+}
+
+.cartoon-hand {
+  left: -5px;
+  bottom: -13px;
+  width: 44px;
+  height: 34px;
+  border-radius: 50% 50% 45% 45%;
+  background: linear-gradient(160deg, #ffd4b2, #df8b61);
+}
+
+.cartoon-hand::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: -5px;
+  width: 12px;
+  height: 24px;
+  border-radius: 999px;
+  background: #f4b083;
+  transform: rotate(-32deg);
+}
+
+.avatar-button.is-shaking-hands .cartoon-arm-right,
+.avatar-button:hover .cartoon-arm-right,
+.avatar-button:focus-visible .cartoon-arm-right {
+  animation: cartoonWave 0.75s ease-in-out 4;
+}
+
+.avatar-button.is-shaking-hands .cartoon-avatar {
   animation: avatarGreeting 2.7s ease-in-out;
 }
 
@@ -232,26 +388,21 @@ body::after {
   border: none;
   cursor: pointer;
 }
-@keyframes handshake {
+@keyframes cartoonWave {
   0%, 100% {
-    opacity: 0;
- transform: translateX(26px) rotate(-8deg) scale(0.85);
-  }
-
-  12%, 88% {
-    opacity: 1;
+   transform: rotate(-48deg);
   }
 
   25% {
-    transform: rotate(22deg) scale(1);
+    transform: rotate(-78deg);
   }
 
-  45% {
- transform: translateX(0) rotate(8deg) scale(1);
+  50% {
+    transform: rotate(-34deg);
   }
 
-  65% {
- transform: translateX(4px) rotate(7deg) scale(1);
+  75% {
+    transform: rotate(-72deg);
   }
 }
 
