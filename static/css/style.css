@@ -68,10 +68,46 @@ body::after {
   align-items: center;
   gap: 40px;
 }
+.avatar-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  animation: floatAvatar 3s ease-in-out infinite;
+}
 
+.avatar-button:focus-visible {
+  outline: 3px solid #2ad8ff;
+  outline-offset: 8px;
+  border-radius: 28px;
+}
 .avatar {
   width: 300px;
-  animation: floatAvatar 3s ease-in-out infinite;
+  display: block;
+}
+
+.avatar-wave {
+  position: absolute;
+  top: 22%;
+  right: 4%;
+  font-size: 54px;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
+  opacity: 0;
+  transform: rotate(0deg) scale(0.8);
+  transform-origin: 20% 80%;
+  pointer-events: none;
+}
+
+.avatar-button.is-waving .avatar-wave {
+  animation: waveHand 1.35s ease-in-out 2;
+}
+
+.avatar-button.is-waving .avatar {
+  animation: avatarGreeting 2.7s ease-in-out;
 }
 
 .speech-box {
@@ -133,7 +169,42 @@ body::after {
   border: none;
   cursor: pointer;
 }
+@keyframes waveHand {
+  0%, 100% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.8);
+  }
 
+  12%, 88% {
+    opacity: 1;
+  }
+
+  25% {
+    transform: rotate(22deg) scale(1);
+  }
+
+  45% {
+    transform: rotate(-16deg) scale(1.05);
+  }
+
+  65% {
+    transform: rotate(18deg) scale(1);
+  }
+}
+
+@keyframes avatarGreeting {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.04) rotate(-1deg);
+  }
+
+  70% {
+    transform: scale(1.02) rotate(1deg);
+  }
+}
 @keyframes floatAvatar {
   0%, 100% {
     transform: translateY(0);

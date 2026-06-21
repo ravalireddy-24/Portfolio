@@ -11,8 +11,11 @@
   <main class="portfolio">
 
     <section id="home" class="section active">
-      <div class="avatar-area">
-        <img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar" />
+    <div class="avatar-area" aria-label="Interactive portfolio avatar">
+        <button id="avatarBtn" class="avatar-button" type="button" aria-label="Ask the avatar to wave and say hie">
+          <img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar" alt="Ravali portfolio avatar" />
+          <span class="avatar-wave" aria-hidden="true">👋</span>
+        </button>
 
         <div class="speech-box">
           <h2>Hi! 👋</h2>

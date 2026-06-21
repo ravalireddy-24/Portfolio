@@ -1,13 +1,27 @@
 const voiceBtn = document.getElementById("voiceBtn");
 const statusText = document.getElementById("status");
+const avatarBtn = document.getElementById("avatarBtn");
+const greetingMessage = "Hie, welcome to my portfolio. How can I help you? Which section would you like to explore?";
 
 function speak(text) {
+    window.speechSynthesis.cancel();
   const voice = new SpeechSynthesisUtterance(text);
   voice.rate = 1;
   voice.pitch = 1;
   voice.volume = 1;
   window.speechSynthesis.speak(voice);
 }
+function waveAvatar() {
+  avatarBtn.classList.remove("is-waving");
+  void avatarBtn.offsetWidth;
+  avatarBtn.classList.add("is-waving");
+}
+
+function greetFromAvatar() {
+  waveAvatar();
+  speak(greetingMessage);
+}
+
 
 function showSection(sectionId, message) {
   document.querySelectorAll(".section").forEach(section => {
@@ -59,7 +73,7 @@ function handleCommand(command) {
     speak("Sorry, I did not understand. You can say experience, projects, skills, or contact.");
   }
 }
-
+avatarBtn.addEventListener("click", greetFromAvatar);
 voiceBtn.addEventListener("click", () => {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -88,6 +102,6 @@ voiceBtn.addEventListener("click", () => {
 
 window.onload = () => {
   setTimeout(() => {
-    speak("Hi, welcome to my portfolio. How can I help you? Which section would you like to explore?");
+    greetFromAvatar();
   }, 800);
 };
