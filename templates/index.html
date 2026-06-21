@@ -12,9 +12,9 @@
 
     <section id="home" class="section active">
     <div class="avatar-area" aria-label="Interactive portfolio avatar">
-        <button id="avatarBtn" class="avatar-button" type="button" aria-label="Ask the avatar to wave and say hie">
+             <button id="avatarBtn" class="avatar-button" type="button" aria-label="Ask the avatar to shake hands and say hi">
           <img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar" alt="Ravali portfolio avatar" />
-          <span class="avatar-wave" aria-hidden="true">👋</span>
+         <span class="avatar-handshake" aria-hidden="true"></span>
         </button>
 
         <div class="speech-box">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <button id="voiceBtn" class="voice-btn">🎤 Click to Speak</button>
+      <button id="voiceBtn" class="voice-btn"><span aria-hidden="true" class="voice-icon"></span> Click to Speak</button>
       <p id="status">Try saying: “Show me Ravali's experience”</p>
     </section>
 

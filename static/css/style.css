@@ -73,10 +73,17 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  border: none;
-  background: transparent;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 38px;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(118, 86, 255, 0.42), transparent 38%),
+    radial-gradient(circle at 78% 12%, rgba(0, 204, 255, 0.25), transparent 36%),
+    radial-gradient(circle at 55% 82%, rgba(255, 72, 176, 0.18), transparent 42%),
+    linear-gradient(135deg, #050713 0%, #0b1026 45%, #160826 100%);
   cursor: pointer;
+    overflow: hidden;
+  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.22);
   animation: floatAvatar 3s ease-in-out infinite;
 }
 
@@ -90,23 +97,45 @@ body::after {
   display: block;
 }
 
-.avatar-wave {
+.avatar-handshake {
   position: absolute;
-  top: 22%;
-  right: 4%;
-  font-size: 54px;
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
+  right: 30px;
+  bottom: 31%;
+  width: 72px;
+  height: 36px;
   opacity: 0;
-  transform: rotate(0deg) scale(0.8);
-  transform-origin: 20% 80%;
+
   pointer-events: none;
+   transform: translateX(26px) rotate(-8deg);
 }
 
-.avatar-button.is-waving .avatar-wave {
-  animation: waveHand 1.35s ease-in-out 2;
+.avatar-handshake::before,
+.avatar-handshake::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 48px;
+  height: 18px;
+  border-radius: 999px 999px 12px 12px;
+  background: linear-gradient(135deg, #ffd2aa, #b9653e);
+  box-shadow: 0 0 18px rgba(42, 216, 255, 0.45);
 }
 
-.avatar-button.is-waving .avatar {
+.avatar-handshake::before {
+  left: 0;
+  transform: rotate(12deg);
+}
+
+.avatar-handshake::after {
+  right: 0;
+  transform: rotate(168deg);
+}
+
+.avatar-button.is-shaking-hands .avatar-handshake {
+  animation: handshake 1.35s ease-in-out 2;
+}
+
+.avatar-button.is-shaking-hands .avatar {
   animation: avatarGreeting 2.7s ease-in-out;
 }
 
@@ -145,6 +174,40 @@ body::after {
 .voice-btn:hover {
   background: linear-gradient(135deg, #925fff, #2ad8ff);
 }
+.voice-icon {
+  position: relative;
+  display: inline-block;
+  width: 12px;
+  height: 18px;
+  margin-right: 8px;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  vertical-align: -3px;
+}
+
+.voice-icon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 18px;
+  height: 10px;
+  border: 2px solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  transform: translateX(-50%);
+}
+
+.voice-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  width: 2px;
+  height: 7px;
+  background: currentColor;
+  transform: translateX(-50%);
+}
 
 #status {
   margin-top: 18px;
@@ -169,10 +232,10 @@ body::after {
   border: none;
   cursor: pointer;
 }
-@keyframes waveHand {
+@keyframes handshake {
   0%, 100% {
     opacity: 0;
-    transform: rotate(0deg) scale(0.8);
+ transform: translateX(26px) rotate(-8deg) scale(0.85);
   }
 
   12%, 88% {
@@ -184,11 +247,11 @@ body::after {
   }
 
   45% {
-    transform: rotate(-16deg) scale(1.05);
+ transform: translateX(0) rotate(8deg) scale(1);
   }
 
   65% {
-    transform: rotate(18deg) scale(1);
+ transform: translateX(4px) rotate(7deg) scale(1);
   }
 }
 

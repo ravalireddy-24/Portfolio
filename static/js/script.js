@@ -11,14 +11,14 @@ function speak(text) {
   voice.volume = 1;
   window.speechSynthesis.speak(voice);
 }
-function waveAvatar() {
-  avatarBtn.classList.remove("is-waving");
+function shakeHandsAvatar() {
+  avatarBtn.classList.remove("is-shaking-hands");
   void avatarBtn.offsetWidth;
-  avatarBtn.classList.add("is-waving");
+  avatarBtn.classList.add("is-shaking-hands");
 }
 
 function greetFromAvatar() {
-  waveAvatar();
+  shakeHandsAvatar();
   speak(greetingMessage);
 }
 
