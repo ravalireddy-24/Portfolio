@@ -7,12 +7,43 @@
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at center, #1b1b1b, #050505 70%);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(118, 86, 255, 0.45), transparent 26%),
+    radial-gradient(circle at 80% 10%, rgba(0, 204, 255, 0.28), transparent 24%),
+    radial-gradient(circle at 55% 75%, rgba(255, 72, 176, 0.22), transparent 28%),
+    linear-gradient(135deg, #050713 0%, #0b1026 45%, #160826 100%);
   color: white;
   overflow: hidden;
 }
 
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  background-image:
+    radial-gradient(#ffffff 0.8px, transparent 0.8px),
+    radial-gradient(rgba(255, 255, 255, 0.75) 1px, transparent 1px);
+  background-position: 0 0, 35px 45px;
+  background-size: 70px 70px, 115px 115px;
+  opacity: 0.8;
+  animation: driftStars 80s linear infinite;
+}
+
+body::after {
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(74, 144, 255, 0.32), transparent 45%),
+    linear-gradient(180deg, transparent 0%, rgba(1, 4, 16, 0.72) 100%);
+}
+
 .portfolio {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 100vh;
 }
@@ -46,12 +77,12 @@ body {
 .speech-box {
   max-width: 350px;
   padding: 25px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(8, 12, 32, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 22px;
   text-align: left;
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 35px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 35px rgba(98, 168, 255, 0.2);
 }
 
 .speech-box h2 {
@@ -68,15 +99,15 @@ body {
   padding: 15px 28px;
   border: none;
   border-radius: 40px;
-  background: #0f8cff;
+  background: linear-gradient(135deg, #7c4dff, #00c8ff);
   color: white;
   font-size: 18px;
   cursor: pointer;
-  box-shadow: 0 0 25px rgba(15, 140, 255, 0.6);
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.65);
 }
 
 .voice-btn:hover {
-  background: #0074d9;
+  background: linear-gradient(135deg, #925fff, #2ad8ff);
 }
 
 #status {
@@ -110,5 +141,16 @@ body {
 
   50% {
     transform: translateY(-12px);
+  }
+}
+
+
+@keyframes driftStars {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-140px);
   }
 }
