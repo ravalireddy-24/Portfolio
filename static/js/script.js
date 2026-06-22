@@ -2,12 +2,14 @@ const assistantPanel = document.getElementById("assistantPanel");
 const avatarBtn = document.getElementById("avatarBtn");
 const cartoonAvatar = document.getElementById("cartoonAvatar");
 const mouth = document.getElementById("mouth");
+const voiceBtn = document.getElementById("voiceBtn");
 const voiceBtnText = document.getElementById("voiceBtnText");
 const statusText = document.getElementById("status");
 
 const assistantTitle = document.getElementById("assistantTitle");
 const assistantMessage = document.getElementById("assistantMessage");
 
+const welcomeMessage = "Welcome to Ravali’s portfolio. I can show experience, projects, skills, resume, or contact details.";
 const mouthShapes = ["mouth-open-a", "mouth-closed", "mouth-open-b", "mouth-open-c", "mouth-closed"];
 const sectionNarration = {
   experience: "Here is Ravali's experience section. She builds full stack software, data engineering workflows, cloud services, APIs, and automation.",
@@ -40,6 +42,19 @@ function setAvatarState(state) {
 function setMouthShape(shape) {
   mouth.classList.remove("mouth-smile", "mouth-open-a", "mouth-open-b", "mouth-open-c", "mouth-closed");
   mouth.classList.add(shape);
+    const openShape = mouth.querySelector(".mouth-open");
+  if (!openShape) return;
+  const dimensions = {
+    "mouth-open-a": [10, 10],
+    "mouth-open-b": [18, 7],
+    "mouth-open-c": [14, 13],
+    "mouth-closed": [14, 2],
+    "mouth-smile": [15, 4]
+  };
+  const [rx, ry] = dimensions[shape] || dimensions["mouth-smile"];
+  openShape.setAttribute("rx", rx);
+  openShape.setAttribute("ry", ry);
+  openShape.style.opacity = shape.startsWith("mouth-open") ? "1" : "0";
 }
 function startLipSync() {
   stopLipSync(false);
@@ -75,6 +90,11 @@ function speak(text, onEnd) {
   utterance.onstart = () => {
     setAvatarState("talking");
     startLipSync();
+  };
+    utterance.onend = () => {
+    stopLipSync();
+    setAvatarState("idle");
+    onEnd?.();
   };
   utterance.onerror = utterance.onend;
   window.speechSynthesis.speak(utterance);
