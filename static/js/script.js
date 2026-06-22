@@ -10,7 +10,6 @@ const assistantTitle = document.getElementById("assistantTitle");
 const assistantMessage = document.getElementById("assistantMessage");
 
 const welcomeMessage = "Welcome to Ravali’s portfolio. I can show experience, projects, skills, resume, or contact details.";
-const mouthShapes = ["mouth-open-a", "mouth-closed", "mouth-open-b", "mouth-open-c", "mouth-closed"];
 const sectionNarration = {
   experience: "Here is Ravali's experience section. She builds full stack software, data engineering workflows, cloud services, APIs, and automation.",
   projects: "Here are Ravali's projects, including AI features, web applications, cloud integrations, dashboards, and automation projects.",
@@ -36,39 +35,20 @@ let hasGreeted = false;
 
 function setAvatarState(state) {
   currentState = state;
-  cartoonAvatar.className.baseVal = `cartoon-avatar avatar-${state}`;
+  const stateClasses = [
+    "avatar-idle",
+    "avatar-listening",
+    "avatar-thinking",
+    "avatar-talking",
+    "avatar-greeting",
+    "avatar-pointing"
+  ];
+
+  cartoonAvatar.classList.remove(...stateClasses);
+  cartoonAvatar.classList.add(`avatar-${state}`);
   assistantPanel.dataset.state = state;
 }
-function setMouthShape(shape) {
-  mouth.classList.remove("mouth-smile", "mouth-open-a", "mouth-open-b", "mouth-open-c", "mouth-closed");
-  mouth.classList.add(shape);
-    const openShape = mouth.querySelector(".mouth-open");
-  if (!openShape) return;
-  const dimensions = {
-    "mouth-open-a": [10, 10],
-    "mouth-open-b": [18, 7],
-    "mouth-open-c": [14, 13],
-    "mouth-closed": [14, 2],
-    "mouth-smile": [15, 4]
-  };
-  const [rx, ry] = dimensions[shape] || dimensions["mouth-smile"];
-  openShape.setAttribute("rx", rx);
-  openShape.setAttribute("ry", ry);
-  openShape.style.opacity = shape.startsWith("mouth-open") ? "1" : "0";
-}
-function startLipSync() {
-  stopLipSync(false);
-  let index = 0;
-  lipTimer = window.setInterval(() => {
-    setMouthShape(mouthShapes[index % mouthShapes.length]);
-    index += 1;
-  }, 115);
-}
-function stopLipSync(smile = true) {
-  window.clearInterval(lipTimer);
-  lipTimer = undefined;
-  setMouthShape(smile ? "mouth-smile" : "mouth-closed");
-}
+
 function updateAssistant(title, message, status) {
   assistantTitle.textContent = title;
   assistantMessage.textContent = message;
@@ -86,13 +66,10 @@ function speak(text, onEnd) {
   utterance.rate = 1;
   utterance.pitch = 1.08;
   utterance.volume = 1;
-  utterance.onstart = () => setAvatarState("talking");
   utterance.onstart = () => {
     setAvatarState("talking");
-    startLipSync();
   };
     utterance.onend = () => {
-    stopLipSync();
     setAvatarState("idle");
     onEnd?.();
   };
