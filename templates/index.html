@@ -11,50 +11,26 @@
   <main class="portfolio">
 
     <section id="home" class="section active">
-       <div class="avatar-area" aria-label="Interactive portfolio avatar">
-        <button id="avatarBtn" class="avatar-button" type="button" aria-label="Ask the cartoon avatar to wave and say hi">
-          <img src="{{ url_for('static', filename='images/avatar.svg') }}" class="avatar" alt="Ravali portfolio avatar" />
-          <span class="cartoon-avatar" aria-hidden="true">
-            <span class="cartoon-hair"></span>
-            <span class="cartoon-head">
-              <span class="cartoon-eye cartoon-eye-left"></span>
-              <span class="cartoon-eye cartoon-eye-right"></span>
-              <span class="cartoon-smile"></span>
-            </span>
-            <span class="cartoon-neck"></span>
-            <span class="cartoon-body"></span>
-            <span class="cartoon-arm cartoon-arm-left"></span>
-            <span class="cartoon-arm cartoon-arm-right">
-              <span class="cartoon-hand"></span>
-            </span>
-          </span>
-        </button>
-
-        <div class="speech-box">
-          <h2>Hi! 👋</h2>
-          <p>Welcome to my portfolio.</p>
-          <p>How can I help you?</p>
-          <p>Which section would you like to explore?</p>
-        </div>
-      </div>
-
-      <button id="voiceBtn" class="voice-btn"><span aria-hidden="true" class="voice-icon"></span> Click to Speak</button>
-      <p id="status">Try saying: “Show me Ravali's experience”</p>
+        <div
+        id="avatar-root"
+        data-avatar-src="{{ url_for('static', filename='images/avatar.png') }}"
+        aria-label="Interactive portfolio virtual assistant"
+      ></div>
     </section>
 
-    <section id="experience" class="section">
+    <section id="experience" class="section" data-section-title="Experience">
       <h1>Experience</h1>
       <p>I have experience in software development, data engineering, cloud, APIs, and full-stack applications.</p>
       <button onclick="goHome()">Back Home</button>
     </section>
 
-    <section id="projects" class="section">
+ <section id="projects" class="section" data-section-title="Projects">
       <h1>Projects</h1>
       <p>Here are my portfolio projects including AI, web apps, cloud, and automation projects.</p>
       <button onclick="goHome()">Back Home</button>
     </section>
 
-    <section id="skills" class="section">
+      <section id="skills" class="section" data-section-title="Skills">
       <h1>Skills</h1>
       <p>Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.</p>
       <button onclick="goHome()">Back Home</button>
@@ -68,6 +44,17 @@
 
   </main>
 
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom": "https://esm.sh/react-dom@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "framer-motion": "https://esm.sh/framer-motion@10.18.0?external=react,react-dom"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" crossorigin></script>
+  <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
