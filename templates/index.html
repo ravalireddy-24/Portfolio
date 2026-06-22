@@ -9,13 +9,12 @@
 
 <body>
   <main class="portfolio">
-
-    <section id="home" class="section active">
-        <div
-        id="avatar-root"
-        data-avatar-src="{{ url_for('static', filename='images/avatar.png') }}"
-        aria-label="Interactive portfolio virtual assistant"
-      ></div>
+    <section id="home" class="section active" data-section-title="Home">
+      <div class="hero-copy">
+        <p class="eyebrow">Interactive Portfolio Guide</p>
+        <h1>Hi, I’m Ravali</h1>
+        <p>Use the microphone or click the avatar to let the portfolio guide help you explore experience, projects, skills, and contact information.</p>
+      </div>
     </section>
 
     <section id="experience" class="section" data-section-title="Experience">
@@ -24,19 +23,19 @@
       <button onclick="goHome()">Back Home</button>
     </section>
 
- <section id="projects" class="section" data-section-title="Projects">
+    <section id="projects" class="section" data-section-title="Projects">
       <h1>Projects</h1>
       <p>Here are my portfolio projects including AI, web apps, cloud, and automation projects.</p>
       <button onclick="goHome()">Back Home</button>
     </section>
 
-      <section id="skills" class="section" data-section-title="Skills">
+     <section id="skills" class="section" data-section-title="Skills">
       <h1>Skills</h1>
       <p>Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.</p>
       <button onclick="goHome()">Back Home</button>
     </section>
 
-    <section id="contact" class="section">
+ <section id="contact" class="section" data-section-title="Contact">
       <h1>Contact</h1>
       <p>You can contact me through email, LinkedIn, or GitHub.</p>
       <button onclick="goHome()">Back Home</button>
@@ -44,17 +43,27 @@
 
   </main>
 
-  <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@18.2.0",
-        "react-dom": "https://esm.sh/react-dom@18.2.0",
-        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-        "framer-motion": "https://esm.sh/framer-motion@10.18.0?external=react,react-dom"
-      }
-    }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" crossorigin></script>
-  <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
+<aside id="assistantPanel" class="assistant-panel" aria-label="Ravali portfolio virtual assistant">
+    <button id="avatarBtn" class="avatar-stage" type="button" aria-label="Ask Ravali's avatar for help">
+      <img
+        id="mainAvatar"
+        class="main-avatar avatar-idle"
+        src="{{ url_for('static', filename='images/avatar.png') }}"
+        alt="Ravali full-body virtual assistant avatar"
+      />
+    </button>
+
+    <div class="assistant-card" role="status" aria-live="polite">
+      <h2 id="assistantTitle">Hi! 👋</h2>
+      <p id="assistantMessage">I can guide you through Ravali’s portfolio. Try saying “show projects”.</p>
+      <p id="status">Ready for your command.</p>
+      <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command">
+        <span class="voice-icon" aria-hidden="true"></span>
+        <span id="voiceBtnText">Click microphone</span>
+      </button>
+    </div>
+  </aside>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
