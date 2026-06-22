@@ -14,7 +14,7 @@ body {
     radial-gradient(circle at 80% 10%, rgba(0, 204, 255, 0.28), transparent 24%),
     radial-gradient(circle at 55% 75%, rgba(255, 72, 176, 0.22), transparent 28%),
     linear-gradient(135deg, #050713 0%, #0b1026 45%, #160826 100%);
-  color: white;
+  color: #fff;
   overflow-x: hidden;
 }
 
@@ -29,7 +29,7 @@ body::after {
 
 body::before {
   background-image:
-    radial-gradient(#ffffff 0.8px, transparent 0.8px),
+    radial-gradient(#fff 0.8px, transparent 0.8px),
     radial-gradient(rgba(255, 255, 255, 0.75) 1px, transparent 1px);
   background-position: 0 0, 35px 45px;
   background-size: 70px 70px, 115px 115px;
@@ -47,20 +47,23 @@ body::after {
   position: relative;
   z-index: 1;
   width: 100%;
-  min-height: 100vh;
+
 }
 
 .section {
+    min-height: 100vh;
   padding: 80px min(38vw, 520px) 80px 56px;
-  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
   scroll-margin-top: 24px;
+    transition: background 0.35s ease, box-shadow 0.35s ease, outline-color 0.35s ease;
 }
-.section.active h1,
-.section.active .hero-copy h1 {
-  text-shadow: 0 0 34px rgba(42, 216, 255, 0.32);
+.section.active,
+.section.section-highlight {
+  outline: 1px solid rgba(42, 216, 255, 0.22);
+  background: linear-gradient(90deg, rgba(42, 216, 255, 0.12), transparent 68%);
+  box-shadow: inset 8px 0 0 rgba(42, 216, 255, 0.58);
 }
 .hero-copy,
 .section > p {
@@ -78,6 +81,7 @@ body::after {
 .hero-copy h1 {
   font-size: clamp(44px, 7vw, 88px);
   margin-bottom: 20px;
+    text-shadow: 0 0 34px rgba(42, 216, 255, 0.22);
 }
 
 .section p {
@@ -85,15 +89,18 @@ body::after {
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.86);
 }
-.section button {
+
+.section button,
+.section-link {
   align-self: flex-start;
   margin-top: 30px;
   padding: 12px 24px;
-  border: none;
+  border: 0;
   border-radius: 30px;
-  color: white;
+  color: #fff;
   background: linear-gradient(135deg, #7c4dff, #00c8ff);
   cursor: pointer;
+    text-decoration: none;
   box-shadow: 0 0 22px rgba(0, 200, 255, 0.38);
 }
 
@@ -124,7 +131,7 @@ body::after {
 .avatar-stage::before {
   content: "";
   position: absolute;
-   left: 12%;
+  left: 12%;
   right: 12%;
   bottom: 8px;
   height: 30px;
@@ -160,14 +167,8 @@ body::after {
   transition: filter 0.25s ease;
 }
 
-.avatar-idle {
-  animation: avatarFloat 4s ease-in-out infinite;
-}
-
-.avatar-greeting {
-  animation: avatarGreeting 1.45s ease-in-out, avatarFloat 4s ease-in-out 1.45s infinite;
-}
-
+.avatar-idle { animation: avatarFloat 4s ease-in-out infinite; }
+.avatar-greeting { animation: avatarGreeting 1.45s ease-in-out, avatarFloat 4s ease-in-out 1.45s infinite; }
 .avatar-listening {
   animation: avatarListening 1.15s ease-in-out infinite;
   filter: drop-shadow(0 0 18px rgba(42, 216, 255, 0.95)) drop-shadow(0 22px 34px rgba(0, 0, 0, 0.34));
@@ -191,22 +192,14 @@ body::after {
 .assistant-panel[data-state="listening"] .avatar-stage::after,
 .assistant-panel[data-state="thinking"] .avatar-stage::after,
 .assistant-panel[data-state="talking"] .avatar-stage::after,
-.assistant-panel[data-state="pointing"] .avatar-stage::after {
-  opacity: 1;
-}
-
-.assistant-panel[data-state="listening"] {
-  transform: translateY(-10px) scale(1.02);
-}
-
-.assistant-panel[data-state="listening"] .avatar-stage {
-  animation: listenRing 1.25s ease-in-out infinite;
-}
+.assistant-panel[data-state="pointing"] .avatar-stage::after { opacity: 1; }
+.assistant-panel[data-state="listening"] { transform: translateY(-10px) scale(1.02); }
+.assistant-panel[data-state="listening"] .avatar-stage { animation: listenRing 1.25s ease-in-out infinite; }
 
 .assistant-panel[data-state="talking"] .avatar-stage::after {
-  background:
-    radial-gradient(ellipse at 50% 31%, rgba(255, 118, 214, 0.22), transparent 24%),
-    radial-gradient(circle at 50% 35%, rgba(42, 216, 255, 0.24), transparent 56%);
+  inset: 22% 35% 42% 35%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 70%, rgba(255, 118, 214, 0.62), transparent 58%);
   animation: mouthAreaPulse 0.34s ease-in-out infinite;
 }
 
@@ -219,32 +212,24 @@ body::after {
   backdrop-filter: blur(14px);
   box-shadow: 0 0 35px rgba(98, 168, 255, 0.2);
    text-align: left;
-}
-
-.assistant-card h2 {
-  margin-bottom: 8px;
-  font-size: 24px;
-}
-
-.assistant-card p {
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.84);
-}
 
 #status {
   margin-top: 12px;
   color: #9fcfff;
   font-size: 15px;
 }
+.assistant-card h2 { margin-bottom: 8px; font-size: 24px; }
+.assistant-card p { line-height: 1.5; color: rgba(255, 255, 255, 0.84); }
+#status { margin-top: 12px; color: #9fcfff; font-size: 15px; }
 
 .voice-btn {
   margin-top: 18px;
   width: 100%;
   padding: 14px 22px;
-  border: none;
+  border: 0;
   border-radius: 40px;
   background: linear-gradient(135deg, #7c4dff, #00c8ff);
-  color: white;
+  color: #fff;
   font-size: 17px;
   cursor: pointer;
   box-shadow: 0 0 25px rgba(0, 200, 255, 0.55);
@@ -257,10 +242,7 @@ body::after {
   outline-offset: 4px;
 }
 
-.voice-btn:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
+.voice-btn:disabled { cursor: wait; opacity: 0.72; }
 
 .voice-icon {
   position: relative;
@@ -298,12 +280,8 @@ body::after {
 }
 
 @keyframes avatarFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateY(-13px) rotate(-0.8deg) scale(1.01);
-  }
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-13px) rotate(-0.8deg) scale(1.01); }
 }
 
 @keyframes avatarGreeting {
@@ -344,8 +322,8 @@ body::after {
 }
 
 @keyframes mouthAreaPulse {
-  0%, 100% { transform: scaleY(0.98); opacity: 0.68; }
-  50% { transform: scaleY(1.04); opacity: 1; }
+  0%, 100% { transform: scale(0.88); opacity: 0.45; }
+  50% { transform: scale(1.12); opacity: 1; }
 }
 
 @keyframes shadowFloat {
@@ -365,9 +343,8 @@ body::after {
     align-items: center;
 }
 
-  .section button {
-    align-self: center;
-  }
+  .section button,
+  .section-link { align-self: center; }
 
   .assistant-panel {
     left: 50%;
@@ -375,15 +352,8 @@ body::after {
     transform: translateX(-50%);
   }
 
-  .assistant-panel[data-state="listening"] {
-    transform: translateX(-50%) translateY(-10px) scale(1.02);
-  }
-
-  .avatar-stage {
-    min-height: 300px;
-  }
-
- .main-avatar {
-    max-height: 300px;
+  .assistant-panel[data-state="listening"] { transform: translateX(-50%) translateY(-10px) scale(1.02); }
+  .avatar-stage { min-height: 300px; }
+  .main-avatar { max-height: 300px; }
   }
 }

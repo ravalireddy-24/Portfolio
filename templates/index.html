@@ -4,52 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ravali Portfolio</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 
 <body>
   <main class="portfolio">
-    <section id="home" class="section active" data-section-title="Home">
+    <section id="home" class="section hero-section active" data-section-title="Home">
       <div class="hero-copy">
         <p class="eyebrow">Interactive Portfolio Guide</p>
         <h1>Hi, I’m Ravali</h1>
-        <p>Use the microphone or click the avatar to let the portfolio guide help you explore experience, projects, skills, and contact information.</p>
-      </div>
+        <p>
+          Use the microphone or click the avatar to let the portfolio guide help you explore
+          experience, projects, skills, resume, and contact information.
+        </p>      </div>
     </section>
 
     <section id="experience" class="section" data-section-title="Experience">
       <h1>Experience</h1>
       <p>I have experience in software development, data engineering, cloud, APIs, and full-stack applications.</p>
-      <button onclick="goHome()">Back Home</button>
+      <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
     <section id="projects" class="section" data-section-title="Projects">
       <h1>Projects</h1>
       <p>Here are my portfolio projects including AI, web apps, cloud, and automation projects.</p>
-      <button onclick="goHome()">Back Home</button>
+      <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
      <section id="skills" class="section" data-section-title="Skills">
       <h1>Skills</h1>
       <p>Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.</p>
-      <button onclick="goHome()">Back Home</button>
+        <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
- <section id="contact" class="section" data-section-title="Contact">
+    <section id="resume" class="section" data-section-title="Resume">
+      <h1>Resume</h1>
+      <p>Ask me for Ravali’s resume to review education, experience, projects, and technical strengths in one place.</p>
+      <a class="section-link" href="#contact">Request resume details</a>
+      <button type="button" onclick="goHome()">Back Home</button>
+    </section>
+
+    <section id="contact" class="section" data-section-title="Contact">
       <h1>Contact</h1>
       <p>You can contact me through email, LinkedIn, or GitHub.</p>
-      <button onclick="goHome()">Back Home</button>
+       <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
   </main>
 
-<aside id="assistantPanel" class="assistant-panel" aria-label="Ravali portfolio virtual assistant">
-    <button id="avatarBtn" class="avatar-stage" type="button" aria-label="Ask Ravali's avatar for help">
+  <aside id="assistantPanel" class="assistant-panel" data-state="idle" aria-label="Ravali portfolio virtual assistant">
+    <button id="avatarBtn" class="avatar-stage" type="button" aria-label="Greet with Ravali's avatar">
       <img
         id="mainAvatar"
         class="main-avatar avatar-idle"
         src="{{ url_for('static', filename='images/avatar.png') }}"
-        alt="Ravali full-body virtual assistant avatar"
+     alt="Ravali virtual assistant avatar"
       />
     </button>
 

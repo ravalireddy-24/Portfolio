@@ -10,31 +10,35 @@ const assistantMessage = document.getElementById("assistantMessage");
 
 const avatarStates = [
   "avatar-idle",
+  "avatar-greeting",
   "avatar-listening",
   "avatar-thinking",
   "avatar-talking",
   "avatar-pointing",
-  "avatar-greeting",
 ];
-const welcomeMessage = "Hi, welcome to Ravali’s portfolio. How can I help you?";
+const welcomeMessage = "Hi, welcome to Ravali’s portfolio. How can I help you today?";
 
 const sectionNarration = {
-  experience: "Showing Ravali's experience section. She has experience in software development, data engineering, cloud, APIs, and full stack applications.",
-  projects: "Showing Ravali's projects section. Here you can explore AI, web apps, cloud, and automation projects.",
-  skills: "Showing Ravali's skills section. Her skills include Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.",
-  contact: "Showing Ravali's contact section. You can contact her through email, LinkedIn, or GitHub.",
+  experience: "Here is Ravali's experience section. She has experience in software development, data engineering, cloud, APIs, and full stack applications.",
+  projects: "Here are Ravali's projects, including AI, web apps, cloud, and automation projects.",
+  skills: "Here are Ravali's skills, including Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.",
+  contact: "Here is Ravali's contact section. You can contact her through email, LinkedIn, or GitHub.",
+  resume: "Here is Ravali's resume section, where you can review education, experience, projects, and technical strengths in one place.",
 };
 
 const commands = [
-  { id: "experience", phrases: ["show experience", "experience", "work history"] },
-  { id: "projects", phrases: ["show projects", "projects", "projects"] },
-  { id: "skills", phrases: ["show skills", "skills", "technical skills"] },
-  { id: "contact", phrases: ["contact information", "show contact", "contact information"] },
+  { id: "experience", phrases: ["experience", "work", "work history", "job", "career"] },
+  { id: "projects", phrases: ["projects", "portfolio projects", "apps", "applications"] },
+  { id: "skills", phrases: ["skills", "technical skills", "technologies", "tools"] },
+  { id: "contact", phrases: ["contact", "email", "linkedin", "github", "reach"] },
+  { id: "resume", phrases: ["resume", "résumé", "cv", "curriculum vitae"] },
 ];
 
 let recognition;
 let currentState = "idle";
 let thinkingTimer;
+let highlightTimer;
+let hasGreeted = false;
 
 function setAvatarState(state) {
   currentState = state;
@@ -74,6 +78,15 @@ function setActiveSection(sectionId) {
     section.classList.toggle("active", section.id === sectionId);
   });
 }
+
+function highlightSection(sectionId) {
+  window.clearTimeout(highlightTimer);
+  document.querySelectorAll(".section").forEach((section) => section.classList.remove("section-highlight"));
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  section.classList.add("section-highlight");
+  highlightTimer = window.setTimeout(() => section.classList.remove("section-highlight"), 3500);
+}
 function scrollToSection(sectionId) {
   const section = document.getElementById(sectionId);
   if (!section) return;
@@ -90,10 +103,12 @@ function pointToSection(sectionId) {
   const section = document.getElementById(sectionId);
   if (!section) return;
 
-  const sectionTop = section.offsetTop;
+const targetTop = section.getBoundingClientRect().top + 80;
   const maxTop = Math.max(24, window.innerHeight - assistantPanel.offsetHeight - 24);
-  assistantPanel.style.top = `${Math.min(Math.max(24, sectionTop + 80 - window.scrollY), maxTop)}px`;
+  assistantPanel.style.top = `${Math.min(Math.max(24, targetTop), maxTop)}px`;
+  assistantPanel.style.bottom = "auto";
   setAvatarState("pointing");
+    highlightSection(sectionId);
 }
 
 function navigateToSection(sectionId) {
@@ -120,8 +135,8 @@ function handleTranscript(transcript) {
 
   setAvatarState("thinking");
   window.setTimeout(() => {
-    updateAssistant("Try again", "Say show experience, show projects, show skills, or contact.", "Command not recognized.");
-    speak("Sorry, I did not understand. You can say show experience, show projects, show skills, or contact.");
+    updateAssistant("Try again", "Say experience, projects, skills, contact, or resume.", "Command not recognized.");
+    speak("Sorry, I did not understand. You can say experience, projects, skills, contact, or resume.");
   }, 1000);
 }
 
@@ -168,13 +183,16 @@ function startListening() {
   recognition.start();
 }
 function greet() {
+    hasGreeted = true;
   setAvatarState("greeting");
-  updateAssistant("Hi! 👋", "Ask me to show experience, projects, skills, or contact.", welcomeMessage);
+  updateAssistant("Hi! 👋", "Ask me to show experience, projects, skills, resume, or contact.", welcomeMessage);
   speak(welcomeMessage);
 }
 
 function goHome() {
   window.speechSynthesis?.cancel();
+    assistantPanel.style.top = "";
+  assistantPanel.style.bottom = "";
   scrollToSection("home");
   setAvatarState("greeting");
   updateAssistant("Welcome back", "What would you like to explore next?", "Ready for your command.");
@@ -191,10 +209,16 @@ window.addEventListener("beforeunload", () => {
 });
 window.addEventListener("scroll", () => {
   if (currentState === "pointing") assistantPanel.style.top = "";
+  if (currentState === "pointing") {
+    assistantPanel.style.top = "";
+    assistantPanel.style.bottom = "";
+  }
 }, { passive: true });
 
 window.addEventListener("load", () => {
   setAvatarState("greeting");
-  window.setTimeout(greet, 650);
+  window.setTimeout(() => {
+    if (!hasGreeted) greet();
+  }, 650);
 });
 
