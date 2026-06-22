@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: "Inter", Arial, sans-serif;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   min-height: 100vh;
   background:
@@ -13,7 +15,7 @@ body {
     radial-gradient(circle at 55% 75%, rgba(255, 72, 176, 0.22), transparent 28%),
     linear-gradient(135deg, #050713 0%, #0b1026 45%, #160826 100%);
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 body::before,
@@ -49,9 +51,9 @@ body::after {
 }
 
 .section {
-  display: none;
+
   min-height: 100vh;
-  padding: 50px;
+  padding: 50px min(36vw, 440px) 50px 50px;
   text-align: center;
 }
 
@@ -60,13 +62,23 @@ body::after {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+    scroll-margin-top: 24px;
+}
+
+.section-home {
+  gap: 24px;
 }
 
 .avatar-area {
-  position: relative;
+  position: fixed;
+  right: 42px;
+  bottom: 38px;
   display: flex;
   align-items: center;
-  gap: 40px;
+    justify-content: center;
+  gap: 24px;
+  width: min(620px, calc(100% - 84px));
+  z-index: 5;
 }
 .avatar-button {
   position: relative;
@@ -83,6 +95,18 @@ body::after {
   overflow: visible;
   box-shadow: none;
   animation: floatAvatar 3s ease-in-out infinite;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.avatar-button::after {
+  content: "";
+  position: absolute;
+  inset: 8% 11% 7%;
+  border-radius: 30px;
+  background: radial-gradient(circle at 50% 20%, rgba(42, 216, 255, 0.14), transparent 50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .avatar-button::before {
