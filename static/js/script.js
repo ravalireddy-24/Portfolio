@@ -1,52 +1,59 @@
 const assistantPanel = document.getElementById("assistantPanel");
 const avatarBtn = document.getElementById("avatarBtn");
-const mainAvatar = document.getElementById("mainAvatar");
-const voiceBtn = document.getElementById("voiceBtn");
+const cartoonAvatar = document.getElementById("cartoonAvatar");
+const mouth = document.getElementById("mouth");
 const voiceBtnText = document.getElementById("voiceBtnText");
 const statusText = document.getElementById("status");
 
 const assistantTitle = document.getElementById("assistantTitle");
 const assistantMessage = document.getElementById("assistantMessage");
 
-const avatarStates = [
-  "avatar-idle",
-  "avatar-greeting",
-  "avatar-listening",
-  "avatar-thinking",
-  "avatar-talking",
-  "avatar-pointing",
-];
-const welcomeMessage = "Hi, welcome to Ravali’s portfolio. How can I help you today?";
-
+const mouthShapes = ["mouth-open-a", "mouth-closed", "mouth-open-b", "mouth-open-c", "mouth-closed"];
 const sectionNarration = {
-  experience: "Here is Ravali's experience section. She has experience in software development, data engineering, cloud, APIs, and full stack applications.",
-  projects: "Here are Ravali's projects, including AI, web apps, cloud, and automation projects.",
+  experience: "Here is Ravali's experience section. She builds full stack software, data engineering workflows, cloud services, APIs, and automation.",
+  projects: "Here are Ravali's projects, including AI features, web applications, cloud integrations, dashboards, and automation projects.",
   skills: "Here are Ravali's skills, including Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.",
-  contact: "Here is Ravali's contact section. You can contact her through email, LinkedIn, or GitHub.",
-  resume: "Here is Ravali's resume section, where you can review education, experience, projects, and technical strengths in one place.",
+  contact: "Here is Ravali's contact section. You can connect with her through email, LinkedIn, or GitHub.",
+  resume: "Here is Ravali's resume section, with education, experience, projects, and technical strengths in one place."
 };
 
 const commands = [
-  { id: "experience", phrases: ["experience", "work", "work history", "job", "career"] },
-  { id: "projects", phrases: ["projects", "portfolio projects", "apps", "applications"] },
-  { id: "skills", phrases: ["skills", "technical skills", "technologies", "tools"] },
+  { id: "experience", phrases: ["show experience", "experience", "work", "work history", "career"] },
+  { id: "projects", phrases: ["show projects", "projects", "apps", "applications"] },
+  { id: "skills", phrases: ["show skills", "skills", "technologies", "tools"] },
   { id: "contact", phrases: ["contact", "email", "linkedin", "github", "reach"] },
-  { id: "resume", phrases: ["resume", "résumé", "cv", "curriculum vitae"] },
+  { id: "resume", phrases: ["resume", "résumé", "cv", "curriculum vitae"] }
 ];
 
 let recognition;
 let currentState = "idle";
+let lipTimer;
 let thinkingTimer;
 let highlightTimer;
 let hasGreeted = false;
 
 function setAvatarState(state) {
   currentState = state;
-  avatarStates.forEach((className) => mainAvatar.classList.remove(className));
-  mainAvatar.classList.add(`avatar-${state}`);
+  cartoonAvatar.className.baseVal = `cartoon-avatar avatar-${state}`;
   assistantPanel.dataset.state = state;
 }
-
+function setMouthShape(shape) {
+  mouth.classList.remove("mouth-smile", "mouth-open-a", "mouth-open-b", "mouth-open-c", "mouth-closed");
+  mouth.classList.add(shape);
+}
+function startLipSync() {
+  stopLipSync(false);
+  let index = 0;
+  lipTimer = window.setInterval(() => {
+    setMouthShape(mouthShapes[index % mouthShapes.length]);
+    index += 1;
+  }, 115);
+}
+function stopLipSync(smile = true) {
+  window.clearInterval(lipTimer);
+  lipTimer = undefined;
+  setMouthShape(smile ? "mouth-smile" : "mouth-closed");
+}
 function updateAssistant(title, message, status) {
   assistantTitle.textContent = title;
   assistantMessage.textContent = message;
@@ -55,28 +62,26 @@ function updateAssistant(title, message, status) {
 
 function speak(text, onEnd) {
   if (!("speechSynthesis" in window)) {
-    if (onEnd) onEnd();
+    onEnd?.();
     return;
   }
 
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = 1;
-  utterance.pitch = 1.05;
+  utterance.pitch = 1.08;
   utterance.volume = 1;
   utterance.onstart = () => setAvatarState("talking");
-  utterance.onend = () => {
-    setAvatarState("idle");
-    if (onEnd) onEnd();
+  utterance.onstart = () => {
+    setAvatarState("talking");
+    startLipSync();
   };
   utterance.onerror = utterance.onend;
   window.speechSynthesis.speak(utterance);
 }
 
 function setActiveSection(sectionId) {
-  document.querySelectorAll(".section").forEach((section) => {
-    section.classList.toggle("active", section.id === sectionId);
-  });
+  document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === sectionId));
 }
 
 function highlightSection(sectionId) {
@@ -103,7 +108,7 @@ function pointToSection(sectionId) {
   const section = document.getElementById(sectionId);
   if (!section) return;
 
-const targetTop = section.getBoundingClientRect().top + 80;
+const targetTop = section.getBoundingClientRect().top + 92;
   const maxTop = Math.max(24, window.innerHeight - assistantPanel.offsetHeight - 24);
   assistantPanel.style.top = `${Math.min(Math.max(24, targetTop), maxTop)}px`;
   assistantPanel.style.bottom = "auto";
@@ -135,8 +140,8 @@ function handleTranscript(transcript) {
 
   setAvatarState("thinking");
   window.setTimeout(() => {
-    updateAssistant("Try again", "Say experience, projects, skills, contact, or resume.", "Command not recognized.");
-    speak("Sorry, I did not understand. You can say experience, projects, skills, contact, or resume.");
+    updateAssistant("Try again", "Say show experience, show projects, show skills, contact, or resume.", "Command not recognized.");
+    speak("Sorry, I did not understand. You can say show experience, show projects, show skills, contact, or resume.");
   }, 1000);
 }
 
@@ -150,6 +155,7 @@ function startListening() {
   }
 
   window.speechSynthesis?.cancel();
+    stopLipSync();
   recognition?.abort();
 
   recognition = new SpeechRecognition();
@@ -161,13 +167,10 @@ function startListening() {
     setAvatarState("listening");
     voiceBtn.disabled = true;
     voiceBtnText.textContent = "Listening...";
-    updateAssistant("I’m listening...", "Tell me where you want to go.", "Listening...");
+    updateAssistant("I’m listening...", "Try saying “show projects” or “contact”.", "Listening...");
   };
 
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
-    handleTranscript(transcript);
-  };
+  recognition.onresult = (event) => handleTranscript(event.results[0][0].transcript);
 
   recognition.onerror = () => {
     setAvatarState("idle");
@@ -186,12 +189,13 @@ function greet() {
     hasGreeted = true;
   setAvatarState("greeting");
   updateAssistant("Hi! 👋", "Ask me to show experience, projects, skills, resume, or contact.", welcomeMessage);
-  speak(welcomeMessage);
+  window.setTimeout(() => speak(welcomeMessage), 250);
 }
 
 function goHome() {
   window.speechSynthesis?.cancel();
-    assistantPanel.style.top = "";
+  stopLipSync();
+  assistantPanel.style.top = "";
   assistantPanel.style.bottom = "";
   scrollToSection("home");
   setAvatarState("greeting");
@@ -216,7 +220,7 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 window.addEventListener("load", () => {
-  setAvatarState("greeting");
+  setAvatarState("waving");
   window.setTimeout(() => {
     if (!hasGreeted) greet();
   }, 650);

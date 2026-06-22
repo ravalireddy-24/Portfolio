@@ -3,63 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ravali Portfolio</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <title>Ravali Portfolio | Interactive Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 
 <body>
+  <header class="topbar" aria-label="Portfolio navigation">
+    <a class="brand" href="#home">Ravali<span>.</span></a>
+    <nav>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
   <main class="portfolio">
     <section id="home" class="section hero-section active" data-section-title="Home">
       <div class="hero-copy">
         <p class="eyebrow">Interactive Portfolio Guide</p>
         <h1>Hi, I’m Ravali</h1>
-        <p>
-          Use the microphone or click the avatar to let the portfolio guide help you explore
-          experience, projects, skills, resume, and contact information.
-        </p>      </div>
+        <p>Meet my voice-enabled portfolio assistant. Ask her to show experience, projects, skills, resume, or contact details.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="primary-link">View projects</a>
+          <a href="#contact" class="secondary-link">Contact me</a>
+        </div>
+      </div>
     </section>
 
     <section id="experience" class="section" data-section-title="Experience">
+              <p class="eyebrow">Professional story</p>
       <h1>Experience</h1>
-      <p>I have experience in software development, data engineering, cloud, APIs, and full-stack applications.</p>
-      <button type="button" onclick="goHome()">Back Home</button>
+      <p>I build software across full-stack applications, data engineering workflows, cloud services, APIs, and automation with a focus on reliable, user-friendly products.</p>      <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
     <section id="projects" class="section" data-section-title="Projects">
       <h1>Projects</h1>
-      <p>Here are my portfolio projects including AI, web apps, cloud, and automation projects.</p>
+      <p>My portfolio includes AI features, Flask and React web apps, cloud integrations, dashboards, automation projects, and recruiter-friendly case studies.</p>
       <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
      <section id="skills" class="section" data-section-title="Skills">
+      <p class="eyebrow">Technical toolkit</p>
       <h1>Skills</h1>
-      <p>Python, Java, JavaScript, React, Flask, SQL, AWS, APIs, HTML, CSS, and AI tools.</p>
-        <button type="button" onclick="goHome()">Back Home</button>
+       <p>Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, data pipelines, Git, and practical AI tools.</p>
+      <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
     <section id="resume" class="section" data-section-title="Resume">
       <h1>Resume</h1>
-      <p>Ask me for Ravali’s resume to review education, experience, projects, and technical strengths in one place.</p>
-      <a class="section-link" href="#contact">Request resume details</a>
+  <p>Ask for Ravali’s resume to review education, experience, projects, and technical strengths in one concise overview.</p>      <a class="section-link" href="#contact">Request resume details</a>
       <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
     <section id="contact" class="section" data-section-title="Contact">
+              <p class="eyebrow">Let’s connect</p>
       <h1>Contact</h1>
-      <p>You can contact me through email, LinkedIn, or GitHub.</p>
+        <p>You can contact me through email, LinkedIn, or GitHub. I’m open to software engineering, data, cloud, and AI-focused roles.</p>
        <button type="button" onclick="goHome()">Back Home</button>
     </section>
 
   </main>
 
   <aside id="assistantPanel" class="assistant-panel" data-state="idle" aria-label="Ravali portfolio virtual assistant">
-    <button id="avatarBtn" class="avatar-stage" type="button" aria-label="Greet with Ravali's avatar">
-      <img
-        id="mainAvatar"
-        class="main-avatar avatar-idle"
-        src="{{ url_for('static', filename='images/avatar.png') }}"
-     alt="Ravali virtual assistant avatar"
-      />
+<button id="avatarBtn" class="avatar-stage" type="button" aria-label="Greet with Ravali's animated avatar">
+      <svg id="cartoonAvatar" class="cartoon-avatar avatar-idle" viewBox="0 0 320 430" role="img" aria-labelledby="avatarTitle avatarDesc">
+        <title id="avatarTitle">Animated cartoon portfolio assistant</title>
+        <desc id="avatarDesc">A cartoon female assistant made from separate SVG face, hair, eyes, eyebrows, mouth, body, and hand elements.</desc>
+        <g class="avatar-shadow"><ellipse cx="160" cy="402" rx="92" ry="18" /></g>
+        <g id="avatarBody" class="avatar-body"><path class="torso" d="M91 386c9-64 37-100 69-100s60 36 69 100z"/><path class="blazer" d="M111 386l18-86 31 28 31-28 18 86z"/><path class="shirt" d="M137 386l23-58 23 58z"/></g>
+        <g id="leftHand" class="avatar-hand left-hand"><path class="arm" d="M113 322c-28 13-43 35-51 61"/><circle class="palm" cx="58" cy="388" r="14"/><path class="finger" d="M47 382l-12-8M50 389l-15 1M55 397l-10 10"/></g>
+        <g id="rightHand" class="avatar-hand right-hand"><path class="arm" d="M207 322c30 10 51 31 62 58"/><circle class="palm" cx="273" cy="383" r="14"/><path class="finger" d="M282 376l15-10M286 384l17-1M282 393l12 11"/><path class="pointer-finger" d="M283 377c20-15 32-18 43-18"/></g>
+        <g id="avatarHead" class="avatar-head">
+          <g id="hair" class="hair"><path class="hair-back" d="M83 168c-10-68 22-128 78-128s90 56 78 130c-10 62-32 92-78 92s-68-32-78-94z"/><path class="hair-side left" d="M99 124c-29 35-22 97-5 134 16-28 21-85 5-134z"/><path class="hair-side right" d="M221 124c27 37 20 98 3 134-15-29-20-85-3-134z"/></g>
+          <g id="face" class="face"><path d="M103 137c2-50 28-82 58-82s56 32 58 82c3 59-22 102-58 102s-61-43-58-102z"/><circle class="cheek left" cx="125" cy="164" r="11"/><circle class="cheek right" cx="196" cy="164" r="11"/></g>
+          <g id="eyebrows" class="eyebrows"><path class="brow left" d="M121 123c12-8 25-8 35-1"/><path class="brow right" d="M169 122c11-7 25-7 36 2"/></g>
+          <g id="eyes" class="eyes"><g class="eye left"><ellipse cx="139" cy="144" rx="12" ry="14"/><circle class="pupil" cx="142" cy="146" r="5"/><circle class="spark" cx="144" cy="142" r="2"/></g><g class="eye right"><ellipse cx="183" cy="144" rx="12" ry="14"/><circle class="pupil" cx="186" cy="146" r="5"/><circle class="spark" cx="188" cy="142" r="2"/></g></g>
+          <path id="nose" class="nose" d="M160 151c-3 12-6 19 4 21"/>
+          <g id="mouth" class="mouth mouth-smile"><path class="mouth-shape" d="M141 190c10 12 28 12 39 0"/><ellipse class="mouth-open" cx="160" cy="194" rx="16" ry="5"/></g>
+        </g>
+      </svg>
     </button>
 
     <div class="assistant-card" role="status" aria-live="polite">
