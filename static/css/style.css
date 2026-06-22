@@ -571,6 +571,7 @@ body::after {
   background: linear-gradient(135deg, #ffd8b8, #bd714d);
 }
 
+
 .gesture-listen .avatar-hand {
   transform: rotate(-18deg) translateY(-5px);
 }
