@@ -1,6 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="cartoon-avatar avatar-idle" viewBox="0 0 320 430" role="img" aria-labelledby="avatarTitle avatarDesc">
         <title id="avatarTitle">Animated professional full body avatar of Ravali</title>
         <desc id="avatarDesc">A full body SVG avatar resembling a professional Indian woman with long wavy black hair, expressive eyes, black blazer, black outfit, and white sneakers. Body parts are grouped for animation.</desc>
+    <style>
+          .cartoon-avatar { --talk-speed: 1.05s; }
+          #avatarRoot { transform-origin: 160px 250px; animation: avatar-breathe 4.8s ease-in-out infinite; }
+          .avatar-head { transform-origin: 160px 148px; animation: head-nod 5.2s ease-in-out infinite; }
+          .left-arm { transform-origin: 105px 176px; animation: left-gesture 6s ease-in-out infinite; }
+          .right-arm { transform-origin: 220px 176px; animation: right-gesture 6s ease-in-out infinite; }
+          .left-hand { transform-origin: 99px 353px; animation: hand-open 3s ease-in-out infinite; }
+          .right-hand { transform-origin: 239px 353px; animation: hand-point 3s ease-in-out infinite; }
+          .pupil { animation: eye-look 4.2s ease-in-out infinite; }
+          .brow { transform-origin: center; animation: brow-lift 3.8s ease-in-out infinite; }
+          .blink-lid { animation: blink 4.5s infinite; }
+          .mouth-shape { animation: smile-talk var(--talk-speed) ease-in-out infinite; }
+          .mouth-open { animation: mouth-open var(--talk-speed) ease-in-out infinite; }
+          .cheek { animation: cheek-smile 2.2s ease-in-out infinite; }
+          .pointer-finger { animation: pointer-cue 6s ease-in-out infinite; }
+          @keyframes avatar-breathe { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.012); } }
+          @keyframes head-nod { 0%,100% { transform: rotate(0deg); } 28% { transform: rotate(-2deg); } 58% { transform: rotate(2deg); } }
+          @keyframes left-gesture { 0%,100% { transform: rotate(0deg); } 22% { transform: rotate(-7deg) translate(-2px,-2px); } 46% { transform: rotate(4deg); } }
+          @keyframes right-gesture { 0%,100% { transform: rotate(0deg); } 18% { transform: rotate(8deg) translate(3px,-5px); } 44% { transform: rotate(-5deg); } }
+          @keyframes hand-open { 0%,100% { transform: scale(1); } 42% { transform: rotate(-8deg) scale(1.06); } }
+          @keyframes hand-point { 0%,100% { transform: rotate(0deg); } 40% { transform: rotate(8deg) translate(6px,-4px); } }
+          @keyframes eye-look { 0%,100% { transform: translateX(0); } 30% { transform: translateX(-2px); } 68% { transform: translateX(2px); } }
+          @keyframes brow-lift { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-2px); } }
+          @keyframes blink { 0%, 92%, 100% { stroke-width: 0; } 94%, 96% { stroke-width: 8; } }
+          @keyframes smile-talk { 0%,100% { stroke-width: 5; } 35% { stroke-width: 3; } 62% { stroke-width: 6; } }
+          @keyframes mouth-open { 0%,100% { opacity: 0; transform: scaleY(.35); } 28% { opacity: .85; transform: scaleY(1.8); } 58% { opacity: .55; transform: scaleY(1.15); } }
+          @keyframes cheek-smile { 0%,100% { opacity: .24; } 50% { opacity: .36; } }
+          @keyframes pointer-cue { 0%,100% { opacity: .35; } 42% { opacity: 1; transform: translate(6px,-4px); } }
+          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+        </style>
         <defs>
           <linearGradient id="skinTone" x1="0" x2="1" y1="0" y2="1">
             <stop offset="0" stop-color="#d9a07f"/>
