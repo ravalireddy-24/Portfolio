@@ -1,16 +1,22 @@
 /* Animation-ready full-body SVG avatar refinements */
-.cartoon-avatar #head { transform-origin: 160px 178px; }
-.cartoon-avatar #hair { transform-origin: 160px 130px; }
-.cartoon-avatar #eyes { transform-origin: 162px 120px; animation: avatarBlink 5s infinite; }
-.cartoon-avatar #mouth { transform-origin: 164px 174px; }
-.cartoon-avatar #left-arm { transform-origin: 104px 178px; }
-.cartoon-avatar #right-arm { transform-origin: 216px 178px; }
-.cartoon-avatar #left-hand { transform-origin: 104px 334px; }
-.cartoon-avatar #right-hand { transform-origin: 235px 331px; }
-.cartoon-avatar #torso { transform-origin: 160px 238px; }
-.cartoon-avatar #left-leg { transform-origin: 135px 254px; }
-.cartoon-avatar #right-leg { transform-origin: 184px 254px; }
+.cartoon-avatar #head { transform-origin: 160px 145px; }
+.cartoon-avatar .head-scale { transform-box: fill-box; }
+.cartoon-avatar #hair { transform-origin: 160px 118px; }
+.cartoon-avatar #eyes { transform-origin: 162px 118px; animation: avatarBlink 5s infinite; }
+.cartoon-avatar #mouth { transform-origin: 164px 174px; transition: transform 90ms ease, opacity 90ms ease; }
+.cartoon-avatar #left-arm { transform-origin: 96px 177px; }
+.cartoon-avatar #right-arm { transform-origin: 224px 177px; }
+.cartoon-avatar #left-hand { transform-origin: 99px 354px; }
+.cartoon-avatar #right-hand { transform-origin: 239px 354px; }
+.cartoon-avatar #torso { transform-origin: 160px 220px; }
+.cartoon-avatar #left-leg { transform-origin: 140px 255px; }
+.cartoon-avatar #right-leg { transform-origin: 180px 255px; }
 
+
+.assistant-panel[data-state="talking"] #mouth { animation: mouthTalk 0.22s ease-in-out infinite; }
+.assistant-panel[data-state="talking"] #head { animation: headNod 0.78s ease-in-out infinite; }
+.assistant-panel[data-state="talking"] #left-arm { animation: conversationalArmLeft 0.95s ease-in-out infinite; }
+.assistant-panel[data-state="talking"] #right-arm { animation: conversationalArmRight 1.05s ease-in-out infinite; }
 .cartoon-avatar .blazer,
 .cartoon-avatar .shoulders { fill: #0b0b10; }
 .cartoon-avatar .top,
@@ -52,12 +58,28 @@
 .assistant-panel[data-state="pointing"] #right-hand { animation: pointPulse 1.2s ease-in-out infinite; }
 .cartoon-avatar.avatar-pointing .pointer-finger,
 .assistant-panel[data-state="pointing"] .pointer-finger { opacity: 1; }
+#mouth.mouth-open-a .mouth-open,
+#mouth.mouth-open-b .mouth-open,
+#mouth.mouth-open-c .mouth-open { opacity: 1; }
+#mouth.mouth-open-a .mouth-shape,
+#mouth.mouth-open-b .mouth-shape,
+#mouth.mouth-open-c .mouth-shape { transform: translateY(2px) scaleY(0.65); }
+#mouth.mouth-closed .mouth-open,
+#mouth.mouth-smile .mouth-open { opacity: 0; }
+
+@keyframes avatarBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  94%, 96% { transform: scaleY(0.08); }
+}
 
 @keyframes avatarBlink { 0%, 92%, 100% { transform: scaleY(1); } 94%, 96% { transform: scaleY(0.08); } }
+@keyframes mouthTalk { 0%,100%{transform:translateY(0) scaleY(.72)} 50%{transform:translateY(2px) scaleY(1.22)} }
 @keyframes mouthOpenClose { 0%,100%{transform:scaleY(.45)} 50%{transform:scaleY(1.25)} }
 @keyframes headNod { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(3px) rotate(.8deg)} }
-@keyframes naturalHandLeft { 0%,100%{transform:rotate(0) translateY(0)} 50%{transform:rotate(-7deg) translateY(-7px)} }
-@keyframes naturalHandRight { 0%,100%{transform:rotate(0) translateY(0)} 50%{transform:rotate(7deg) translateY(-7px)} }
+@keyframes conversationalArmLeft { 0%,100%{transform:rotate(0) translateY(0)} 50%{transform:rotate(-3deg) translateY(-3px)} }
+@keyframes conversationalArmRight { 0%,100%{transform:rotate(0) translateY(0)} 50%{transform:rotate(4deg) translateY(-4px)} }
+@keyframes naturalHandLeft { 0%,100%{transform:rotate(0) translateY(0)} 50%{transform:rotate(-8deg) translateY(-7px)} }
+@keyframes naturalHandRight { 0%,100%{transform:rotate(0) translateY(0)} 50%{transform:rotate(9deg) translateY(-8px)} }
 @keyframes raiseWaveArm { 0%,100%{transform:rotate(0)} 50%{transform:rotate(-9deg) translateY(-8px)} }
 @keyframes waveHand { 0%,100%{transform:rotate(0)} 25%{transform:rotate(18deg)} 75%{transform:rotate(-16deg)} }
 @keyframes listeningGlow { 0%,100%{filter:drop-shadow(0 0 4px rgba(42,216,255,.25))} 50%{filter:drop-shadow(0 0 20px rgba(42,216,255,.9))} }

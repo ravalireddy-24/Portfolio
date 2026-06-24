@@ -10,6 +10,7 @@ const assistantTitle = document.getElementById("assistantTitle");
 const assistantMessage = document.getElementById("assistantMessage");
 
 const welcomeMessage = "Welcome to Ravali’s portfolio. I can show experience, projects, skills, resume, or contact details.";
+const mouthShapes = ["mouth-open-a", "mouth-open-b", "mouth-closed", "mouth-open-c", "mouth-open-b", "mouth-closed"];
 const sectionNarration = {
   experience: "Here is Ravali's experience section. She builds full stack software, data engineering workflows, cloud services, APIs, and automation.",
   projects: "Here are Ravali's projects, including AI features, web applications, cloud integrations, dashboards, and automation projects.",
@@ -48,7 +49,20 @@ function setAvatarState(state) {
   cartoonAvatar.classList.add(`avatar-${state}`);
   assistantPanel.dataset.state = state;
 }
+function setMouthShape(shape) {
+  mouth.classList.remove("mouth-smile", "mouth-open-a", "mouth-open-b", "mouth-open-c", "mouth-closed");
+  mouth.classList.add(shape);
+  const openShape = mouth.querySelector(".mouth-open");
+  const smileLine = mouth.querySelector(".mouth-shape");
+  if (!openShape || !smileLine) return;
 
+  const shapes = {
+    "mouth-open-a": { rx: 10, ry: 9, cy: 176, smile: "M146 170c10 9 26 9 36 0" },
+    "mouth-open-b": { rx: 17, ry: 6, cy: 175, smile: "M144 170c12 7 30 7 42 0" },
+    "mouth-open-c": { rx: 13, ry: 13, cy: 178, smile: "M147 169c9 11 25 11 34 0" },
+    "mouth-closed": { rx: 14, ry: 2, cy: 174, smile: "M145 171c10 6 27 6 38 0" },
+    "mouth-smile": { rx: 15, ry: 4, cy: 174, smile: "M140 170c12 15 35 15 47 0" }
+  };
 function updateAssistant(title, message, status) {
   assistantTitle.textContent = title;
   assistantMessage.textContent = message;
