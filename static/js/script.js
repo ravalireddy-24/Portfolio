@@ -22,6 +22,7 @@ const assistantPanel = document.getElementById("assistantPanel");
 const avatarBtn = document.getElementById("avatarBtn");
 const canvas = document.getElementById("avatarCanvas");
 const fallback = document.getElementById("avatarFallback");
+const cartoonAvatar = document.getElementById("cartoonAvatar");
 const voiceBtn = document.getElementById("voiceBtn");
 const voiceBtnText = document.getElementById("voiceBtnText");
 const statusText = document.getElementById("status");
@@ -89,12 +90,13 @@ function loadAvatar() {
     mixer = new THREE.AnimationMixer(avatarRoot);
     gltf.animations.forEach((clip) => { clips[clip.name.toLowerCase()] = clip; });
     findRigParts(avatarRoot);
+        canvas.hidden = false;
+    cartoonAvatar.hidden = true;
     fallback.hidden = true;
     setAvatarState("idle");
   }, undefined, () => {
     fallback.hidden = false;
-    updateAssistant("Avatar file needed", "Export your rigged GLB as static/models/ravali-avatar.glb. The voice controls are ready.", "Waiting for GLB avatar file.");
-  });
+    updateAssistant("Cartoon guide ready", "Use the visible cartoon guide now. Tap the microphone once and say: show projects, skills, resume, contact, experience, or home.", "Actionable check: click microphone once, then say a section name.");  });
 }
 
 function playClip(match, loop = true) {
@@ -110,6 +112,10 @@ function playClip(match, loop = true) {
 
 function setAvatarState(state) {
   currentState = state;
+    cartoonAvatar?.classList.toggle("is-listening", state === "listening");
+  cartoonAvatar?.classList.toggle("is-talking", state === "talking");
+  cartoonAvatar?.classList.toggle("is-pointing", state === "pointing");
+  cartoonAvatar?.classList.toggle("is-greeting", state === "greeting");
   if (state === "listening") playClip(["listen", "idle"]);
   if (state === "talking") playClip(["talk", "speak", "gesture"]);
   if (state === "greeting") playClip(["wave", "greet"]);
@@ -130,6 +136,7 @@ function setMorph(token, value) {
 }
 
 function proceduralRig(time) {
+    animateCartoonFallback();
   if (!avatarRoot) return;
   const t = time / 1000;
   const blink = Math.sin(t * 2.1) > 0.985 ? 1 : 0;
@@ -144,6 +151,10 @@ function proceduralRig(time) {
   if (bones.rightHand) bones.rightHand.rotation.z = currentState === "greeting" ? Math.sin(t * 11) * 0.45 : currentState === "talking" ? Math.sin(t * 5) * 0.18 : 0;
   if (bones.leftHand) bones.leftHand.rotation.z = currentState === "talking" ? Math.sin(t * 4.5) * 0.16 : 0;
   avatarRoot.rotation.y = Math.sin(t * 0.8) * 0.035;
+}
+function animateCartoonFallback() {
+  if (!cartoonAvatar || cartoonAvatar.hidden) return;
+  cartoonAvatar.classList.toggle("is-active", currentState !== "idle");
 }
 
 function animate(time) {
@@ -230,7 +241,6 @@ function startListening() {
   }
 
   window.speechSynthesis?.cancel();
-    stopLipSync();
   recognition?.abort();
 
   recognition = new SpeechRecognition();
