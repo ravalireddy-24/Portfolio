@@ -14,8 +14,7 @@ const SECTION_SCRIPTS = {
   resume: "The resume section summarizes Ravali’s education, experience, projects, and technical strengths.",
   contact: "You can contact Ravali through email, LinkedIn, or GitHub for software, data, cloud, and AI-focused roles."
 };
-const POLL_INTERVAL_MS = 5000;
-const MAX_POLLS = 72;
+
 
 const avatarShell = document.getElementById("avatarShell");
 const voiceBtn = document.getElementById("voiceBtn");
@@ -80,8 +79,7 @@ function speak(message) {
 function runCommand(sectionId) {
     const label = document.getElementById(sectionId)?.dataset.sectionTitle || sectionId;
   const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.home;
-  scrollToSection(sectionId);
-  updateAssistant(label, script, "Animating mouth, eyes, and hand gestures locally.");
+  updateAssistant(label, script, "3D avatar is guiding this section.");
   speak(script);
 }
 function handleTranscript(transcript) {

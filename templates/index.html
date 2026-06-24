@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ravali Portfolio | Interactive 3D Avatar</title>
+  <title>Ravali Portfolio | 3D Avatar</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 
@@ -67,12 +67,25 @@
 
   </main>
 
-     <aside id="assistantPanel" class="assistant-panel" aria-label="HeyGen portfolio avatar assistant">
-    <div class="video-shell">
-      <video id="avatarVideo" controls playsinline poster="" aria-label="HeyGen realistic talking avatar video"></video>
-      <div id="videoPlaceholder" class="video-placeholder">
-        <strong>HeyGen AI Avatar</strong>
-        <span>Say “show projects” or tap a command. The Flask API starts a HeyGen v2 render and this player loads the final MP4 when ready.</span>
+     <aside id="assistantPanel" class="assistant-panel" aria-label="3D portfolio avatar assistant">
+    <div id="avatarShell" class="avatar-shell" aria-label="Interactive 3D avatar">
+      <div class="avatar-halo" aria-hidden="true"></div>
+      <model-viewer
+        class="portfolio-avatar"
+        src="{{ url_for('static', filename='models/ravali-avatar.glb') }}"
+        alt="3D avatar of Ravali"
+        camera-controls
+        auto-rotate
+        rotation-per-second="22deg"
+        shadow-intensity="0.8"
+        exposure="1.1"
+        ar
+      >
+        <img src="{{ url_for('static', filename='images/avatar.svg') }}" alt="Ravali avatar fallback" />
+      </model-viewer>
+      <div class="rig-badges" aria-hidden="true">
+        <span>3D Avatar</span>
+        <span>Voice Guided</span>
       </div>
     </div>
 
