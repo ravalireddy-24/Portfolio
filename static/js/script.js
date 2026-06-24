@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const AVATAR_FILE = "/static/models/ravali-avatar.glb";
+const USE_PROCEDURAL_PREMIUM_AVATAR = true;
 const COMMANDS = {
   home: ["home", "start", "intro", "introduction"],
   experience: ["experience", "work", "work history", "career"],
@@ -85,14 +86,19 @@ function findRigParts(root) {
 }
 function buildPremiumAvatar() {
   const root = new THREE.Group();
-  root.name = "PremiumRiggedFemaleVirtualAssistant";
+  root.name = "PremiumSouthIndianFemaleVirtualAssistant";
 
-  const skin = new THREE.MeshStandardMaterial({ color: 0xb76f52, roughness: 0.48, metalness: 0.02 });
-  const blackFabric = new THREE.MeshStandardMaterial({ color: 0x07080a, roughness: 0.78, metalness: 0.08 });
-  const blazer = new THREE.MeshStandardMaterial({ color: 0x020304, roughness: 0.64, metalness: 0.12 });
-  const sneaker = new THREE.MeshStandardMaterial({ color: 0xf4f4f0, roughness: 0.42, metalness: 0.02 });
-  const hair = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.7, metalness: 0.16 });
-  const eye = new THREE.MeshStandardMaterial({ color: 0x17100c, roughness: 0.28 });
+  const skin = new THREE.MeshStandardMaterial({ color: 0xb97858, roughness: 0.54, metalness: 0.015 });
+  const skinBlush = new THREE.MeshStandardMaterial({ color: 0xd99181, roughness: 0.62, transparent: true, opacity: 0.38 });
+  const blazerMat = new THREE.MeshStandardMaterial({ color: 0x050507, roughness: 0.68, metalness: 0.1 });
+  const topMat = new THREE.MeshStandardMaterial({ color: 0x010102, roughness: 0.76, metalness: 0.05 });
+  const trouserMat = new THREE.MeshStandardMaterial({ color: 0x08080b, roughness: 0.72, metalness: 0.06 });
+  const sneakerMat = new THREE.MeshStandardMaterial({ color: 0xf7f7f2, roughness: 0.48, metalness: 0.02 });
+  const hairMat = new THREE.MeshStandardMaterial({ color: 0x030305, roughness: 0.82, metalness: 0.12 });
+  const browMat = new THREE.MeshStandardMaterial({ color: 0x100b0a, roughness: 0.7 });
+  const eyeWhiteMat = new THREE.MeshStandardMaterial({ color: 0xfff7ef, roughness: 0.35 });
+  const irisMat = new THREE.MeshStandardMaterial({ color: 0x21140f, roughness: 0.24 });
+  const lipMat = new THREE.MeshStandardMaterial({ color: 0x8c3440, roughness: 0.5 });
 
   const make = (geo, mat, pos, scale = [1, 1, 1], name = "") => {
     const mesh = new THREE.Mesh(geo, mat);
@@ -104,45 +110,68 @@ function buildPremiumAvatar() {
     return mesh;
   };
 
-  const head = make(new THREE.SphereGeometry(0.28, 48, 32), skin, [0, 1.18, 0], [0.86, 1.04, 0.82], "head");
-  const torso = make(new THREE.CapsuleGeometry(0.28, 0.82, 12, 32), blazer, [0, 0.42, 0], [0.94, 1, 0.64], "torso");
-  make(new THREE.CapsuleGeometry(0.22, 0.62, 12, 32), blackFabric, [0, 0.43, 0.03], [0.7, 0.96, 0.38], "black round neck top");
-  make(new THREE.BoxGeometry(0.13, 0.5, 0.04), blazer, [-0.18, 0.52, 0.23], [1, 1, 1], "left blazer lapel").rotation.z = -0.2;
-  make(new THREE.BoxGeometry(0.13, 0.5, 0.04), blazer, [0.18, 0.52, 0.23], [1, 1, 1], "right blazer lapel").rotation.z = 0.2;
+// Realistic cartoon proportions in a full standing figure: head 15%, torso 45%, legs 40%.
+  const neck = make(new THREE.CapsuleGeometry(0.055, 0.18, 10, 24), skin, [0, 1.08, 0], [1, 1, 0.9], "visible neck");
+  const head = make(new THREE.SphereGeometry(0.19, 64, 40), skin, [0, 1.31, 0.02], [0.82, 1.18, 0.76], "oval South Indian face");
+  const torso = make(new THREE.CapsuleGeometry(0.23, 0.8, 14, 36), blazerMat, [0, 0.55, 0], [0.92, 1, 0.52], "tailored black blazer torso");
+  const waist = make(new THREE.CapsuleGeometry(0.18, 0.2, 10, 28), trouserMat, [0, 0.08, 0], [0.9, 1, 0.5], "visible waist");
+  make(new THREE.CapsuleGeometry(0.16, 0.72, 12, 32), topMat, [0, 0.58, 0.04], [0.78, 1, 0.38], "black professional top");
+  const leftLapel = make(new THREE.BoxGeometry(0.1, 0.52, 0.035), blazerMat, [-0.105, 0.68, 0.145], [1, 1, 1], "left blazer lapel");
+  leftLapel.rotation.z = -0.22;
+  const rightLapel = make(new THREE.BoxGeometry(0.1, 0.52, 0.035), blazerMat, [0.105, 0.68, 0.145], [1, 1, 1], "right blazer lapel");
+  rightLapel.rotation.z = 0.22;
 
-  const leftLeg = make(new THREE.CapsuleGeometry(0.1, 0.82, 10, 24), blackFabric, [-0.12, -0.42, 0], [0.84, 1, 0.72], "left fitted trouser leg");
-  const rightLeg = make(new THREE.CapsuleGeometry(0.1, 0.82, 10, 24), blackFabric, [0.12, -0.42, 0], [0.84, 1, 0.72], "right fitted trouser leg");
-  make(new THREE.BoxGeometry(0.25, 0.09, 0.42), sneaker, [-0.12, -0.94, 0.08], [1, 1, 1], "left white sneaker");
-  make(new THREE.BoxGeometry(0.25, 0.09, 0.42), sneaker, [0.12, -0.94, 0.08], [1, 1, 1], "right white sneaker");
+  const leftLeg = make(new THREE.CapsuleGeometry(0.075, 0.86, 10, 28), trouserMat, [-0.09, -0.43, 0], [0.88, 1, 0.65], "left proportionate trouser leg");
+  const rightLeg = make(new THREE.CapsuleGeometry(0.075, 0.86, 10, 28), trouserMat, [0.09, -0.43, 0], [0.88, 1, 0.65], "right proportionate trouser leg");
+  make(new THREE.BoxGeometry(0.2, 0.07, 0.34), sneakerMat, [-0.09, -0.92, 0.09], [1, 1, 1], "left white sneaker");
+  make(new THREE.BoxGeometry(0.2, 0.07, 0.34), sneakerMat, [0.09, -0.92, 0.09], [1, 1, 1], "right white sneaker");
 
-  const leftArm = make(new THREE.CapsuleGeometry(0.055, 0.72, 8, 20), blazer, [-0.38, 0.38, 0], [1, 1, 1], "leftArm");
-  leftArm.rotation.z = -0.22;
-  const rightArm = make(new THREE.CapsuleGeometry(0.055, 0.72, 8, 20), blazer, [0.38, 0.38, 0], [1, 1, 1], "rightArm");
-  rightArm.rotation.z = 0.22;
-  const leftHand = make(new THREE.SphereGeometry(0.065, 24, 16), skin, [-0.42, -0.03, 0.04], [1, 0.72, 0.55], "leftHand");
-  const rightHand = make(new THREE.SphereGeometry(0.065, 24, 16), skin, [0.42, -0.03, 0.04], [1, 0.72, 0.55], "rightHand");
+  const leftArm = make(new THREE.CapsuleGeometry(0.045, 0.69, 8, 24), blazerMat, [-0.31, 0.53, 0.005], [1, 1, 0.86], "left visible arm");
+  leftArm.rotation.z = -0.14;
+  const rightArm = make(new THREE.CapsuleGeometry(0.045, 0.69, 8, 24), blazerMat, [0.31, 0.53, 0.005], [1, 1, 0.86], "right visible arm");
+  rightArm.rotation.z = 0.14;
+  const leftHand = make(new THREE.SphereGeometry(0.052, 28, 18), skin, [-0.34, 0.12, 0.07], [0.86, 1.15, 0.48], "left visible hand");
+  const rightHand = make(new THREE.SphereGeometry(0.052, 28, 18), skin, [0.34, 0.12, 0.07], [0.86, 1.15, 0.48], "right visible hand");
 
-  make(new THREE.SphereGeometry(0.19, 48, 24, 0, Math.PI * 2, 0, Math.PI * 0.72), hair, [-0.05, 1.27, -0.035], [1.08, 1, 0.92], "long black wavy hair crown");
-  for (let i = 0; i < 8; i++) {
-    const side = i < 5 ? -1 : 1;
-    const curl = make(new THREE.TorusKnotGeometry(0.055, 0.018, 54, 8), hair, [side * (0.19 + (i % 3) * 0.035), 1.02 - (i % 5) * 0.105, -0.02], [0.72, 1.1, 0.72], "long black wavy hair strand");
-    curl.rotation.set(0.5, 0.2 * side, 0.5 * side);
-  }
-
-  make(new THREE.SphereGeometry(0.035, 24, 12), eye, [-0.08, 1.2, 0.21], [1, 0.72, 0.35], "left expressive eye");
-  make(new THREE.SphereGeometry(0.035, 24, 12), eye, [0.08, 1.2, 0.21], [1, 0.72, 0.35], "right expressive eye");
-  const smile = make(new THREE.TorusGeometry(0.055, 0.006, 8, 32, Math.PI), new THREE.MeshStandardMaterial({ color: 0x7d3028 }), [0, 1.11, 0.23], [1, 0.5, 1], "warm smile mouth");
+  make(new THREE.SphereGeometry(0.035, 24, 14), skinBlush, [-0.07, 1.29, 0.16], [1.25, 0.55, 0.22], "soft left cheek");
+  make(new THREE.SphereGeometry(0.035, 24, 14), skinBlush, [0.07, 1.29, 0.16], [1.25, 0.55, 0.22], "soft right cheek");
+  make(new THREE.SphereGeometry(0.021, 24, 12), eyeWhiteMat, [-0.058, 1.34, 0.158], [1.35, 0.72, 0.22], "natural left eye white");
+  make(new THREE.SphereGeometry(0.021, 24, 12), eyeWhiteMat, [0.058, 1.34, 0.158], [1.35, 0.72, 0.22], "natural right eye white");
+  make(new THREE.SphereGeometry(0.012, 18, 10), irisMat, [-0.052, 1.337, 0.173], [1, 1, 0.22], "left dark iris");
+  make(new THREE.SphereGeometry(0.012, 18, 10), irisMat, [0.064, 1.337, 0.173], [1, 1, 0.22], "right dark iris");
+  const leftBrow = make(new THREE.BoxGeometry(0.072, 0.01, 0.01), browMat, [-0.058, 1.382, 0.17], [1, 1, 1], "natural left eyebrow");
+  leftBrow.rotation.z = 0.1;
+  const rightBrow = make(new THREE.BoxGeometry(0.072, 0.01, 0.01), browMat, [0.058, 1.382, 0.17], [1, 1, 1], "natural right eyebrow");
+  rightBrow.rotation.z = -0.1;
+  const nose = make(new THREE.ConeGeometry(0.018, 0.052, 24), skin, [0.006, 1.303, 0.174], [0.65, 1, 0.36], "natural nose");
+  nose.rotation.x = Math.PI / 2;
+  const smile = make(new THREE.TorusGeometry(0.043, 0.0045, 8, 36, Math.PI), lipMat, [0, 1.255, 0.176], [1, 0.45, 1], "soft smile mouth");
   smile.rotation.set(0, 0, Math.PI);
 
-  root.position.set(0, -0.1, 0);
-  root.scale.setScalar(1.8);
+  make(new THREE.SphereGeometry(0.17, 56, 28, 0, Math.PI * 2, 0, Math.PI * 0.66), hairMat, [-0.018, 1.385, -0.018], [1.08, 0.92, 0.92], "side parted black hair crown");
+  for (let i = 0; i < 14; i++) {
+    const leftSide = i < 9;
+    const side = leftSide ? -1 : 1;
+    const row = leftSide ? i : i - 9;
+    const curl = make(new THREE.TorusKnotGeometry(0.035 + row * 0.002, 0.011, 72, 8), hairMat, [side * (0.13 + (row % 3) * 0.027), 1.22 - row * 0.06, -0.015], [0.62, 1.08, 0.56], "shoulder length black wavy hair");
+    curl.rotation.set(0.56, side * 0.18, side * (0.36 + row * 0.05));
+  }
+
+  root.position.set(0, -0.08, 0);
+  root.scale.setScalar(2.05);
   scene.add(root);
   avatarRoot = root;
-  proceduralAvatar = { head, torso, leftArm, rightArm, leftHand, rightHand, leftLeg, rightLeg, smile };
-}
+  proceduralAvatar = { head, neck, torso, waist, leftArm, rightArm, leftHand, rightHand, leftLeg, rightLeg, smile };}
 
 
 function loadAvatar() {
+    if (USE_PROCEDURAL_PREMIUM_AVATAR) {
+    buildPremiumAvatar();
+    canvas.hidden = false;
+    fallback?.setAttribute("hidden", "");
+    setAvatarState("idle");
+    return;
+  }
   new GLTFLoader().load(AVATAR_FILE, (gltf) => {
     avatarRoot = gltf.scene;
     avatarRoot.position.set(0, -1.45, 0);
@@ -154,12 +183,12 @@ function loadAvatar() {
     });
     findRigParts(avatarRoot);
     canvas.hidden = false;
-    fallback.hidden = true;
+   fallback?.setAttribute("hidden", "");
     setAvatarState("idle");
   }, undefined, () => {
     buildPremiumAvatar();
     canvas.hidden = false;
-    fallback.hidden = true;
+       fallback?.setAttribute("hidden", "");
     setAvatarState("idle");
   });
 }

@@ -5,8 +5,9 @@ The portfolio loads a rigged full-body avatar from:
 ```text
 static/models/ravali-avatar.glb
 ```
-If that GLB is unavailable or invalid, the app now builds a premium Three.js 3D
-avatar rig at runtime instead of falling back to SVG, emoji, or flat cartoon art.
+The current implementation intentionally builds a premium Three.js 3D
+avatar rig at runtime so the portfolio does not display the older toy-like GLB.
+A production GLB can still replace the procedural rig when it meets the export requirements below.
 The procedural rig uses separate head, torso, arms, hands, legs, hair, eyes,
 smile, blazer, trousers, and sneaker meshes so JavaScript can animate natural
 breathing, blinking, greeting waves, listening nods, pointing, hand gestures,
