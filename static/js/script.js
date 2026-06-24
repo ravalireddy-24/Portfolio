@@ -22,7 +22,6 @@ const assistantPanel = document.getElementById("assistantPanel");
 const avatarBtn = document.getElementById("avatarBtn");
 const canvas = document.getElementById("avatarCanvas");
 const fallback = document.getElementById("avatarFallback");
-const cartoonAvatar = document.getElementById("cartoonAvatar");
 const voiceBtn = document.getElementById("voiceBtn");
 const voiceBtnText = document.getElementById("voiceBtnText");
 const statusText = document.getElementById("status");
@@ -37,6 +36,7 @@ let morphTargets = [];
 let bones = {};
 let clips = {};
 let activeAction;
+let proceduralAvatar;
 let speechStart = 0;
 let highlightTimer;
 let hasGreeted = false;
@@ -50,6 +50,9 @@ scene.add(new THREE.HemisphereLight(0xffffff, 0x28335f, 2.5));
 const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
 keyLight.position.set(2.5, 4, 3);
 scene.add(keyLight);
+const fillLight = new THREE.DirectionalLight(0x8fdcff, 1.1);
+fillLight.position.set(-3, 2, 4);
+scene.add(fillLight);
 
 function resizeAvatar() {
   const rect = canvas.getBoundingClientRect();
@@ -80,6 +83,64 @@ function findRigParts(root) {
     }
   });
 }
+function buildPremiumAvatar() {
+  const root = new THREE.Group();
+  root.name = "PremiumRiggedFemaleVirtualAssistant";
+
+  const skin = new THREE.MeshStandardMaterial({ color: 0xb76f52, roughness: 0.48, metalness: 0.02 });
+  const blackFabric = new THREE.MeshStandardMaterial({ color: 0x07080a, roughness: 0.78, metalness: 0.08 });
+  const blazer = new THREE.MeshStandardMaterial({ color: 0x020304, roughness: 0.64, metalness: 0.12 });
+  const sneaker = new THREE.MeshStandardMaterial({ color: 0xf4f4f0, roughness: 0.42, metalness: 0.02 });
+  const hair = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.7, metalness: 0.16 });
+  const eye = new THREE.MeshStandardMaterial({ color: 0x17100c, roughness: 0.28 });
+
+  const make = (geo, mat, pos, scale = [1, 1, 1], name = "") => {
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(...pos);
+    mesh.scale.set(...scale);
+    mesh.name = name;
+    mesh.castShadow = true;
+    root.add(mesh);
+    return mesh;
+  };
+
+  const head = make(new THREE.SphereGeometry(0.28, 48, 32), skin, [0, 1.18, 0], [0.86, 1.04, 0.82], "head");
+  const torso = make(new THREE.CapsuleGeometry(0.28, 0.82, 12, 32), blazer, [0, 0.42, 0], [0.94, 1, 0.64], "torso");
+  make(new THREE.CapsuleGeometry(0.22, 0.62, 12, 32), blackFabric, [0, 0.43, 0.03], [0.7, 0.96, 0.38], "black round neck top");
+  make(new THREE.BoxGeometry(0.13, 0.5, 0.04), blazer, [-0.18, 0.52, 0.23], [1, 1, 1], "left blazer lapel").rotation.z = -0.2;
+  make(new THREE.BoxGeometry(0.13, 0.5, 0.04), blazer, [0.18, 0.52, 0.23], [1, 1, 1], "right blazer lapel").rotation.z = 0.2;
+
+  const leftLeg = make(new THREE.CapsuleGeometry(0.1, 0.82, 10, 24), blackFabric, [-0.12, -0.42, 0], [0.84, 1, 0.72], "left fitted trouser leg");
+  const rightLeg = make(new THREE.CapsuleGeometry(0.1, 0.82, 10, 24), blackFabric, [0.12, -0.42, 0], [0.84, 1, 0.72], "right fitted trouser leg");
+  make(new THREE.BoxGeometry(0.25, 0.09, 0.42), sneaker, [-0.12, -0.94, 0.08], [1, 1, 1], "left white sneaker");
+  make(new THREE.BoxGeometry(0.25, 0.09, 0.42), sneaker, [0.12, -0.94, 0.08], [1, 1, 1], "right white sneaker");
+
+  const leftArm = make(new THREE.CapsuleGeometry(0.055, 0.72, 8, 20), blazer, [-0.38, 0.38, 0], [1, 1, 1], "leftArm");
+  leftArm.rotation.z = -0.22;
+  const rightArm = make(new THREE.CapsuleGeometry(0.055, 0.72, 8, 20), blazer, [0.38, 0.38, 0], [1, 1, 1], "rightArm");
+  rightArm.rotation.z = 0.22;
+  const leftHand = make(new THREE.SphereGeometry(0.065, 24, 16), skin, [-0.42, -0.03, 0.04], [1, 0.72, 0.55], "leftHand");
+  const rightHand = make(new THREE.SphereGeometry(0.065, 24, 16), skin, [0.42, -0.03, 0.04], [1, 0.72, 0.55], "rightHand");
+
+  make(new THREE.SphereGeometry(0.19, 48, 24, 0, Math.PI * 2, 0, Math.PI * 0.72), hair, [-0.05, 1.27, -0.035], [1.08, 1, 0.92], "long black wavy hair crown");
+  for (let i = 0; i < 8; i++) {
+    const side = i < 5 ? -1 : 1;
+    const curl = make(new THREE.TorusKnotGeometry(0.055, 0.018, 54, 8), hair, [side * (0.19 + (i % 3) * 0.035), 1.02 - (i % 5) * 0.105, -0.02], [0.72, 1.1, 0.72], "long black wavy hair strand");
+    curl.rotation.set(0.5, 0.2 * side, 0.5 * side);
+  }
+
+  make(new THREE.SphereGeometry(0.035, 24, 12), eye, [-0.08, 1.2, 0.21], [1, 0.72, 0.35], "left expressive eye");
+  make(new THREE.SphereGeometry(0.035, 24, 12), eye, [0.08, 1.2, 0.21], [1, 0.72, 0.35], "right expressive eye");
+  const smile = make(new THREE.TorusGeometry(0.055, 0.006, 8, 32, Math.PI), new THREE.MeshStandardMaterial({ color: 0x7d3028 }), [0, 1.11, 0.23], [1, 0.5, 1], "warm smile mouth");
+  smile.rotation.set(0, 0, Math.PI);
+
+  root.position.set(0, -0.1, 0);
+  root.scale.setScalar(1.8);
+  scene.add(root);
+  avatarRoot = root;
+  proceduralAvatar = { head, torso, leftArm, rightArm, leftHand, rightHand, leftLeg, rightLeg, smile };
+}
+
 
 function loadAvatar() {
   new GLTFLoader().load(AVATAR_FILE, (gltf) => {
@@ -88,15 +149,19 @@ function loadAvatar() {
     avatarRoot.scale.setScalar(1.75);
     scene.add(avatarRoot);
     mixer = new THREE.AnimationMixer(avatarRoot);
-    gltf.animations.forEach((clip) => { clips[clip.name.toLowerCase()] = clip; });
+    gltf.animations.forEach((clip) => {
+      clips[clip.name.toLowerCase()] = clip;
+    });
     findRigParts(avatarRoot);
-        canvas.hidden = false;
-    cartoonAvatar.hidden = true;
+    canvas.hidden = false;
     fallback.hidden = true;
     setAvatarState("idle");
   }, undefined, () => {
-    fallback.hidden = false;
-    updateAssistant("Cartoon guide ready", "Use the visible cartoon guide now. Tap the microphone once and say: show projects, skills, resume, contact, experience, or home.", "Actionable check: click microphone once, then say a section name.");  });
+    buildPremiumAvatar();
+    canvas.hidden = false;
+    fallback.hidden = true;
+    setAvatarState("idle");
+  });
 }
 
 function playClip(match, loop = true) {
@@ -112,10 +177,6 @@ function playClip(match, loop = true) {
 
 function setAvatarState(state) {
   currentState = state;
-    cartoonAvatar?.classList.toggle("is-listening", state === "listening");
-  cartoonAvatar?.classList.toggle("is-talking", state === "talking");
-  cartoonAvatar?.classList.toggle("is-pointing", state === "pointing");
-  cartoonAvatar?.classList.toggle("is-greeting", state === "greeting");
   if (state === "listening") playClip(["listen", "idle"]);
   if (state === "talking") playClip(["talk", "speak", "gesture"]);
   if (state === "greeting") playClip(["wave", "greet"]);
@@ -136,7 +197,6 @@ function setMorph(token, value) {
 }
 
 function proceduralRig(time) {
-    animateCartoonFallback();
   if (!avatarRoot) return;
   const t = time / 1000;
   const blink = Math.sin(t * 2.1) > 0.985 ? 1 : 0;
@@ -150,12 +210,19 @@ function proceduralRig(time) {
   if (bones.rightArm) bones.rightArm.rotation.z = currentState === "pointing" ? -0.9 : currentState === "greeting" ? -0.55 : 0;
   if (bones.rightHand) bones.rightHand.rotation.z = currentState === "greeting" ? Math.sin(t * 11) * 0.45 : currentState === "talking" ? Math.sin(t * 5) * 0.18 : 0;
   if (bones.leftHand) bones.leftHand.rotation.z = currentState === "talking" ? Math.sin(t * 4.5) * 0.16 : 0;
+    if (proceduralAvatar) {
+    proceduralAvatar.head.scale.y = blink ? 0.96 : 1.04;
+    proceduralAvatar.torso.position.y = 0.42 + Math.sin(t * 1.4) * 0.012;
+    proceduralAvatar.head.rotation.x = currentState === "listening" ? 0.18 : Math.sin(t * 1.2) * 0.025;
+    proceduralAvatar.smile.scale.y = currentState === "talking" ? 0.5 + mouth * 1.8 : 0.5;
+    proceduralAvatar.rightArm.rotation.z = currentState === "pointing" ? -1.18 : currentState === "greeting" ? -0.85 + Math.sin(t * 9) * 0.22 : currentState === "talking" ? 0.22 + Math.sin(t * 5) * 0.14 : 0.22;
+    proceduralAvatar.leftArm.rotation.z = currentState === "talking" ? -0.22 + Math.sin(t * 4.2) * 0.12 : -0.22;
+    proceduralAvatar.rightHand.position.y = currentState === "greeting" ? 0.28 + Math.sin(t * 9) * 0.1 : -0.03;
+    proceduralAvatar.leftHand.position.y = currentState === "talking" ? -0.03 + Math.sin(t * 4.2) * 0.04 : -0.03;
+  }
   avatarRoot.rotation.y = Math.sin(t * 0.8) * 0.035;
 }
-function animateCartoonFallback() {
-  if (!cartoonAvatar || cartoonAvatar.hidden) return;
-  cartoonAvatar.classList.toggle("is-active", currentState !== "idle");
-}
+
 
 function animate(time) {
   requestAnimationFrame(animate);
