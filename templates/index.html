@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ravali Portfolio | 3D Avatar</title>
+  <title>Ravali Portfolio | Avatar Guide</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <script type="importmap">
     {
@@ -29,17 +29,17 @@
   <main class="portfolio">
     <section id="home" class="section hero-section active" data-section-title="Home">
       <div class="hero-copy">
-        <p class="eyebrow">Interactive 3D portfolio guide</p>
+      <p class="eyebrow">Interactive portfolio guide</p>
         <h1>Hi, I’m Ravali</h1>
-        <p>Use the microphone to ask my 3D portfolio assistant to show experience, projects, skills, resume, contact, or home.</p>
-        <div class="hero-actions">
+      <p>Use the microphone to ask my animated portfolio assistant to show experience, projects, skills, resume, contact, or home.</p>        <div class="hero-actions">
           <a href="#projects" class="primary-link">View projects</a>
           <a href="#contact" class="secondary-link">Contact me</a>
         </div>
       </div>
-      <aside id="assistantPanel" class="assistant-panel" aria-label="3D portfolio avatar assistant">
-        <div id="avatarShell" class="avatar-shell" aria-label="Interactive GLB 3D avatar" data-avatar-state="idle">
+           <aside id="assistantPanel" class="assistant-panel" aria-label="Portfolio avatar assistant">
+    <div id="avatarShell" class="avatar-shell" aria-label="Interactive avatar">
           <div class="avatar-halo" aria-hidden="true"></div>
+
           <div id="avatarCanvasWrap" class="avatar-canvas-wrap">
             <canvas id="avatarCanvas" aria-label="Ravali 3D assistant avatar"></canvas>
           </div>

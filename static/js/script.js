@@ -109,7 +109,7 @@ function speak(message) {
 function runCommand(sectionId) {
     const label = document.getElementById(sectionId)?.dataset.sectionTitle || sectionId;
   const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.home;
-  updateAssistant(label, script, "3D avatar is guiding this section.");
+  updateAssistant(label, script, "Avatar guide is presenting this section.");
   speak(script);
     setAvatarState("pointing");
   scrollToSection(sectionId);
