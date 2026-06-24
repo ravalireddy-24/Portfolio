@@ -21,13 +21,13 @@
   </header>
   <main class="portfolio">
     <section id="home" class="section hero-section active" data-section-title="Home">
-      <div class="hero-copy">
-        <p class="eyebrow">Interactive Portfolio Guide</p>
-        <h1>Hi, I’m Ravali</h1>
-        <p>Meet my voice-enabled 3D portfolio avatar. Ask her to show experience, projects, skills, resume, home, or contact details.</p>        <div class="hero-actions">
-          <a href="#projects" class="primary-link">View projects</a>
-          <a href="#contact" class="secondary-link">Contact me</a>
-        </div>
+      <p class="eyebrow">HeyGen realistic AI portfolio guide</p>
+      <h1>Hi, I’m Ravali</h1>
+      <p>Use the microphone to ask the realistic HeyGen talking avatar to show experience, projects, skills, resume, contact, or home.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="primary-link">View projects</a>
+        <a href="#contact" class="secondary-link">Contact me</a>
+      </div>
       </div>
     </section>
 
@@ -67,13 +67,15 @@
 
   </main>
 
-    <aside id="assistantPanel" class="assistant-panel" data-state="idle" aria-label="Ravali portfolio 3D avatar assistant">
-    <button id="avatarBtn" class="avatar-stage" type="button" aria-label="Greet with Ravali's rigged 3D avatar">
-      <canvas id="avatarCanvas" aria-label="Rigged full-body 3D GLB avatar of Ravali" role="img"></canvas>
+     <aside id="assistantPanel" class="assistant-panel" aria-label="HeyGen portfolio avatar assistant">
+    <div class="video-shell">
+      <video id="avatarVideo" controls playsinline poster="" aria-label="HeyGen realistic talking avatar video"></video>
+      <div id="videoPlaceholder" class="video-placeholder">
+        <strong>HeyGen AI Avatar</strong>
+        <span>Say “show projects” or tap a command. The Flask API starts a HeyGen v2 render and this player loads the final MP4 when ready.</span>
+      </div>
+    </div>
 
-        <strong>Actionable check:</strong> Tap the 3D assistant or microphone once, then say “show projects”.
-      </span>
-    </button>
     <div class="assistant-card" role="status" aria-live="polite">
       <h2 id="assistantTitle">Hi! 👋</h2>
       <p id="assistantMessage">I can guide you through Ravali’s portfolio. Try saying “show projects”.</p>
@@ -82,11 +84,17 @@
         <span class="voice-icon" aria-hidden="true"></span>
         <span id="voiceBtnText">Click microphone</span>
       </button>
+            <div class="quick-commands" aria-label="Portfolio commands">
+        <button type="button" data-command="experience">Experience</button>
+        <button type="button" data-command="projects">Projects</button>
+        <button type="button" data-command="skills">Skills</button>
+        <button type="button" data-command="resume">Resume</button>
+        <button type="button" data-command="contact">Contact</button>
+        <button type="button" data-command="home">Home</button>
+      </div>
     </div>
   </aside>
-  <script type="importmap">
-    {"imports":{"three":"https://unpkg.com/three@0.165.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.165.0/examples/jsm/"}}
-  </script>
-  <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>
 </html>
