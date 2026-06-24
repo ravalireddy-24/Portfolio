@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ravali Portfolio | 3D Avatar</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -21,14 +28,47 @@
   </header>
   <main class="portfolio">
     <section id="home" class="section hero-section active" data-section-title="Home">
-      <p class="eyebrow">HeyGen realistic AI portfolio guide</p>
-      <h1>Hi, I’m Ravali</h1>
-      <p>Use the microphone to ask the realistic HeyGen talking avatar to show experience, projects, skills, resume, contact, or home.</p>
-      <div class="hero-actions">
-        <a href="#projects" class="primary-link">View projects</a>
-        <a href="#contact" class="secondary-link">Contact me</a>
+      <div class="hero-copy">
+        <p class="eyebrow">Interactive 3D portfolio guide</p>
+        <h1>Hi, I’m Ravali</h1>
+        <p>Use the microphone to ask my 3D portfolio assistant to show experience, projects, skills, resume, contact, or home.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="primary-link">View projects</a>
+          <a href="#contact" class="secondary-link">Contact me</a>
+        </div>
       </div>
-      </div>
+      <aside id="assistantPanel" class="assistant-panel" aria-label="3D portfolio avatar assistant">
+        <div id="avatarShell" class="avatar-shell" aria-label="Interactive GLB 3D avatar" data-avatar-state="idle">
+          <div class="avatar-halo" aria-hidden="true"></div>
+          <div id="avatarCanvasWrap" class="avatar-canvas-wrap">
+            <canvas id="avatarCanvas" aria-label="Ravali 3D assistant avatar"></canvas>
+          </div>
+          <div id="avatarLoadMessage" class="avatar-load-message" role="status">Loading 3D assistant…</div>
+          <div class="rig-badges" aria-hidden="true">
+            <span>GLB Assistant</span>
+            <span>Voice Guided</span>
+          </div>
+        </div>
+
+        <div class="assistant-card" role="status" aria-live="polite">
+          <h2 id="assistantTitle">Hi! I’m ready.</h2>
+          <p id="assistantMessage">I can guide you through Ravali’s portfolio. Try saying “projects”.</p>
+          <p id="transcriptText" class="transcript-text">Transcript will appear here.</p>
+          <p id="status">Ready</p>
+          <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command">
+            <span class="voice-icon" aria-hidden="true"></span>
+            <span id="voiceBtnText">Click microphone</span>
+          </button>
+          <div class="quick-commands" aria-label="Portfolio commands">
+            <button type="button" data-command="experience">Experience</button>
+            <button type="button" data-command="projects">Projects</button>
+            <button type="button" data-command="skills">Skills</button>
+            <button type="button" data-command="resume">Resume</button>
+            <button type="button" data-command="contact">Contact</button>
+            <button type="button" data-command="home">Home</button>
+          </div>
+        </div>
+      </aside>
     </section>
 
     <section id="experience" class="section" data-section-title="Experience">
@@ -67,46 +107,7 @@
 
   </main>
 
-     <aside id="assistantPanel" class="assistant-panel" aria-label="3D portfolio avatar assistant">
-    <div id="avatarShell" class="avatar-shell" aria-label="Interactive 3D avatar">
-      <div class="avatar-halo" aria-hidden="true"></div>
-      <model-viewer
-        class="portfolio-avatar"
-        src="{{ url_for('static', filename='models/ravali-avatar.glb') }}"
-        alt="3D avatar of Ravali"
-        camera-controls
-        auto-rotate
-        rotation-per-second="22deg"
-        shadow-intensity="0.8"
-        exposure="1.1"
-        ar
-      >
-        <img src="{{ url_for('static', filename='images/avatar.svg') }}" alt="Ravali avatar fallback" />
-      </model-viewer>
-      <div class="rig-badges" aria-hidden="true">
-        <span>3D Avatar</span>
-        <span>Voice Guided</span>
-      </div>
-    </div>
 
-    <div class="assistant-card" role="status" aria-live="polite">
-      <h2 id="assistantTitle">Hi! 👋</h2>
-      <p id="assistantMessage">I can guide you through Ravali’s portfolio. Try saying “show projects”.</p>
-      <p id="status">Ready for your command.</p>
-      <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command">
-        <span class="voice-icon" aria-hidden="true"></span>
-        <span id="voiceBtnText">Click microphone</span>
-      </button>
-            <div class="quick-commands" aria-label="Portfolio commands">
-        <button type="button" data-command="experience">Experience</button>
-        <button type="button" data-command="projects">Projects</button>
-        <button type="button" data-command="skills">Skills</button>
-        <button type="button" data-command="resume">Resume</button>
-        <button type="button" data-command="contact">Contact</button>
-        <button type="button" data-command="home">Home</button>
-      </div>
-    </div>
-  </aside>
 
   <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>
