@@ -28,6 +28,7 @@ const avatarStatusLabel = document.getElementById("avatarStatusLabel");
 let recognition;
 let currentState = "idle";
 let thinkingTimeout;
+let speakingTimeout;
 let voices = [];
 function updateStatusLabel(label) {
   statusText.textContent = label;
@@ -78,9 +79,19 @@ function startListening() {
     if (event.results[event.results.length - 1].isFinal) handleTranscript(transcript);
   };
 
-  recognition.onerror = () => {
+  recognition.onerror = (event) => {
+    const messages = {
+      "not-allowed": "Microphone access was blocked. Please allow microphone permission for this site and try again.",
+      "service-not-allowed": "Speech recognition is blocked for this browser or site. Please use Chrome and allow microphone access.",
+      "no-speech": "I did not hear anything. Please click the microphone and say a command like projects or skills.",
+      "audio-capture": "No microphone was found. Please connect or enable your microphone and try again.",
+      network: "Speech recognition needs an internet connection in some browsers. Please check the connection and try again."
+    };
+    const message = messages[event.error] || "I had trouble hearing that command. Please try again.";
     stopListening();
-    updateAssistant("Please try again", "I had trouble hearing that command.", "Ready");
+    updateAssistant("Please try again", message, "Ready");
+    transcriptText.textContent = message;
+    console.error("Speech recognition error:", event.error, event.message || message);
   };
 
   recognition.onend = () => {
