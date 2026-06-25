@@ -60,8 +60,7 @@
         </div>
         <div class="portrait-glow"></div>
                 <div class="floating-mic" aria-hidden="true"><span class="voice-icon"></span></div>
-        <video class="professional-photo" autoplay muted loop playsinline preload="metadata" aria-label="Ravali professional photo animation">
-          <source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />
+        <video id="landingAvatarVideo" class="professional-photo" muted playsinline preload="metadata" aria-label="Ravali professional photo animation">          <source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />
         </video>
       </div>
     </section>

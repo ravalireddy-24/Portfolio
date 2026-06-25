@@ -240,7 +240,25 @@ window.startListening = startListening;
 window.stopListening = stopListening;
 const landingVoiceBtn = document.getElementById("landingVoiceBtn");
 const landingVoiceStatus = document.getElementById("landingVoiceStatus");
+const landingAvatarVideo = document.getElementById("landingAvatarVideo");
 let landingRecognition;
+let landingCommandHandled = false;
+
+function playLandingAvatar() {
+    landingCommandHandled = true;
+  pauseLandingAvatar();
+  if (!landingAvatarVideo) return;
+  landingAvatarVideo.currentTime = 0;
+  landingAvatarVideo.play().catch(() => {
+    updateLandingVoice("Tap the microphone again to start the avatar animation.");
+  });
+}
+
+function pauseLandingAvatar() {
+  if (!landingAvatarVideo) return;
+  landingAvatarVideo.pause();
+  landingAvatarVideo.currentTime = 0;
+}
 
 function updateLandingVoice(message, listening = false) {
   if (landingVoiceStatus) landingVoiceStatus.textContent = message;
@@ -248,6 +266,8 @@ function updateLandingVoice(message, listening = false) {
 }
 
 function handleLandingTranscript(transcript) {
+    landingCommandHandled = false;
+  playLandingAvatar();
   const command = findCommand(transcript);
   if (command === "resume") {
     updateLandingVoice("Opening the resume download for you.");
@@ -271,6 +291,8 @@ function startLandingVoice() {
   }
 
   landingRecognition?.abort();
+    landingCommandHandled = false;
+  playLandingAvatar();
   landingRecognition = new SpeechRecognition();
   landingRecognition.lang = "en-US";
   landingRecognition.interimResults = true;
@@ -282,11 +304,17 @@ function startLandingVoice() {
     updateLandingVoice(transcript || "Listening...", true);
     if (event.results[event.results.length - 1].isFinal) handleLandingTranscript(transcript);
   };
-  landingRecognition.onerror = () => updateLandingVoice("I could not hear that clearly. Please tap the microphone and try again.");
-  landingRecognition.onend = () => landingVoiceBtn?.classList.remove("is-listening");
+  landingRecognition.onerror = () => {
+    pauseLandingAvatar();
+    updateLandingVoice("I could not hear that clearly. Please tap the microphone and try again.");
+  };
+  landingRecognition.onend = () => {
+    landingVoiceBtn?.classList.remove("is-listening");
+    if (!landingCommandHandled) pauseLandingAvatar();
+  };
   landingRecognition.start();
 }
-
+pauseLandingAvatar();
 landingVoiceBtn?.addEventListener("click", startLandingVoice);
 window.startThinking = startThinking;
 window.stopThinking = stopThinking;
