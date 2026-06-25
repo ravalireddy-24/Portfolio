@@ -33,17 +33,18 @@ let thinkingTimeout;
 let speakingTimeout;
 let voices = [];
 function updateStatusLabel(label) {
-  statusText.textContent = label;
+  if (statusText) statusText.textContent = label;
   if (avatarStatusLabel) avatarStatusLabel.textContent = label;
 }
 
 function updateAssistant(title, message, status) {
-  assistantTitle.textContent = title;
-  assistantMessage.textContent = message;
+  if (assistantTitle) assistantTitle.textContent = title;
+  if (assistantMessage) assistantMessage.textContent = message;
   updateStatusLabel(status);
 }
 function setAvatarState(state) {
   currentState = state;
+    if (!avatarShell) return;
   avatarShell.dataset.avatarState = state;
   ["idle", "listening", "thinking", "talking", "speaking"].forEach((name) => {
     avatarShell.classList.toggle(`is-${name}`, state === name || (name === "speaking" && state === "talking"));
@@ -55,7 +56,7 @@ function startListening() {
   if (!SpeechRecognition) {
     const helpText = "Speech recognition is not supported in this browser. Please use Chrome at http://127.0.0.1:5000 or use the quick command buttons.";
     updateAssistant("Voice unsupported", helpText, "Ready");
-    transcriptText.textContent = helpText;
+    if (transcriptText) transcriptText.textContent = helpText;
     console.error(helpText);
     return;
   }
@@ -65,8 +66,8 @@ function startListening() {
 
   recognition = new SpeechRecognition();
   recognition.lang = "en-US";
-  recognition.interimResults = true;
-  recognition.continuous = false;
+    if (voiceBtn) voiceBtn.disabled = true;
+    if (voiceBtnText) voiceBtnText.textContent = "Listening...";
 
   recognition.onstart = () => {
     setAvatarState("listening");
@@ -76,7 +77,7 @@ function startListening() {
 
   recognition.onresult = (event) => {
     const transcript = Array.from(event.results).map((result) => result[0].transcript).join(" ").trim();
-    transcriptText.textContent = transcript;
+    if (transcriptText) transcriptText.textContent = transcript;
     if (event.results[event.results.length - 1].isFinal) handleTranscript(transcript);
   };
 
@@ -91,13 +92,13 @@ function startListening() {
     const message = messages[event.error] || "I had trouble hearing that command. Please try again.";
     stopListening();
     updateAssistant("Please try again", message, "Ready");
-    transcriptText.textContent = message;
+    if (transcriptText) transcriptText.textContent = message;
     console.error("Speech recognition error:", event.error, event.message || message);
   };
 
   recognition.onend = () => {
-    voiceBtn.disabled = false;
-    voiceBtnText.textContent = "Click microphone";
+    if (voiceBtn) voiceBtn.disabled = false;
+    if (voiceBtnText) voiceBtnText.textContent = "Click microphone";
     if (currentState === "listening") stopListening();
   };
 
@@ -199,8 +200,7 @@ function runCommand(sectionId) {
 }
 function handleTranscript(transcript) {
     console.log("Voice transcript:", transcript);
-  transcriptText.textContent = transcript;
-  updateAssistant("You said:", transcript, "Thinking...");
+  if (transcriptText) transcriptText.textContent = transcript;  updateAssistant("You said:", transcript, "Thinking...");
   startThinking();
   const command = findCommand(transcript);
 
@@ -217,7 +217,7 @@ function goHome() {
   runCommand("about");
 }
 
-voiceBtn.addEventListener("click", startListening);
+voiceBtn?.addEventListener("click", startListening);
 
 document.querySelectorAll("[data-command]").forEach((button) => {
   button.addEventListener("click", () => runCommand(button.dataset.command));
@@ -238,6 +238,56 @@ clearTimeout(thinkingTimeout);
 
 window.startListening = startListening;
 window.stopListening = stopListening;
+const landingVoiceBtn = document.getElementById("landingVoiceBtn");
+const landingVoiceStatus = document.getElementById("landingVoiceStatus");
+let landingRecognition;
+
+function updateLandingVoice(message, listening = false) {
+  if (landingVoiceStatus) landingVoiceStatus.textContent = message;
+  landingVoiceBtn?.classList.toggle("is-listening", listening);
+}
+
+function handleLandingTranscript(transcript) {
+  const command = findCommand(transcript);
+  if (command === "resume") {
+    updateLandingVoice("Opening the resume download for you.");
+    window.location.href = "/static/Ravali_N_Resume.pdf";
+    return;
+  }
+  if (command === "contact") {
+    updateLandingVoice("Taking you to the contact section.");
+    window.location.href = "/portfolio#contact";
+    return;
+  }
+  updateLandingVoice("Taking you to the detailed portfolio experience.");
+  window.location.href = command && command !== "about" ? `/portfolio#${command}` : "/portfolio";
+}
+
+function startLandingVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    updateLandingVoice("Speech recognition is not supported in this browser. Use the Explore Portfolio button instead.");
+    return;
+  }
+
+  landingRecognition?.abort();
+  landingRecognition = new SpeechRecognition();
+  landingRecognition.lang = "en-US";
+  landingRecognition.interimResults = true;
+  landingRecognition.continuous = false;
+
+  landingRecognition.onstart = () => updateLandingVoice("Listening... say portfolio, resume, projects, skills, or contact.", true);
+  landingRecognition.onresult = (event) => {
+    const transcript = Array.from(event.results).map((result) => result[0].transcript).join(" ").trim();
+    updateLandingVoice(transcript || "Listening...", true);
+    if (event.results[event.results.length - 1].isFinal) handleLandingTranscript(transcript);
+  };
+  landingRecognition.onerror = () => updateLandingVoice("I could not hear that clearly. Please tap the microphone and try again.");
+  landingRecognition.onend = () => landingVoiceBtn?.classList.remove("is-listening");
+  landingRecognition.start();
+}
+
+landingVoiceBtn?.addEventListener("click", startLandingVoice);
 window.startThinking = startThinking;
 window.stopThinking = stopThinking;
 window.startSpeaking = startSpeaking;
