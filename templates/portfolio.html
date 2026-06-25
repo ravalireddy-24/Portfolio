@@ -34,8 +34,7 @@
           <div class="avatar-halo" aria-hidden="true"></div><div class="avatar-loader" aria-hidden="true"></div>
           <div class="listening-ripples" aria-hidden="true"><span></span><span></span><span></span></div>
           <div class="sound-waves" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-          <div class="avatar-image-wrap"><video id="assistantAvatar" class="assistant-avatar" autoplay muted loop playsinline preload="metadata" aria-label="Animated AI assistant avatar"><source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />Your browser does not support the avatar video.</video></div>
-          <div class="avatar-state-chip" aria-hidden="true"><span class="state-dot"></span><span id="avatarStatusLabel">Ready</span></div>
+          <div class="avatar-image-wrap"><video id="assistantAvatar" class="assistant-avatar" muted playsinline preload="metadata" aria-label="Animated AI assistant avatar"><source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />Your browser does not support the avatar video.</video></div>          <div class="avatar-state-chip" aria-hidden="true"><span class="state-dot"></span><span id="avatarStatusLabel">Ready</span></div>
         </div>
         <div class="assistant-card" role="status" aria-live="polite">
           <h2 id="assistantTitle">Hi! I’m ready.</h2><p id="assistantMessage">Ask me to show experience, projects, skills, certifications, education, contact, or about.</p>
