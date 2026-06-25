@@ -1,19 +1,21 @@
 const COMMANDS = {
-  home: ["home", "start", "intro", "introduction"],
+  about: ["about", "about me", "home", "start", "intro", "introduction"],
   experience: ["experience", "work", "work history", "career"],
   projects: ["projects", "apps", "applications", "portfolio"],
   skills: ["skills", "technologies", "tools", "tech stack"],
   contact: ["contact", "email", "linkedin", "github", "reach"],
-  resume: ["resume", "résumé", "cv", "curriculum vitae"]
+  resume: ["resume", "résumé", "cv", "curriculum vitae"],
+  certifications: ["certifications", "certification", "certificates", "credentials"],
+  education: ["education", "school", "degree", "academic"]
 };
 const SECTION_SCRIPTS = {
-  home: "Hi, welcome to Ravali’s portfolio. I can guide you through experience, projects, skills, resume, and contact.",
-  experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",
+  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",  experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",
   projects: "Ravali’s projects include AI features, Flask and React apps, dashboards, cloud integrations, and automation.",
   skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, Git, and AI tools.",
   resume: "The resume section summarizes Ravali’s education, experience, projects, and technical strengths.",
-  contact: "You can contact Ravali through email, LinkedIn, or GitHub for software, data, cloud, and AI-focused roles."
-};
+  contact: "You can contact Ravali through email, LinkedIn, or GitHub for software, data, cloud, and AI-focused roles.",
+  certifications: "Ravali continues to build credentials across software engineering, cloud, data, and applied AI topics.",
+  education: "Ravali’s education supports programming fundamentals, databases, systems thinking, and analytical problem solving."};
 
 
 const avatarShell = document.getElementById("avatarShell");
@@ -70,8 +72,7 @@ function startListening() {
     setAvatarState("listening");
     voiceBtn.disabled = true;
     voiceBtnText.textContent = "Listening...";
-    updateAssistant("I’m listening...", "Say experience, projects, skills, contact, resume, or home.", "Listening...");
-  };
+    updateAssistant("I’m listening...", "Say experience, projects, skills, certifications, education, contact, or about.", "Listening...");  };
 
   recognition.onresult = (event) => {
     const transcript = Array.from(event.results).map((result) => result[0].transcript).join(" ").trim();
@@ -187,8 +188,7 @@ function speak(message) {
 
 function runCommand(sectionId) {
     const label = document.getElementById(sectionId)?.dataset.sectionTitle || sectionId;
-  const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.home;
-
+  const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.about;
   scrollToSection(sectionId);
   updateAssistant(label, script, "Thinking...");
   startThinking();
@@ -207,15 +207,14 @@ function handleTranscript(transcript) {
    window.setTimeout(() => {
     if (command) runCommand(command);
     else {
-      const helpText = "Sorry, I did not understand. You can say experience, projects, skills, contact, resume, or home.";
-      updateAssistant("Please try again", helpText, "Thinking...");
+      const helpText = "Sorry, I did not understand. You can say experience, projects, skills, certifications, education, contact, or about.";      updateAssistant("Please try again", helpText, "Thinking...");
       speak(helpText);
     }
    }, 300);
    }
 
 function goHome() {
-  runCommand("home");
+  runCommand("about");
 }
 
 voiceBtn.addEventListener("click", startListening);

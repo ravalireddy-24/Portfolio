@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ravali N | Portfolio Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="animated-background" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <header class="topbar" aria-label="Portfolio navigation">
+    <a class="brand" href="{{ url_for('home') }}">Ravali<span>.</span></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="portfolio details-page">
+    <section id="about" class="section hero-section active" data-section-title="About Me">
+      <div class="hero-copy">
+        <p class="eyebrow">About Me</p>
+        <h1>Software Engineer focused on useful, polished products.</h1>
+        <p>I’m Ravali N, a software engineer who enjoys building full-stack applications, data-driven systems, APIs, cloud integrations, and automation that solve practical problems.</p>
+        <div class="hero-actions"><a href="{{ url_for('home') }}" class="secondary-link">Back to Landing</a><a href="#contact" class="primary-link">Contact Me</a></div>
+      </div>
+      <aside id="assistantPanel" class="assistant-panel" aria-label="Portfolio avatar assistant">
+        <div id="avatarShell" class="avatar-shell is-idle" aria-label="Interactive AI avatar" data-avatar-state="idle">
+          <div class="avatar-halo" aria-hidden="true"></div><div class="avatar-loader" aria-hidden="true"></div>
+          <div class="listening-ripples" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="sound-waves" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <div class="avatar-image-wrap"><video id="assistantAvatar" class="assistant-avatar" autoplay muted loop playsinline preload="metadata" aria-label="Animated AI assistant avatar"><source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />Your browser does not support the avatar video.</video></div>
+          <div class="avatar-state-chip" aria-hidden="true"><span class="state-dot"></span><span id="avatarStatusLabel">Ready</span></div>
+        </div>
+        <div class="assistant-card" role="status" aria-live="polite">
+          <h2 id="assistantTitle">Hi! I’m ready.</h2><p id="assistantMessage">Ask me to show experience, projects, skills, certifications, education, contact, or about.</p>
+          <p id="transcriptText" class="transcript-text">Transcript will appear here.</p><p id="status" class="status-label">Ready</p>
+          <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command"><span class="voice-icon" aria-hidden="true"></span><span id="voiceBtnText">Click microphone</span></button>
+          <div class="quick-commands" aria-label="Portfolio commands"><button type="button" data-command="experience">Experience</button><button type="button" data-command="projects">Projects</button><button type="button" data-command="skills">Skills</button><button type="button" data-command="certifications">Certifications</button><button type="button" data-command="education">Education</button><button type="button" data-command="contact">Contact</button></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="experience" class="section" data-section-title="Experience"><p class="eyebrow">Professional story</p><h1>Experience</h1><p>I build software across full-stack applications, data engineering workflows, cloud services, APIs, and automation with a focus on reliable, user-friendly products.</p></section>
+    <section id="projects" class="section" data-section-title="Projects"><p class="eyebrow">Selected work</p><h1>Projects</h1><p>My portfolio includes AI features, Flask and React web apps, cloud integrations, dashboards, automation projects, and recruiter-friendly case studies.</p></section>
+    <section id="skills" class="section" data-section-title="Skills"><p class="eyebrow">Technical toolkit</p><h1>Skills</h1><p>Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, data pipelines, Git, and practical AI tools.</p></section>
+    <section id="certifications" class="section" data-section-title="Certifications"><p class="eyebrow">Credentials</p><h1>Certifications</h1><p>Certifications and continued learning highlight my commitment to modern software engineering, cloud practices, data tools, and applied AI.</p></section>
+    <section id="education" class="section" data-section-title="Education"><p class="eyebrow">Academic foundation</p><h1>Education</h1><p>My education supports strong fundamentals in programming, systems thinking, databases, software development practices, and analytical problem solving.</p></section>
+    <section id="contact" class="section" data-section-title="Contact"><p class="eyebrow">Let’s connect</p><h1>Contact</h1><p>You can contact me through email, LinkedIn, or GitHub. I’m open to software engineering, data, cloud, and AI-focused roles.</p><div class="contact-links"><a href="mailto:ravali@example.com">Email</a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></div></section>
+  </main>
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</body>
+</html>
