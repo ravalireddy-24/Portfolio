@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ravali Portfolio | Avatar Guide</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js"
-      }
-    }
-  </script>
 </head>
 
 <body>
@@ -37,16 +30,33 @@
         </div>
       </div>
            <aside id="assistantPanel" class="assistant-panel" aria-label="Portfolio avatar assistant">
-    <div id="avatarShell" class="avatar-shell" aria-label="Interactive avatar">
-          <div class="avatar-halo" aria-hidden="true"></div>
-
-          <div id="avatarCanvasWrap" class="avatar-canvas-wrap">
-            <canvas id="avatarCanvas" aria-label="Ravali 3D assistant avatar"></canvas>
+    <div id="avatarShell" class="avatar-shell is-idle" aria-label="Interactive AI avatar" data-avatar-state="idle">
+      <div class="avatar-halo" aria-hidden="true"></div>
+      <div class="avatar-loader" aria-hidden="true"></div>
+          <div class="listening-ripples" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <div id="avatarLoadMessage" class="avatar-load-message" role="status">Loading 3D assistant…</div>
-          <div class="rig-badges" aria-hidden="true">
-            <span>GLB Assistant</span>
-            <span>Voice Guided</span>
+          <div class="sound-waves" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+               <div class="avatar-image-wrap">
+            <img
+              id="assistantAvatar"
+              class="assistant-avatar"
+              src="{{ url_for('static', filename='images/avatar.gif') }}"
+              alt="Animated AI assistant avatar"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="avatar-state-chip" aria-hidden="true">
+            <span class="state-dot"></span>
+            <span id="avatarStatusLabel">Ready</span>
           </div>
         </div>
 
@@ -54,7 +64,7 @@
           <h2 id="assistantTitle">Hi! I’m ready.</h2>
           <p id="assistantMessage">I can guide you through Ravali’s portfolio. Try saying “projects”.</p>
           <p id="transcriptText" class="transcript-text">Transcript will appear here.</p>
-          <p id="status">Ready</p>
+   <p id="status" class="status-label">Ready</p>
           <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command">
             <span class="voice-icon" aria-hidden="true"></span>
             <span id="voiceBtnText">Click microphone</span>
