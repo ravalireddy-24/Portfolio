@@ -45,14 +45,19 @@
             <span></span>
           </div>
                <div class="avatar-image-wrap">
-            <img
+   <video
               id="assistantAvatar"
               class="assistant-avatar"
-              src="{{ url_for('static', filename='images/avatar.gif') }}"
-              alt="Animated AI assistant avatar"
-              loading="lazy"
-              decoding="async"
-            />
+               autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label="Animated AI assistant avatar"
+            >
+              <source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />
+              Your browser does not support the avatar video.
+            </video>
           </div>
           <div class="avatar-state-chip" aria-hidden="true">
             <span class="state-dot"></span>
