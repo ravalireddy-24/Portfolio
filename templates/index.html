@@ -30,6 +30,7 @@
 
              <div class="landing-hero-grid">
         <div class="landing-copy">
+                <p class="availability-badge">Open to Work • Software Engineer</p>
           <p class="hello-line">Hi, I’m</p>
           <h1 id="landing-title">Ravali N</h1>
           <p class="role">Software Engineer <span>|</span> AI Engineer <span>|</span> Data Engineer</p>
@@ -38,11 +39,18 @@
           <div class="landing-actions" aria-label="Primary actions">
             <a class="primary-link" href="{{ url_for('portfolio') }}">Explore My Work <span aria-hidden="true">→</span></a>
             <a class="secondary-link" href="{{ url_for('static', filename='Ravali_N_Resume.pdf') }}" download>Download Resume <span aria-hidden="true">⇩</span></a>
+                      </div>
+          <div class="social-icons" aria-label="Social links">
+            <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+            <a href="mailto:ravali@example.com" aria-label="Email">@</a>
           </div>
                 </div>
 
         <div class="landing-assistant-stack" aria-label="Avatar and voice assistant">
           <div class="portrait-card" aria-label="Professional photo and profile summary">
+                        <div class="portrait-glow" aria-hidden="true"></div>
+            <div class="portrait-glass" aria-hidden="true"></div>
             <div class="portrait-ring" aria-hidden="true"></div>
             <video id="landingAvatarVideo" class="professional-photo" muted playsinline preload="metadata" aria-label="Ravali professional photo animation">
               <source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />
@@ -58,12 +66,20 @@
         </div>
       <div class="landing-voice-card" role="region" aria-label="Voice introduction assistant">
         <button id="landingVoiceBtn" class="landing-mic-btn" type="button" aria-label="Start landing page voice assistant"><span class="voice-icon" aria-hidden="true"></span></button>
-        <div><p class="landing-voice-title">AI Assistant</p><p id="landingVoiceStatus" class="landing-voice-status">Tap the microphone and ask me anything about my experience, projects, skills or resume.</p></div>
-        <div class="voice-wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="landing-voice-copy">
+          <p class="landing-voice-title">AI Assistant</p>
+          <p id="landingVoiceStatus" class="landing-voice-status">Tap the microphone and ask me anything about my experience, projects, skills or resume.</p>
+          <div class="suggestion-chips" aria-label="Suggested assistant prompts">
+            <button type="button" data-landing-action="portfolio">Experience</button>
+            <button type="button" data-landing-action="portfolio">Projects</button>
+            <button type="button" data-landing-action="portfolio">Skills</button>
+            <button type="button" data-landing-action="resume">Resume</button>
+          </div>
+        </div>        <div class="voice-wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
       </div>
 
      <section class="tech-panel" aria-labelledby="tech-title">
-        <h2 id="tech-title">Technologies I Work With</h2>
+        <h2 id="tech-title">Tech Stack</h2>
         <div class="tech-grid">
           <span><b>🐍</b>Python</span><span><b>☕</b>Java</span><span><b>JS</b>JavaScript</span><span><b>aws</b>AWS</span><span><b>⚛</b>React</span><span><b>🐳</b>Docker</span><span><b>☸</b>Kubernetes</span><span><b>▣</b>SQL</span><span><b>•••</b>More</span>
         </div>

@@ -1727,3 +1727,215 @@ body::before {
     text-align: left;
   }
 }
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  margin-bottom: 14px;
+  padding: 9px 14px;
+  border: 1px solid rgba(137, 100, 255, .42);
+  border-radius: 999px;
+  color: #dcecff;
+  background: linear-gradient(135deg, rgba(124, 77, 255, .18), rgba(42, 216, 255, .1));
+  box-shadow: 0 0 28px rgba(124, 77, 255, .22), inset 0 1px 0 rgba(255, 255, 255, .12);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.landing-hero-grid {
+  grid-template-columns: minmax(0, 1.04fr) minmax(340px, 430px);
+  gap: clamp(22px, 4vw, 56px);
+}
+
+.reference-landing {
+  gap: clamp(20px, 3vw, 38px);
+}
+
+.reference-landing .landing-copy h1 {
+  margin-bottom: 14px;
+}
+
+.landing-actions {
+  margin-top: 28px;
+}
+
+.reference-landing .social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.reference-landing .social-icons a {
+  border-color: rgba(124, 77, 255, .3);
+  background: rgba(8, 12, 32, .72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 12px 28px rgba(0, 0, 0, .22);
+}
+
+.reference-landing .portrait-card {
+  padding: 10px 10px 0;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 34px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .14), rgba(6, 10, 35, .58)),
+    radial-gradient(circle at 50% 15%, rgba(42, 216, 255, .18), transparent 42%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 28px 70px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(20px) saturate(140%);
+  overflow: hidden;
+}
+
+.portrait-glass {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 28px;
+  background: linear-gradient(130deg, rgba(255, 255, 255, .12), transparent 46%);
+  pointer-events: none;
+}
+
+.portrait-glow {
+  width: min(340px, 84%);
+  background:
+    radial-gradient(circle at 40% 42%, rgba(42, 216, 255, .68), transparent 45%),
+    radial-gradient(circle at 62% 56%, rgba(159, 69, 255, .86), transparent 58%);
+  filter: blur(38px);
+  opacity: .72;
+}
+
+.portrait-ring {
+  top: 22px;
+  width: min(350px, 82%);
+  opacity: .9;
+}
+
+.reference-landing .professional-photo {
+  width: min(275px, 68vw);
+  margin-top: 34px;
+  border: 5px solid rgba(255, 255, 255, .74);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .05);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .42), 0 0 0 10px rgba(124, 77, 255, .08);
+}
+
+.open-chip {
+  right: 8%;
+  bottom: 118px;
+  z-index: 4;
+}
+
+.stats-card {
+  width: min(410px, 100%);
+  margin-top: 8px;
+  border-color: rgba(115, 105, 255, .5);
+  background: rgba(4, 8, 30, .72);
+}
+
+.reference-landing .landing-voice-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  min-height: 116px;
+  border-color: rgba(42, 216, 255, .3);
+  background: linear-gradient(135deg, rgba(6, 12, 38, .82), rgba(7, 10, 31, .62));
+}
+
+.landing-voice-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.suggestion-chips button {
+  padding: 8px 12px;
+  border: 1px solid rgba(42, 216, 255, .22);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .07);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.suggestion-chips button:hover,
+.suggestion-chips button:focus-visible {
+  border-color: rgba(42, 216, 255, .62);
+  background: rgba(42, 216, 255, .16);
+  outline: none;
+}
+
+.tech-panel {
+  border-color: rgba(124, 77, 255, .3);
+  background: rgba(5, 9, 31, .54);
+}
+
+.tech-grid {
+  grid-template-columns: repeat(6, minmax(92px, 1fr));
+}
+
+.tech-grid span {
+  min-height: 52px;
+  color: #eaf7ff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+@media (max-width: 980px) {
+  .landing-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .availability-badge,
+  .reference-landing .social-icons {
+    margin-inline: auto;
+  }
+
+  .reference-landing .portrait-card {
+    padding-top: 14px;
+  }
+
+  .open-chip {
+    right: 10%;
+    bottom: 116px;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .availability-badge {
+    width: auto;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  .reference-landing .landing-voice-card {
+    grid-template-columns: auto 1fr;
+  }
+
+  .voice-wave {
+    display: none;
+  }
+
+  .open-chip {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: -18px;
+  }
+
+  .stats-card,
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -336,6 +336,22 @@ landingVoiceBtn?.addEventListener("click", startLandingListening);
 document.querySelectorAll("[data-command]").forEach((button) => {
   button.addEventListener("click", () => runCommand(button.dataset.command));
 });
+document.querySelectorAll("[data-landing-action]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const action = button.dataset.landingAction;
+    const message = LANDING_SCRIPTS[action] || LANDING_SCRIPTS.welcome;
+    if (landingVoiceStatus) landingVoiceStatus.textContent = message;
+
+    if (action === "resume") {
+      window.location.href = "/static/Ravali_N_Resume.pdf";
+      return;
+    }
+
+    if (action === "portfolio") {
+      window.location.href = "/portfolio";
+    }
+  });
+});
 
 if ("speechSynthesis" in window) {
   voices = window.speechSynthesis.getVoices();
