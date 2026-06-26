@@ -2279,3 +2279,21 @@ body::before {
     grid-template-columns: 1fr;
   }
 }
+/* Floating portfolio page back action */
+.floating-back-home {
+  position: fixed;
+  right: clamp(18px, 3vw, 42px);
+  bottom: clamp(18px, 3vw, 42px);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 18px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, .34), 0 0 28px rgba(42, 216, 255, .2);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.floating-back-home:hover {
+  transform: translateY(-3px);
+}

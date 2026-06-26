@@ -12,7 +12,6 @@
 
   <header class="topbar dashboard-topbar" aria-label="Portfolio navigation">
     <a class="brand" href="{{ url_for('home') }}">Ravali<span>.</span></a>
-        <a class="back-home-link" href="{{ url_for('home') }}" aria-label="Back to home page">← Back</a>
     <nav>
             <a href="#overview">Overview</a>
       <a href="#about">About</a>
@@ -102,6 +101,7 @@
           <div class="quick-commands" aria-label="Portfolio commands"><button type="button" data-command="overview">Overview</button><button type="button" data-command="about">About</button><button type="button" data-command="experience">Experience</button><button type="button" data-command="projects">Projects</button><button type="button" data-command="skills">Skills</button><button type="button" data-command="certifications">Credentials</button><button type="button" data-command="education">Education</button><button type="button" data-command="contact">Contact</button></div>
         </div>      </aside>
     </div>
+        <a class="back-home-link floating-back-home" href="{{ url_for('home') }}" aria-label="Back to home page">← Back</a>
   </main>
   <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>
