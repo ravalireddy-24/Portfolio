@@ -6,7 +6,6 @@
    <title>Ravali N | Professional Workspace</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
-<body>
 <body class="dashboard-body">
   <div class="animated-background" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
   <div class="dashboard-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -14,14 +13,13 @@
   <header class="topbar dashboard-topbar" aria-label="Portfolio navigation">
     <a class="brand" href="{{ url_for('home') }}">Ravali<span>.</span></a>
     <nav>
+            <a href="#overview">Overview</a>
       <a href="#about">About</a>
-         <a href="#overview">Overview</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#education">Education</a>
-            <a href="#achievements">Achievements</a>
+      <a href="#certifications">Credentials</a>
+      <a href="#achievements">Impact</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -29,12 +27,11 @@
     <div class="dashboard-shell">
       <div class="dashboard-left" aria-label="Scrollable portfolio dashboard">
         <section id="overview" class="section dashboard-section active" data-section-title="Overview">
-          <article class="dashboard-card summary-card reveal-card tilt-card">
+             <article class="dashboard-card summary-card reveal-card tilt-card hero-dashboard-card">
             <p class="eyebrow">Professional workspace</p>
             <h1>Software Engineer building polished AI, cloud, and data products.</h1>
             <p>I’m Ravali N, focused on scalable full-stack applications, dependable data workflows, cloud integrations, APIs, and automation that feels simple, useful, and production-ready.</p>
-            <div class="hero-highlights"><span>AI Products</span><span>Data Engineering</span><span>Cloud APIs</span></div>
-            <div class="hero-actions"><a href="{{ url_for('home') }}" class="secondary-link">Back to Landing</a><a href="#contact" class="primary-link">Contact Me</a></div>
+            <div class="hero-highlights"><span>AI Products</span><span>Data Engineering</span><span>Cloud APIs</span><span>Full-stack UX</span></div>            <div class="hero-actions"><a href="{{ url_for('home') }}" class="secondary-link">Back to Landing</a><a href="#contact" class="primary-link">Contact Me</a></div>
           </article>
           <aside class="dashboard-card stats-card reveal-card tilt-card">
             <p class="card-kicker">Career Stats</p>
@@ -42,11 +39,22 @@
               <div><strong>5+</strong><span>Years Experience</span></div>
               <div><strong>20+</strong><span>Projects Completed</span></div>
               <div><strong>35+</strong><span>Technologies</span></div>
-              <div><strong>150+</strong><span>GitHub Stars</span></div>
+         <div><strong>12+</strong><span>Open Source PRs</span></div>
             </div>
           </aside>
         </section>
 
+        <section id="about" class="section dashboard-section about-row" data-section-title="About">
+          <article class="dashboard-card full-card reveal-card">
+            <div class="card-header"><div><p class="eyebrow">About Ravali</p><h2>Reliable engineering with product-minded polish.</h2></div><span class="panel-pill">Available for roles</span></div>
+            <p>I connect backend reliability, clean user experiences, and data-driven automation. My work emphasizes maintainable services, intuitive dashboards, strong API contracts, and solutions that are easy for stakeholders to adopt.</p>
+            <div class="about-focus-grid">
+              <div><strong>01</strong><span>Translate ambiguous business needs into usable products.</span></div>
+              <div><strong>02</strong><span>Build data workflows with quality, monitoring, and repeatability.</span></div>
+              <div><strong>03</strong><span>Create AI-assisted experiences with clear controls and friendly UX.</span></div>
+            </div>
+          </article>
+        </section>
         <section id="experience" class="section dashboard-section experience-row" data-section-title="Experience">
           <article class="dashboard-card timeline-dashboard reveal-card">
             <div class="card-header"><div><p class="eyebrow">Professional story</p><h2>Experience Timeline</h2></div><span class="panel-pill">Live career log</span></div>
@@ -57,8 +65,7 @@
             </div>
           </article>
           <aside class="dashboard-card ai-command-card reveal-card tilt-card">
-            <p class="eyebrow">AI Assistant Panel</p><h2>Ask for a section</h2><p>Use the right-side assistant or quick controls. Say “experience” or “contact” and the left workspace scrolls to that dashboard card.</p><div class="quick-commands mini"><button type="button" data-command="experience">Experience</button><button type="button" data-command="contact">Contact</button><button type="button" data-command="projects">Projects</button></div>
-          </aside>
+            <p class="eyebrow">AI Assistant Panel</p><h2>Ask for a section</h2><p>Use the assistant or quick controls. Say “experience” or “contact” and the workspace scrolls to that dashboard card.</p><div class="quick-commands mini"><button type="button" data-command="experience">Experience</button><button type="button" data-command="contact">Contact</button><button type="button" data-command="projects">Projects</button></div>          </aside>
         </section>
 
         <section id="projects" class="section dashboard-section projects-row" data-section-title="Projects">
@@ -77,27 +84,14 @@
 
         <section id="certifications" class="section dashboard-section split-row" data-section-title="Certifications"><article class="dashboard-card reveal-card"><p class="eyebrow">Credentials</p><h2>Certifications</h2><div class="credential-list"><span>AWS Certified Solutions Architect Associate</span><span>Google Professional Data Engineer</span><span>Microsoft Azure Data Engineer Associate</span><span>Databricks Data Engineer Professional</span></div></article><article id="education" class="dashboard-card reveal-card" data-section-title="Education"><p class="eyebrow">Education</p><h2>Academic Foundation</h2><p>Computer science foundation strengthened programming fundamentals, database design, software design, systems thinking, and analytical problem solving.</p></article></section>
 
-        <section id="achievements" class="section dashboard-section achievements-row" data-section-title="Achievements"><article class="dashboard-card full-card reveal-card"><p class="eyebrow">Impact metrics</p><h2>Achievements</h2><div class="achievement-grid"><div><strong>5+</strong><span>Years Experience</span></div><div><strong>20+</strong><span>Projects Completed</span></div><div><strong>35+</strong><span>Technologies</span></div><div><strong>150+</strong><span>GitHub Repositories</span></div><div><strong>300+</strong><span>LeetCode Problems</span></div><div><strong>12+</strong><span>Open Source PRs</span></div><div><strong>10+</strong><span>Hackathons</span></div><div><strong>15+</strong><span>Articles</span></div></div></article></section>
-
+        <section id="achievements" class="section dashboard-section achievements-row" data-section-title="Achievements"><article class="dashboard-card full-card reveal-card"><p class="eyebrow">Impact metrics</p><h2>Achievements</h2><div class="achievement-grid"><div><strong>5+</strong><span>Years Experience</span></div><div><strong>20+</strong><span>Projects Completed</span></div><div><strong>35+</strong><span>Technologies</span></div><div><strong>150+</strong><span>GitHub Stars</span></div><div><strong>300+</strong><span>LeetCode Problems</span></div><div><strong>12+</strong><span>Open Source PRs</span></div><div><strong>10+</strong><span>Hackathons</span></div><div><strong>15+</strong><span>Articles</span></div></div></article></section>
         <section id="contact" class="section dashboard-section contact-row" data-section-title="Contact"><article class="dashboard-card contact-dashboard reveal-card"><p class="eyebrow">Let’s connect</p><h2>Build something amazing together.</h2><p>I’m open to software engineering, data, cloud, and AI-focused roles.</p><div class="contact-links"><a href="mailto:ravali@example.com">ravali@example.com</a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></div></article></section>
-      <aside id="assistantPanel" class="assistant-panel" aria-label="Portfolio avatar assistant">
-        <div id="avatarShell" class="avatar-shell is-idle" aria-label="Interactive AI avatar" data-avatar-state="idle">
-          <div class="avatar-halo" aria-hidden="true"></div><div class="avatar-loader" aria-hidden="true"></div>
-          <div class="listening-ripples" aria-hidden="true"><span></span><span></span><span></span></div>
-          <div class="avatar-image-wrap"><video id="assistantAvatar" class="assistant-avatar" muted playsinline preload="metadata" aria-label="Animated AI assistant avatar"><source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />Your browser does not support the avatar video.</video></div>          <div class="avatar-state-chip" aria-hidden="true"><span class="state-dot"></span><span id="avatarStatusLabel">Ready</span></div>
-        </div>
-        <div class="assistant-card" role="status" aria-live="polite">
-          <h2 id="assistantTitle">Hi! I’m ready.</h2><p id="assistantMessage">Ask me to show experience, projects, skills, certifications, education, contact, or about.</p>
-          <p id="transcriptText" class="transcript-text">Transcript will appear here.</p><p id="status" class="status-label">Ready</p>
-          <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command"><span class="voice-icon" aria-hidden="true"></span><span id="voiceBtnText">Click microphone</span></button>
-          <div class="quick-commands" aria-label="Portfolio commands"><button type="button" data-command="experience">Experience</button><button type="button" data-command="projects">Projects</button><button type="button" data-command="skills">Skills</button><button type="button" data-command="certifications">Certifications</button><button type="button" data-command="education">Education</button><button type="button" data-command="contact">Contact</button></div>
-        </div>
-      </aside>
-    </section>
+      </div>
       <aside id="assistantPanel" class="assistant-panel dashboard-assistant" aria-label="Portfolio avatar assistant">
         <div id="avatarShell" class="avatar-shell is-idle" aria-label="Interactive AI avatar" data-avatar-state="idle"><div class="avatar-halo" aria-hidden="true"></div><div class="avatar-loader" aria-hidden="true"></div><div class="listening-ripples" aria-hidden="true"><span></span><span></span><span></span></div><div class="avatar-image-wrap"><video id="assistantAvatar" class="assistant-avatar" muted playsinline preload="metadata" aria-label="Animated AI assistant avatar"><source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />Your browser does not support the avatar video.</video></div><div class="avatar-state-chip" aria-hidden="true"><span class="state-dot"></span><span id="avatarStatusLabel">Ready</span></div></div>
-        <div class="assistant-card" role="status" aria-live="polite"><h2 id="assistantTitle">Hi! I’m ready.</h2><p id="assistantMessage">Ask me to show experience, projects, skills, certifications, education, contact, or overview.</p><p id="transcriptText" class="transcript-text">Transcript will appear here.</p><p id="status" class="status-label">Ready</p><button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command"><span class="voice-icon" aria-hidden="true"></span><span id="voiceBtnText">Click microphone</span></button><div class="quick-commands" aria-label="Portfolio commands"><button type="button" data-command="overview">Overview</button><button type="button" data-command="experience">Experience</button><button type="button" data-command="projects">Projects</button><button type="button" data-command="skills">Skills</button><button type="button" data-command="certifications">Certifications</button><button type="button" data-command="education">Education</button><button type="button" data-command="contact">Contact</button></div></div>
-    </aside>
+        <div class="assistant-card" role="status" aria-live="polite"><h2 id="assistantTitle">Hi! I’m ready.</h2><p id="assistantMessage">Ask me to show overview, about, experience, projects, skills, certifications, education, contact, or resume.</p><p id="transcriptText" class="transcript-text">Transcript will appear here.</p><p id="status" class="status-label">Ready</p><button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command"><span class="voice-icon" aria-hidden="true"></span><span id="voiceBtnText">Click microphone</span></button><div class="quick-commands" aria-label="Portfolio commands"><button type="button" data-command="overview">Overview</button><button type="button" data-command="about">About</button><button type="button" data-command="experience">Experience</button><button type="button" data-command="projects">Projects</button><button type="button" data-command="skills">Skills</button><button type="button" data-command="certifications">Credentials</button><button type="button" data-command="education">Education</button><button type="button" data-command="contact">Contact</button></div></div>
+      </aside>
+    </div>    </aside>
   </main>
   <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>

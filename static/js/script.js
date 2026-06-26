@@ -1,5 +1,5 @@
 const COMMANDS = {
-  about: ["about", "about me", "home", "start", "intro", "introduction"],
+  about: ["about", "about me", "home", "start", "intro", "introduction", "profile"],
     overview: ["overview", "dashboard", "workspace"],
   experience: ["experience", "work", "work history", "career"],
   projects: ["projects", "apps", "applications", "portfolio"],
@@ -198,7 +198,11 @@ function setActiveSection(sectionId) {
 
 
 function scrollToSection(sectionId) {
-  const section = document.getElementById(sectionId);
+  let section = document.getElementById(sectionId);
+  if (!section && sectionId === "resume") {
+    window.location.href = "/static/Ravali_N_Resume.pdf";
+    return;
+  }
   if (!section) return;
   setActiveSection(sectionId);
   section.scrollIntoView({ behavior: "smooth", block: "start" });
