@@ -1,6 +1,7 @@
 const COMMANDS = {
-  about: ["about", "about me", "home", "start", "intro", "introduction", "profile"],
-    overview: ["overview", "dashboard", "workspace"],
+  home: ["home", "home page", "go home", "landing", "landing page", "back home", "return home"],
+  about: ["about", "about me", "start", "intro", "introduction", "profile"],
+  overview: ["overview", "dashboard", "workspace"],
   experience: ["experience", "work", "work history", "career"],
   projects: ["projects", "apps", "applications", "portfolio"],
   skills: ["skills", "technologies", "tools", "tech stack"],
@@ -10,8 +11,8 @@ const COMMANDS = {
   education: ["education", "school", "degree", "academic"]
 };
 const SECTION_SCRIPTS = {
-    overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, credentials, achievements, and contact.",
-  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
+  home: "Taking you back to the home page.",
+  overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, credentials, achievements, and contact.",  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
   experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",  projects: "Ravali’s projects include AI features, Flask and React apps, dashboards, cloud integrations, and automation.",
   skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, Git, and AI tools.",
   resume: "The resume section summarizes Ravali’s education, experience, projects, and technical strengths.",
@@ -246,7 +247,16 @@ function speak(message, onDone) {
 }
 
 function runCommand(sectionId) {
-    const label = document.getElementById(sectionId)?.dataset.sectionTitle || sectionId;
+  if (sectionId === "home") {
+    const message = SECTION_SCRIPTS.home;
+    updateAssistant("Going home", message, "Navigating...");
+    speak(message, () => {
+      window.location.href = "/";
+    });
+    return;
+  }
+
+  const label = document.getElementById(sectionId)?.dataset.sectionTitle || sectionId;
   const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.about;
   scrollToSection(sectionId);
   updateAssistant(label, script, "Thinking...");
@@ -266,7 +276,7 @@ function handleTranscript(transcript) {
    window.setTimeout(() => {
     if (command) runCommand(command);
     else {
-      const helpText = "Sorry, I did not understand. You can say experience, projects, skills, certifications, education, contact, or about.";
+      const helpText = "Sorry, I did not understand. You can say experience,Home Page, projects, skills, certifications, education, contact, or about.";
       updateAssistant("Please try again", helpText, "Thinking...");      speak(helpText);
     }
    }, 300);
@@ -333,7 +343,7 @@ function handleLandingTranscript(transcript) {
 }
 
 function goHome() {
-  runCommand("overview");
+  runCommand("homepage");
 }
 
 voiceBtn?.addEventListener("click", startListening);

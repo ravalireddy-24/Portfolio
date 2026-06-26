@@ -66,6 +66,23 @@ body::before {
   color: #2ad8ff;
 }
 
+.back-home-link {
+  padding: 8px 14px;
+  border: 1px solid rgba(42, 216, 255, .35);
+  border-radius: 999px;
+  background: rgba(42, 216, 255, .1);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.back-home-link:hover {
+  background: rgba(42, 216, 255, .22);
+  color: #2ad8ff;
+  transform: translateX(-2px);
+}
 .topbar nav {
   display: flex;
   gap: 18px;
