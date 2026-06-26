@@ -1,5 +1,6 @@
 const COMMANDS = {
   about: ["about", "about me", "home", "start", "intro", "introduction"],
+    overview: ["overview", "dashboard", "workspace"],
   experience: ["experience", "work", "work history", "career"],
   projects: ["projects", "apps", "applications", "portfolio"],
   skills: ["skills", "technologies", "tools", "tech stack"],
@@ -9,6 +10,7 @@ const COMMANDS = {
   education: ["education", "school", "degree", "academic"]
 };
 const SECTION_SCRIPTS = {
+    overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, credentials, achievements, and contact.",
   about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
   experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",  projects: "Ravali’s projects include AI features, Flask and React apps, dashboards, cloud integrations, and automation.",
   skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, Git, and AI tools.",
@@ -327,7 +329,7 @@ function handleLandingTranscript(transcript) {
 }
 
 function goHome() {
-  runCommand("about");
+  runCommand("overview");
 }
 
 voiceBtn?.addEventListener("click", startListening);
@@ -370,3 +372,45 @@ window.addEventListener("beforeunload", () => {
 window.startListening = startListening;
 window.stopListening = stopListening;
 window.goHome = goHome;
+
+// Dashboard interactions: reveal-on-scroll, active nav, and subtle mouse parallax.
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) entry.target.classList.add("is-visible");
+  });
+}, { threshold: 0.14 });
+
+document.querySelectorAll(".reveal-card").forEach((card) => revealObserver.observe(card));
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    document.querySelectorAll(".dashboard-topbar nav a").forEach((link) => {
+      link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+    });
+  });
+}, { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 });
+
+document.querySelectorAll(".dashboard-section, #education").forEach((section) => sectionObserver.observe(section));
+
+document.querySelectorAll(".tilt-card, .dashboard-card, .project-card").forEach((card) => {
+  card.addEventListener("pointermove", (event) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty("--mx", `${x}%`);
+    card.style.setProperty("--my", `${y}%`);
+    if (!card.classList.contains("tilt-card")) return;
+    const rotateX = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
+    const rotateY = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
+    card.style.transform = `translateY(-7px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+  card.addEventListener("pointerleave", () => {
+    card.style.removeProperty("--mx");
+    card.style.removeProperty("--my");
+    if (card.classList.contains("tilt-card")) card.style.transform = "";
+  });
+});
+
+
