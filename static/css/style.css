@@ -1325,7 +1325,7 @@ body::before {
 .connect-block > p { margin-bottom: 14px; font-weight: 850; }
 .reference-landing .social-icons { margin-top: 0; }
 
-.reference-landing .portrait-card { min-height: clamp(440px, 45vw, 610px); }
+.reference-landing .portrait-card { min-height: clamp(380px, 38vw, 540px); }
 .portrait-ring {
   position: absolute;
   width: min(440px, 90%);
