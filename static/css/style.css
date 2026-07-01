@@ -2392,3 +2392,72 @@ body::before {
     font-size: clamp(44px, 14vw, 62px);
   }
 }
+/* Portfolio assistant portrait mirrors the landing-page avatar while staying still. */
+.dashboard-assistant .avatar-shell {
+  min-height: clamp(360px, 48vw, 560px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  perspective: none;
+}
+
+.dashboard-assistant .avatar-shell::before,
+.dashboard-assistant .avatar-loader,
+.dashboard-assistant .listening-ripples,
+.dashboard-assistant .avatar-state-chip {
+  display: none;
+}
+
+.dashboard-assistant .avatar-halo {
+  position: absolute;
+  inset: auto;
+  width: 84%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg, #2ad8ff, #7c4dff, #ff50b4, #2ad8ff);
+  filter: blur(26px);
+  opacity: .58;
+  animation: none;
+  transform: none;
+}
+
+.dashboard-assistant .avatar-image-wrap {
+  width: min(390px, 78vw);
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+
+.dashboard-assistant .assistant-avatar {
+  border: 5px solid rgba(255, 255, 255, .72);
+  box-shadow: 0 24px 68px rgba(0, 0, 0, .42);
+  filter: brightness(1) saturate(1.04);
+  animation: none;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+
+.dashboard-assistant .avatar-shell.is-speaking,
+.dashboard-assistant .avatar-shell.is-talking,
+.dashboard-assistant .avatar-shell.is-listening,
+.dashboard-assistant .avatar-shell.is-thinking,
+.dashboard-assistant .avatar-shell.is-speaking .avatar-image-wrap,
+.dashboard-assistant .avatar-shell.is-talking .avatar-image-wrap,
+.dashboard-assistant .avatar-shell.is-listening .avatar-image-wrap {
+  border-color: transparent;
+  box-shadow: none;
+  animation: none;
+}
+
+.dashboard-assistant .avatar-shell.is-speaking .assistant-avatar,
+.dashboard-assistant .avatar-shell.is-talking .assistant-avatar,
+.dashboard-assistant .avatar-shell.is-thinking .assistant-avatar {
+  filter: brightness(1) saturate(1.04);
+}
