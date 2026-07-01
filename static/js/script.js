@@ -200,10 +200,6 @@ function setActiveSection(sectionId) {
 
 function scrollToSection(sectionId) {
   let section = document.getElementById(sectionId);
-  if (!section && sectionId === "resume") {
-    window.location.href = "/static/Ravali_N_Resume.pdf";
-    return;
-  }
   if (!section) return;
   setActiveSection(sectionId);
   section.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -301,7 +297,7 @@ function handleTranscript(transcript) {
   recognition.onstart = () => {
     setAvatarState("listening");
     if (landingVoiceBtn) landingVoiceBtn.classList.add("is-listening");
-    if (landingVoiceStatus) landingVoiceStatus.textContent = "Listening... say portfolio, resume, or contact.";
+    if (landingVoiceStatus) landingVoiceStatus.textContent = "Listening... say portfolio or contact.";
   };
 
   recognition.onresult = (event) => {
@@ -338,7 +334,6 @@ function handleLandingTranscript(transcript) {
 
   speak(message, () => {
     if (action === "portfolio") window.location.href = "/portfolio";
-    if (action === "resume") window.location.href = "/static/Ravali_N_Resume.pdf";
   });
 }
 
@@ -357,12 +352,7 @@ document.querySelectorAll("[data-landing-action]").forEach((button) => {
     const action = button.dataset.landingAction;
     const message = LANDING_SCRIPTS[action] || LANDING_SCRIPTS.welcome;
     if (landingVoiceStatus) landingVoiceStatus.textContent = message;
-
-    if (action === "resume") {
-      window.location.href = "/static/Ravali_N_Resume.pdf";
-      return;
-    }
-
+    
     if (action === "portfolio") {
       window.location.href = "/portfolio";
     }
