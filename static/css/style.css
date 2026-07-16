@@ -1459,8 +1459,9 @@ body::before {
 }
 
 .landing-assistant-stack {
-  display: block;
+  display: grid;
   align-self: auto;
+    gap: 18px;
 }
 
 .reference-landing .portrait-card {
@@ -1744,16 +1745,25 @@ body::before {
   background: rgba(4, 8, 30, .72);
 }
 
-.reference-landing .landing-voice-card {
+.reference-landing .landing-assistant-stack .landing-voice-card {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 18px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
   align-items: center;
-  min-height: 116px;
+  min-height: auto;
+  width: min(410px, 100%);
+  margin: -2px auto 0;
+  padding: 16px 18px;
   border-color: rgba(42, 216, 255, .3);
   background: linear-gradient(135deg, rgba(6, 12, 38, .82), rgba(7, 10, 31, .62));
 }
 
+.landing-assistant-stack .voice-wave {
+  grid-column: 1 / -1;
+  justify-self: center;
+  min-width: 160px;
+  margin-left: 0;
+}
 .landing-voice-copy {
   display: grid;
   gap: 6px;
