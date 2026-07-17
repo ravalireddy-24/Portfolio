@@ -38,7 +38,7 @@ const SECTION_SCRIPTS = {
 const LANDING_SCRIPTS = {
   portfolio: "Opening Ravali’s portfolio. You can ask about experience, projects, skills, certifications, education, or contact.",
   contact: "You can contact Ravali by email, LinkedIn, or GitHub from this portfolio.",
-  welcome: "Hi, I’m Ravali’s voice assistant. Say portfolio to explore the details,contact to connect."
+  welcome: "Hi, I’m Ravali’s voice assistant. Say portfolio to explore the details"
 };
 const avatarShell = document.getElementById("avatarShell");
 const assistantAvatar = document.getElementById("assistantAvatar");
