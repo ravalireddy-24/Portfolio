@@ -33,15 +33,6 @@
             <p>I’m Ravali N, focused on scalable full-stack applications, dependable data workflows, cloud integrations, APIs, and automation that feels simple, useful, and production-ready.</p>
             <div class="hero-highlights"><span>AI Products</span><span>Data Engineering</span><span>Cloud APIs</span><span>Full-stack UX</span></div>            <div class="hero-actions"><a href="{{ url_for('home') }}" class="secondary-link">Back to Landing</a><a href="#contact" class="primary-link">Contact Me</a></div>
           </article>
-          <aside class="dashboard-card stats-card reveal-card tilt-card">
-            <p class="card-kicker">Career Stats</p>
-            <div class="stats-grid compact-stats">
-              <div><strong>5+</strong><span>Years Experience</span></div>
-              <div><strong>20+</strong><span>Projects Completed</span></div>
-              <div><strong>35+</strong><span>Technologies</span></div>
-         <div><strong>12+</strong><span>Open Source PRs</span></div>
-            </div>
-          </aside>
         </section>
 
         <section id="about" class="section dashboard-section about-row" data-section-title="About">
@@ -64,10 +55,7 @@
               <article class="timeline-company"><div class="company-logo">I</div><div><h3>Associate Developer <span>Infosys</span></h3><p class="duration">2019 — 2020</p><p>Supported enterprise data extraction, transformations, reporting, and process automation.</p><div class="tech-badges"><span>Python</span><span>SQL</span><span>Excel</span><span>ETL</span></div><ul><li>Reduced repetitive manual analysis with dependable scripts.</li><li>Maintained reporting accuracy for stakeholder decisions.</li></ul></div></article>
             </div>
           </article>
-          <aside class="dashboard-card ai-command-card reveal-card tilt-card">
-            <p class="eyebrow">AI Assistant Panel</p><h2>Ask for a section</h2><p>Use the assistant or quick controls. Say “experience” or “contact” and the workspace scrolls to that dashboard card.</p><div class="quick-commands mini"><button type="button" data-command="experience">Experience</button><button type="button" data-command="contact">Contact</button><button type="button" data-command="projects">Projects</button></div>          </aside>
-        </section>
-
+          
         <section id="projects" class="section dashboard-section projects-row" data-section-title="Projects">
           <div class="dashboard-card full-card reveal-card"><div class="card-header"><div><p class="eyebrow">Selected work</p><h2>Featured Projects</h2></div><span class="panel-pill">4 product cards</span></div><div class="project-grid">
             <article class="project-card tilt-card"><div class="project-shot">🤖</div><h3>AI Portfolio Assistant</h3><p>Voice-enabled portfolio guide using browser speech APIs and smooth section navigation.</p><div class="tech-badges"><span>JavaScript</span><span>Flask</span><span>AI UX</span></div><div class="project-actions"><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a><a href="#overview">Live Demo</a></div></article>
@@ -77,10 +65,7 @@
           </div></div>
         </section>
 
-        <section id="skills" class="section dashboard-section skills-row" data-section-title="Skills">
-          <article class="dashboard-card reveal-card"><p class="eyebrow">Technical toolkit</p><h2>Skills Dashboard</h2><div class="skill-dashboard">{% for group, skills in {'Programming':['Python','Java','JavaScript','SQL'], 'Cloud':['AWS','Azure','GCP','Docker'], 'AI':['OpenAI','LangChain','TensorFlow','Scikit-learn'], 'Databases':['MySQL','PostgreSQL','MongoDB','Snowflake'], 'DevOps':['Git','Jenkins','Linux','Kafka'], 'Frontend':['React','HTML','CSS','UI Systems'], 'Backend':['Flask','FastAPI','REST APIs','ETL']}.items() %}<div><h3>{{ group }}</h3>{% for skill in skills %}<span>{{ skill }}</span>{% endfor %}</div>{% endfor %}</div></article>
-          <aside class="dashboard-card github-card reveal-card tilt-card"><p class="eyebrow">GitHub Activity</p><h2>Open-source signal</h2><div class="activity-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p>Consistent repositories, experiments, and portfolio-ready engineering artifacts.</p></aside>
-        </section>
+
 
         <section id="certifications" class="section dashboard-section split-row" data-section-title="Certifications"><article class="dashboard-card reveal-card"><p class="eyebrow">Credentials</p><h2>Certifications</h2><div class="credential-list"><span>AWS Certified Solutions Architect Associate</span><span>Google Professional Data Engineer</span><span>Microsoft Azure Data Engineer Associate</span><span>Databricks Data Engineer Professional</span></div></article><article id="education" class="dashboard-card reveal-card" data-section-title="Education"><p class="eyebrow">Education</p><h2>Academic Foundation</h2><p>Computer science foundation strengthened programming fundamentals, database design, software design, systems thinking, and analytical problem solving.</p></article></section>
 
