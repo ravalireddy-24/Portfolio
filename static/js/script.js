@@ -1,30 +1,44 @@
-const COMMANDS = {
-  home: ["home", "home page", "go home", "landing", "landing page", "back home", "return home"],
-  about: ["about", "about me", "start", "intro", "introduction", "profile"],
-  overview: ["overview", "dashboard", "workspace"],
-  experience: ["experience", "work", "work history", "career"],
-  projects: ["projects", "apps", "applications", "portfolio"],
-  skills: ["skills", "technologies", "tools", "tech stack"],
-  contact: ["contact", "email", "linkedin", "github", "reach"],
-  resume: ["resume", "résumé", "cv", "curriculum vitae"],
-  certifications: ["certifications", "certification", "certificates", "credentials"],
-  education: ["education", "school", "degree", "academic"]
+const INTENT_DEFINITIONS = {
+  about: {
+    phrases: ["about ravali", "about you", "who are you", "introduce yourself", "tell me about yourself"],
+    keywords: ["ravali", "about", "profile", "introduction", "intro"]
+  },
+  portfolio: {
+    phrases: ["explore portfolio", "view portfolio", "show portfolio", "show your work", "my work"],
+    keywords: ["portfolio", "work", "overview", "dashboard", "workspace"]
+  },
+  projects: {
+    phrases: ["ai projects", "data projects", "software projects", "work samples", "data engineering projects"],
+    keywords: ["projects", "project", "samples", "applications", "apps", "engineering"]
+  },
+  skills: {
+    phrases: ["tech stack", "programming languages", "what technologies", "technologies does ravali use", "technologies does she use"],
+    keywords: ["skills", "skill", "technologies", "technology", "tools", "languages", "stack"]
+  },
+  experience: {
+    phrases: ["work experience", "professional experience", "professional background", "career background"],
+    keywords: ["experience", "career", "employment", "professional", "background", "jobs", "roles"]
+  },
+  contact: {
+    phrases: ["get in touch", "contact ravali", "email ravali", "hire ravali"],
+    keywords: ["contact", "email", "linkedin", "hire", "github", "connect"]
+  },
+
 };
+const GENERIC_WORDS = new Set(["tell", "show", "please", "can", "could", "would", "like", "want", "me", "you", "your", "her", "his", "the", "a", "an", "i", "to", "about", "where", "what", "how", "does", "do", "is", "are", "ravali"]);
 const SECTION_SCRIPTS = {
   home: "Taking you back to the home page.",
   overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, credentials, achievements, and contact.",  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
   experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",  projects: "Ravali’s projects include AI features, Flask and React apps, dashboards, cloud integrations, and automation.",
   skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, Git, and AI tools.",
-  resume: "The resume section summarizes Ravali’s education, experience, projects, and technical strengths.",
   contact: "You can contact Ravali through email, LinkedIn, or GitHub for software, data, cloud, and AI-focused roles.",
   certifications: "Ravali continues to build credentials across software engineering, cloud, data, and applied AI topics.",
   education: "Ravali’s education supports programming fundamentals, databases, systems thinking, and analytical problem solving."};
 
 const LANDING_SCRIPTS = {
   portfolio: "Opening Ravali’s portfolio. You can ask about experience, projects, skills, certifications, education, or contact.",
-  resume: "Ravali’s resume is ready to download. It highlights software engineering, data workflows, cloud services, APIs, and automation.",
   contact: "You can contact Ravali by email, LinkedIn, or GitHub from this portfolio.",
-  welcome: "Hi, I’m Ravali’s voice assistant. Say portfolio to explore the details, resume to download the resume, or contact to connect."
+  welcome: "Hi, I’m Ravali’s voice assistant. Say portfolio to explore the details,contact to connect."
 };
 const avatarShell = document.getElementById("avatarShell");
 const assistantAvatar = document.getElementById("assistantAvatar");
@@ -96,8 +110,71 @@ function unsupportedSpeechMessage() {
   return "Speech recognition is not supported in this browser. Please use Chrome at http://127.0.0.1:5000 or use the quick command buttons.";
 }
 
+function normalizeTranscript(transcript = "") {
+  return transcript
+    .toLowerCase()
+    .replace(/[’‘`´]/g, "'")
+    .replace(/\b(ravalee|ravali\.|ravalli|rivali|rawali|ravely)\b/g, "ravali")
+    .replace(/\blinked in\b/g, "linkedin")
+    .replace(/\be mail\b/g, "email")
+    .replace(/\bc v\b/g, "cv")
+    .replace(/\btech-stack\b/g, "tech stack")
+    .replace(/[^a-z0-9'\s]/g, " ")
+    .replace(/\b(\w+)'s\b/g, "$1")
+    .replace(/\b(can't|cannot)\b/g, "can not")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function detectIntent(transcript = "") {
+  const normalized = normalizeTranscript(transcript);
+  const scores = Object.fromEntries(Object.keys(INTENT_DEFINITIONS).map((intent) => [intent, 0]));
+
+  Object.entries(INTENT_DEFINITIONS).forEach(([intent, definition]) => {
+    definition.phrases.forEach((phrase) => {
+      const normalizedPhrase = normalizeTranscript(phrase);
+      if (normalizedPhrase && normalized.includes(normalizedPhrase)) scores[intent] += normalizedPhrase.split(" ").length * 4;
+    });
+  });
+
+  const words = normalized.split(" ").filter(Boolean);
+  Object.entries(INTENT_DEFINITIONS).forEach(([intent, definition]) => {
+    definition.keywords.forEach((keyword) => {
+      const normalizedKeyword = normalizeTranscript(keyword);
+      if (!normalizedKeyword || GENERIC_WORDS.has(normalizedKeyword)) return;
+      if (normalizedKeyword.includes(" ")) {
+        if (normalized.includes(normalizedKeyword)) scores[intent] += normalizedKeyword.split(" ").length * 2;
+        return;
+      }
+      if (words.includes(normalizedKeyword)) scores[intent] += 2;
+    });
+  });
+
+  if (normalized.includes("ravali") && /about|who|introduce|yourself/.test(normalized)) scores.about += 3;
+  if (normalized.includes("data engineering") && /project|projects|work/.test(normalized)) scores.projects += 5;
+  if (/technology|technologies|programming|tools|stack/.test(normalized)) scores.skills += 4;
+  if (/contact|email|linkedin|hire|get in touch|connect/.test(normalized)) scores.contact += 4;
+
+  const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const [intent, score] = ranked[0] || [null, 0];
+  return score > 0 ? { intent, score, normalized, scores } : { intent: null, score: 0, normalized, scores };
+}
+
+function getRecognitionErrorMessage(error) {
+  const messages = {
+    "not-allowed": "Microphone access was blocked. Please allow microphone permission for this site and try again.",
+    "permission-denied": "Microphone access was blocked. Please allow microphone permission for this site and try again.",
+    "service-not-allowed": "Speech recognition is blocked for this browser or site. Please use Chrome and allow microphone access.",
+    "no-speech": "No speech was detected. Please click the microphone and say a command like projects or skills.",
+    "audio-capture": "No microphone was found. Please connect or enable your microphone and try again.",
+    aborted: "Recognition ended unexpectedly. Please click the microphone and try again.",
+    network: "Speech recognition needs an internet connection in some browsers. Please check the connection and try again."
+  };
+  return messages[error] || "I had trouble hearing that command. Please try again.";
+}
 function startListening() {
  const SpeechRecognition = getSpeechRecognition();
+   console.log("microphone clicked");
 
   if (!SpeechRecognition) {
     const helpText = unsupportedSpeechMessage();    updateAssistant("Voice unsupported", helpText, "Ready");
@@ -112,6 +189,7 @@ function startListening() {
   recognition = new SpeechRecognition();
   recognition.lang = "en-US";
   recognition.interimResults = true;
+    recognition.continuous = false;
   if (voiceBtn) voiceBtn.disabled = true;
   if (voiceBtnText) voiceBtnText.textContent = "Listening...";
 
@@ -124,19 +202,14 @@ function startListening() {
 
   recognition.onresult = (event) => {
     const transcript = Array.from(event.results).map((result) => result[0].transcript).join(" ").trim();
+        console.log("transcript received", transcript);
     if (transcriptText) transcriptText.textContent = transcript;
     if (event.results[event.results.length - 1].isFinal) handleTranscript(transcript);
   };
 
   recognition.onerror = (event) => {
-    const messages = {
-      "not-allowed": "Microphone access was blocked. Please allow microphone permission for this site and try again.",
-      "service-not-allowed": "Speech recognition is blocked for this browser or site. Please use Chrome and allow microphone access.",
-      "no-speech": "I did not hear anything. Please click the microphone and say a command like projects or skills.",
-      "audio-capture": "No microphone was found. Please connect or enable your microphone and try again.",
-      network: "Speech recognition needs an internet connection in some browsers. Please check the connection and try again."
-    };
-    const message = messages[event.error] || "I had trouble hearing that command. Please try again.";
+    const message = getRecognitionErrorMessage(event.error);
+    console.error("recognition error", event.error, event.message || message);
     stopListening();
     updateAssistant("Please try again", message, "Ready");
     if (transcriptText) transcriptText.textContent = message;
@@ -144,12 +217,20 @@ function startListening() {
   };
 
   recognition.onend = () => {
+        console.log("recognition ended");
     if (voiceBtn) voiceBtn.disabled = false;
     if (voiceBtnText) voiceBtnText.textContent = "Click microphone";
     if (currentState === "listening") stopListening();
   };
 
-  recognition.start();
+  try {
+    recognition.start();
+  } catch (error) {
+    console.error("recognition error", error);
+    updateAssistant("Please try again", "Recognition ended unexpectedly. Please click the microphone and try again.", "Ready");
+    if (voiceBtn) voiceBtn.disabled = false;
+    if (voiceBtnText) voiceBtnText.textContent = "Click microphone";
+  }
 }
 
 function stopListening() {
@@ -205,10 +286,6 @@ function scrollToSection(sectionId) {
   section.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function findCommand(transcript) {
-  const normalized = transcript.toLowerCase();
-  return Object.entries(COMMANDS).find(([, phrases]) => phrases.some((phrase) => normalized.includes(phrase)))?.[0];
-}
 
 function getFemaleEnglishVoice() {
   voices = window.speechSynthesis?.getVoices() || [];
@@ -243,7 +320,9 @@ function speak(message, onDone) {
 }
 
 function runCommand(sectionId) {
+    if (sectionId === "portfolio") sectionId = "overview";
   if (sectionId === "home") {
+        console.log("action executed", sectionId);
     const message = SECTION_SCRIPTS.home;
     updateAssistant("Going home", message, "Navigating...");
     speak(message, () => {
@@ -252,9 +331,12 @@ function runCommand(sectionId) {
     return;
   }
 
-  const label = document.getElementById(sectionId)?.dataset.sectionTitle || sectionId;
+
+
+  const section = document.getElementById(sectionId);
   const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.about;
-  scrollToSection(sectionId);
+  console.log("action executed", sectionId);
+  if (section) scrollToSection(sectionId);
   updateAssistant(label, script, "Thinking...");
   startThinking();
   thinkingTimeout = window.setTimeout(() => {
@@ -267,23 +349,28 @@ function handleTranscript(transcript) {
   if (transcriptText) transcriptText.textContent = transcript;
   updateAssistant("You said:", transcript, "Thinking...");
   startThinking();
-  const command = findCommand(transcript);
-
-   window.setTimeout(() => {
-    if (command) runCommand(command);
+  const result = detectIntent(transcript);
+  console.log("normalized transcript", result.normalized);
+  console.log("detected intent", result.intent, result);
+  window.setTimeout(() => {
+    if (result.intent) runCommand(result.intent);
     else {
-      const helpText = "Sorry, I did not understand. You can say experience,Home Page, projects, skills, certifications, education, contact, or about.";
-      updateAssistant("Please try again", helpText, "Thinking...");      speak(helpText);
+      const helpText = "I didn’t fully understand. You can ask about Overview, projects, skills, experience, portfolio";
+      console.log("action executed", "fallback");
+      updateAssistant("Please try again", helpText, "Thinking...");
+      speak(helpText);
     }
    }, 300);
    }
+
    function startLandingListening() {
+   console.log("microphone clicked");
   const SpeechRecognition = getSpeechRecognition();
 
   if (!SpeechRecognition) {
     const message = unsupportedSpeechMessage();
     if (landingVoiceStatus) landingVoiceStatus.textContent = message;
-    console.error(message);
+    console.error("recognition error", "unsupported browser", message);
     return;
   }
 
@@ -293,47 +380,58 @@ function handleTranscript(transcript) {
   recognition = new SpeechRecognition();
   recognition.lang = "en-US";
   recognition.interimResults = true;
+    recognition.continuous = false;
 
   recognition.onstart = () => {
-    setAvatarState("listening");
-    if (landingVoiceBtn) landingVoiceBtn.classList.add("is-listening");
-    if (landingVoiceStatus) landingVoiceStatus.textContent = "Listening... say portfolio or contact.";
+        console.log("recognition started");
+    if (landingVoiceStatus) landingVoiceStatus.textContent = "Listening... ask about Ravali, portfolio, projects, skills, experience, contact";
   };
 
   recognition.onresult = (event) => {
     const transcript = Array.from(event.results).map((result) => result[0].transcript).join(" ").trim();
+        console.log("transcript received", transcript);
     if (landingVoiceStatus) landingVoiceStatus.textContent = `You said: ${transcript}`;
     if (event.results[event.results.length - 1].isFinal) handleLandingTranscript(transcript);
   };
 
   recognition.onerror = (event) => {
+        const message = getRecognitionErrorMessage(event.error);
+    console.error("recognition error", event.error, event.message || message);
     stopListening();
     if (landingVoiceBtn) landingVoiceBtn.classList.remove("is-listening");
-    if (landingVoiceStatus) landingVoiceStatus.textContent = "I could not hear that. Please allow the microphone and try again.";
-    console.error("Landing speech recognition error:", event.error);
+    if (landingVoiceStatus) landingVoiceStatus.textContent = message;
   };
 
   recognition.onend = () => {
+        console.log("recognition ended");
     if (landingVoiceBtn) landingVoiceBtn.classList.remove("is-listening");
     if (currentState === "listening") stopListening();
   };
 
-  recognition.start();
+
+    try {
+    recognition.start();
+  } catch (error) {
+    console.error("recognition error", error);
+    if (landingVoiceStatus) landingVoiceStatus.textContent = "Recognition ended unexpectedly. Please click the microphone and try again.";
+  }
 }
 
 function handleLandingTranscript(transcript) {
-  const normalized = transcript.toLowerCase();
-  let action = "welcome";
+  console.log("raw transcript", transcript);
+  const result = detectIntent(transcript);
+  console.log("normalized transcript", result.normalized);
+  console.log("detected intent", result.intent, result);
 
-  if (/portfolio|explore|projects|experience|skills/.test(normalized)) action = "portfolio";
-  if (/resume|résumé|cv/.test(normalized)) action = "resume";
-  if (/contact|email|linkedin|github/.test(normalized)) action = "contact";
-
-  const message = LANDING_SCRIPTS[action];
+  const action = result.intent || "welcome";
+  const message = LANDING_SCRIPTS[action] || LANDING_SCRIPTS.welcome;
   if (landingVoiceStatus) landingVoiceStatus.textContent = message;
+    console.log("action executed", action);
 
   speak(message, () => {
-    if (action === "portfolio") window.location.href = "/portfolio";
+     const portfolioIntents = new Set(["portfolio", "about", "projects", "skills", "experience"]);
+    if (portfolioIntents.has(action)) window.location.href = `/portfolio#${action === "portfolio" ? "overview" : action}`;
+
   });
 }
 
@@ -374,6 +472,8 @@ window.addEventListener("beforeunload", () => {
 });
 
 window.startListening = startListening;
+window.normalizeTranscript = normalizeTranscript;
+window.detectIntent = detectIntent;
 window.stopListening = stopListening;
 window.goHome = goHome;
 
