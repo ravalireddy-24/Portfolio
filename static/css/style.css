@@ -752,7 +752,7 @@ body::before {
 .landing-copy h1 {
   font-size: clamp(56px, 10vw, 128px);
   line-height: .9;
-  margin-bottom: 18px;
+  margin: 0 0 18px;
   letter-spacing: -.06em;
 }
 
@@ -933,16 +933,25 @@ body::before {
 .landing-mic-btn {
   display: inline-grid;
   place-items: center;
+    align-self: center;
   flex: 0 0 58px;
-  width: 58px;
-  height: 58px;
+  inline-size: 58px;
+  block-size: 58px;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  padding: 0;
   border: 0;
   border-radius: 50%;
+    line-height: 0;
   color: #fff;
   background: radial-gradient(circle at 35% 25%, #ffffff, #35ddff 28%, #7c4dff 72%);
   cursor: pointer;
   box-shadow: 0 0 24px rgba(42, 216, 255, .52), 0 12px 30px rgba(0, 0, 0, .32);
   transition: transform .25s ease, box-shadow .25s ease;
+}
+.landing-mic-btn .voice-icon {
+  margin: 0;
+  transform: translateY(-2px);
 }
 
 .landing-mic-btn:hover,
@@ -1213,7 +1222,7 @@ body::before {
 }
 
 .hello-line {
-  margin-bottom: 4px;
+  margin: 0 0 2px;
   color: rgba(255, 255, 255, .94);
   font-size: clamp(22px, 2.4vw, 30px);
   font-weight: 750;
@@ -2193,12 +2202,15 @@ body::before {
 .voice-control-panel .voice-btn {
   display: inline-grid;
   place-items: center;
-  width: 58px;
-  height: 58px;
+  align-self: center;
+  inline-size: 58px;
+  block-size: 58px;
+  aspect-ratio: 1 / 1;
   margin: 0;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, .22);
   border-radius: 50%;
+    line-height: 0;
   box-shadow: 0 0 0 8px rgba(42, 216, 255, .08), 0 14px 34px rgba(0, 0, 0, .32);
 }
 
@@ -2209,6 +2221,7 @@ body::before {
 
 .voice-control-panel .voice-icon {
   margin-right: 0;
+    transform: translateY(-2px);
 }
 
 #voiceBtnText {
@@ -2533,4 +2546,5 @@ background: linear-gradient(#9b5cff, #7c4dff);
     justify-content: flex-start;
   }
 }
+
 
