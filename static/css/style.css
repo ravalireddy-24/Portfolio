@@ -2476,3 +2476,61 @@ background: linear-gradient(#9b5cff, #7c4dff);
 .dashboard-assistant .avatar-shell.is-thinking .assistant-avatar {
   filter: brightness(1) saturate(1.04);
 }
+/* Content-only recruiter UX refinements while preserving the landing visual identity. */
+.location-line {
+  margin: -6px 0 10px;
+  color: rgba(255, 255, 255, .82);
+  font-size: clamp(14px, 1.15vw, 17px);
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.reference-landing .hello-line {
+  margin-bottom: 0;
+}
+
+.reference-landing .landing-copy h1 {
+  margin-bottom: 8px;
+}
+
+.reference-landing .role {
+  margin-bottom: 18px;
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.suggestion-chips button {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.suggestion-chips button:hover,
+.suggestion-chips button:focus-visible {
+  background: rgba(42, 216, 255, .14);
+  border-color: rgba(42, 216, 255, .58);
+  outline: 2px solid rgba(42, 216, 255, .28);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .location-line {
+    margin: -2px 0 8px;
+    text-align: center;
+  }
+
+  .suggestion-chips {
+    justify-content: flex-start;
+  }
+}
+
