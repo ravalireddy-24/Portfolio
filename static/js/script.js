@@ -35,7 +35,7 @@ const SECTION_SCRIPTS = {
   overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, achievements, and contact.",  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
   experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",  projects: "Ravali’s projects include AI features, Flask and React apps, dashboards, cloud integrations, and automation.",
   skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, Git, and AI tools.",
-  contact: "You can contact Ravali through email, LinkedIn, or GitHub for software, data, cloud, and AI-focused roles.",
+  contact: "You can contact Ravali through email or GitHub",
   education: "Ravali completed a Master's in Data Science and Artificial Intelligence from Campbellsville University, a Master's in Computer Science from Northwest Missouri State University, and a Bachelor's in Computer Science from JNTU."};
 
 const LANDING_SCRIPTS = {
@@ -53,6 +53,7 @@ const assistantAvatar = document.getElementById("assistantAvatar");
 const landingAvatarVideo = document.getElementById("landingAvatarVideo");
 const landingVoiceBtn = document.getElementById("landingVoiceBtn");
 const landingVoiceStatus = document.getElementById("landingVoiceStatus");
+const avatarMicBtn = document.getElementById("avatarMicBtn");
 const voiceBtn = document.getElementById("voiceBtn");
 const voiceBtnText = document.getElementById("voiceBtnText");
 const statusText = document.getElementById("status");
@@ -200,11 +201,13 @@ function startListening() {
   recognition.interimResults = true;
     recognition.continuous = false;
   if (voiceBtn) voiceBtn.disabled = true;
+    if (avatarMicBtn) avatarMicBtn.disabled = true;
   if (voiceBtnText) voiceBtnText.textContent = "Listening...";
 
   recognition.onstart = () => {
     setAvatarState("listening");
     if (voiceBtn) voiceBtn.disabled = true;
+        if (avatarMicBtn) avatarMicBtn.disabled = true;
     if (voiceBtnText) voiceBtnText.textContent = "Listening...";
     updateAssistant("I’m listening...", "Say experience, projects, skills, certifications, education, contact, or about.", "Listening...");
   };
@@ -228,6 +231,7 @@ function startListening() {
   recognition.onend = () => {
         console.log("recognition ended");
     if (voiceBtn) voiceBtn.disabled = false;
+        if (avatarMicBtn) avatarMicBtn.disabled = false;
     if (voiceBtnText) voiceBtnText.textContent = "Click microphone";
     if (currentState === "listening") stopListening();
   };
@@ -238,6 +242,7 @@ function startListening() {
     console.error("recognition error", error);
     updateAssistant("Please try again", "Recognition ended unexpectedly. Please click the microphone and try again.", "Ready");
     if (voiceBtn) voiceBtn.disabled = false;
+        if (avatarMicBtn) avatarMicBtn.disabled = false;
     if (voiceBtnText) voiceBtnText.textContent = "Click microphone";
   }
 }
@@ -450,6 +455,7 @@ function goHome() {
 }
 
 voiceBtn?.addEventListener("click", startListening);
+avatarMicBtn?.addEventListener("click", startListening);
 landingVoiceBtn?.addEventListener("click", startLandingListening);
 
 document.querySelectorAll("[data-command]").forEach((button) => {
