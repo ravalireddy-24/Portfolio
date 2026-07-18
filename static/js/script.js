@@ -23,6 +23,10 @@ const INTENT_DEFINITIONS = {
     phrases: ["get in touch", "contact ravali", "email ravali", "hire ravali"],
     keywords: ["contact", "email", "linkedin", "hire", "github", "connect"]
   },
+    education: {
+    phrases: ["education", "academic background", "show education", "college", "university"],
+    keywords: ["education", "academic", "college", "university", "degree", "masters", "bachelor"]
+  },
 
 };
 const GENERIC_WORDS = new Set(["tell", "show", "please", "can", "could", "would", "like", "want", "me", "you", "your", "her", "his", "the", "a", "an", "i", "to", "about", "where", "what", "how", "does", "do", "is", "are", "ravali"]);
@@ -154,6 +158,7 @@ function detectIntent(transcript = "") {
   if (normalized.includes("data engineering") && /project|projects|work/.test(normalized)) scores.projects += 5;
   if (/technology|technologies|programming|tools|stack/.test(normalized)) scores.skills += 4;
   if (/contact|email|linkedin|hire|get in touch|connect/.test(normalized)) scores.contact += 4;
+    if (/education|academic|college|university|degree|masters|bachelor/.test(normalized)) scores.education += 4;
 
   const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   const [intent, score] = ranked[0] || [null, 0];

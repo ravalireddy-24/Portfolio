@@ -1896,9 +1896,15 @@ body::before {
 .dashboard-card:hover, .project-card:hover { transform: translateY(-7px); border-color: rgba(149,77,255,.34); box-shadow: 0 28px 88px rgba(0,0,0,.38), 0 0 44px rgba(124,77,255,.22); }.summary-card, .stats-card, .timeline-dashboard, .ai-command-card, .full-card, .github-card, .contact-dashboard, .split-row .dashboard-card, .skills-row > .dashboard-card { padding: clamp(22px, 3vw, 34px); }
 #overview { grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); }
 .experience-row, .skills-row, .split-row { grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); }
-.projects-row, .achievements-row, .contact-row { grid-template-columns: 1fr; }
+.projects-row, .achievements-row, .education-row, .contact-row { grid-template-columns: 1fr; }
 .card-header { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 20px; }
 .panel-pill, .card-kicker { display: inline-flex; padding: 8px 12px; border-radius: 999px; color: #c9d6ff; background: rgba(124,77,255,.16); border: 1px solid rgba(255,255,255,.12); font-weight: 800; font-size: 12px; }
+.education-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.education-card { padding: 20px; border-radius: 22px; background: rgba(4,8,24,.55); border: 1px solid rgba(255,255,255,.1); transition: transform .3s ease, border-color .3s ease, background .3s ease; }
+.education-card:hover { transform: translateY(-5px); border-color: rgba(149,77,255,.32); background: rgba(12,18,44,.78); }
+.education-card h3 { color: #fff; margin-bottom: 10px; font-size: 18px; }
+.education-card .degree { color: #39ffc8 !important; font-size: 13px !important; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .08em; }
+.education-card span { color: rgba(235,241,255,.76); font-size: 14px; line-height: 1.5; }
 .compact-stats, .achievement-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 18px; }
 .compact-stats div, .achievement-grid div { padding: 18px; border-radius: 20px; background: rgba(5,10,28,.54); border: 1px solid rgba(255,255,255,.1); }
 .compact-stats strong, .achievement-grid strong { display:block; font-size: 30px; color: #fff; text-shadow: 0 0 20px rgba(149,77,255,.32); }
@@ -1941,8 +1947,7 @@ body::before {
 @keyframes particleFloat { from { transform: translateY(105vh); } to { transform: translateY(-10vh); } }
 @keyframes barPulse { 50% { filter: brightness(1.35); transform: scaleY(1.04); } }
 @media (max-width: 1180px) { .dashboard-shell, #overview, .experience-row, .skills-row, .split-row { grid-template-columns: 1fr; } .dashboard-assistant { position: relative; top: auto; max-height: none; } .project-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 720px) { .dashboard-page { padding-inline: 12px; } .achievement-grid, .project-grid, .skill-dashboard, .compact-stats { grid-template-columns: 1fr; } .timeline-company { grid-template-columns: 1fr; } .dashboard-card, .project-card { border-radius: 22px; } }
-/* Final portfolio polish: cleaner structure, stronger spacing, and responsive refinement */
+@media (max-width: 720px) { .dashboard-page { padding-inline: 12px; } .achievement-grid, .project-grid, .skill-dashboard, .compact-stats { grid-template-columns: 1fr; } .timeline-company { grid-template-columns: 1fr; } .dashboard-card, .project-card { border-radius: 22px; } }@media (max-width: 720px) { .dashboard-page { padding-inline: 12px; } .achievement-grid, .project-grid, .skill-dashboard, .compact-stats, .education-list { grid-template-columns: 1fr; } .timeline-company { grid-template-columns: 1fr; } .dashboard-card, .project-card { border-radius: 22px; } }/* Final portfolio polish: cleaner structure, stronger spacing, and responsive refinement */
 .dashboard-shell {
   grid-template-columns: minmax(0, 1fr) clamp(320px, 28vw, 410px);
 }
