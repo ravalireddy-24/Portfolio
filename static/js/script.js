@@ -32,17 +32,21 @@ const INTENT_DEFINITIONS = {
 const GENERIC_WORDS = new Set(["tell", "show", "please", "can", "could", "would", "like", "want", "me", "you", "your", "her", "his", "the", "a", "an", "i", "to", "about", "where", "what", "how", "does", "do", "is", "are", "ravali"]);
 const SECTION_SCRIPTS = {
   home: "Taking you back to the home page.",
-  overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, credentials, achievements, and contact.",  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
+  overview: "Welcome to Ravali’s professional workspace dashboard. Explore career stats, experience, projects, skills, achievements, and contact.",  about: "Hi, welcome to Ravali’s detailed portfolio. I can guide you through experience, projects, skills, certifications, education, and contact.",
   experience: "Ravali builds full-stack applications, data workflows, cloud services, APIs, and automation.",  projects: "Ravali’s projects include AI features, Flask and React apps, dashboards, cloud integrations, and automation.",
   skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, AWS, REST APIs, HTML, CSS, Git, and AI tools.",
   contact: "You can contact Ravali through email, LinkedIn, or GitHub for software, data, cloud, and AI-focused roles.",
-  certifications: "Ravali continues to build credentials across software engineering, cloud, data, and applied AI topics.",
-  education: "Ravali’s education supports programming fundamentals, databases, systems thinking, and analytical problem solving."};
+  education: "Ravali completed a Master's in Data Science and Artificial Intelligence from Campbellsville University, a Master's in Computer Science from Northwest Missouri State University, and a Bachelor's in Computer Science from JNTU."};
 
 const LANDING_SCRIPTS = {
   portfolio: "Opening Ravali’s portfolio. You can ask about experience, projects, skills, certifications, education, or contact.",
-  contact: "You can contact Ravali by email, LinkedIn, or GitHub from this portfolio.",
+  contact: "You can contact Ravali by email,GitHub or from this portfolio.",
+  about: "Ravali is a Software Engineer and Senior Data Engineer with over five years of experience building scalable cloud platforms, modern data solutions, and AI-powered applications using Azure, Databricks, AWS, Python, and Spark.",
+  projects: "Ravali’s projects include AI portfolio features, Flask and React applications, dashboards, cloud integrations, and automation workflows.",
+  skills: "Ravali works with Python, Java, JavaScript, React, Flask, SQL, Azure, AWS, Databricks, PySpark, REST APIs, Git, and AI tools.",
+  experience: "Ravali has over 5+ years of experience building ETL pipelines, cloud data platforms, full-stack applications, APIs, and automation solutions.",
   welcome: "Hi, I’m Ravali’s voice assistant. Say portfolio to explore the details"
+
 };
 const avatarShell = document.getElementById("avatarShell");
 const assistantAvatar = document.getElementById("assistantAvatar");
@@ -340,6 +344,7 @@ function runCommand(sectionId) {
 
   const section = document.getElementById(sectionId);
   const script = SECTION_SCRIPTS[sectionId] || SECTION_SCRIPTS.about;
+    const label = section?.dataset.sectionTitle || sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
   console.log("action executed", sectionId);
   if (section) scrollToSection(sectionId);
   updateAssistant(label, script, "Thinking...");
