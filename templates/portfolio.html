@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Ravali N | Professional Workspace</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="dashboard-body">
+  <div class="animated-background" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div class="dashboard-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <header class="topbar dashboard-topbar" aria-label="Portfolio navigation">
+    <a class="brand" href="{{ url_for('home') }}">Ravali<span>.</span></a>
+    <nav>
+            <a href="#overview">Overview</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#achievements">Impact</a>
+          <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+
+    </nav>
+  </header>
+  <main class="portfolio details-page dashboard-page">
+    <div class="dashboard-shell">
+      <div class="dashboard-left" aria-label="Scrollable portfolio dashboard">
+ <section id="overview" class="section dashboard-section active" data-section-title="Overview">
+  <article class="dashboard-card summary-card reveal-card tilt-card hero-dashboard-card">
+
+    <p class="eyebrow">Senior Data Engineering Portfolio</p>
+
+    <h1>
+      Senior Data Engineer building scalable Lakehouse, AI, and real-time data platforms.
+    </h1>
+
+    <p>
+      I’m Ravali N, a Senior Data Engineer with 5+ years of experience designing production-grade ETL pipelines, cloud data platforms, and AI-ready data solutions. I specialize in Azure, Databricks, Delta Lake, PySpark, SQL, AWS, and Medallion architecture, with a strong focus on data quality, performance, automation, and reliable business analytics.
+    </p>
+
+    <div class="hero-highlights">
+      <span>Azure Databricks</span>
+      <span>Lakehouse Architecture</span>
+      <span>ETL & Streaming</span>
+      <span>AI-Ready Data Platforms</span>
+    </div>
+
+    <div class="hero-actions">
+      <a href="{{ url_for('home') }}" class="secondary-link">
+        Back to Landing
+      </a>
+
+      <a href="#experience" class="primary-link">
+        View Experience
+      </a>
+    </div>
+
+  </article>
+</section>
+
+ <section id="about" class="section dashboard-section about-row" data-section-title="About">
+  <article class="dashboard-card full-card reveal-card">
+    <div class="card-header">
+      <div>
+        <p class="eyebrow">About Ravali</p>
+        <h2>Building scalable software, AI solutions, and modern cloud data platforms.</h2>
+      </div>
+      <span class="panel-pill">Open to New Opportunities</span>
+    </div>
+
+    <p>
+      I'm a Software Engineer and Senior Data Engineer with over 5 years of experience designing scalable cloud-native applications, AI-powered solutions, and enterprise data platforms. My expertise spans Azure, Databricks, PySpark, Python, SQL, and modern software engineering practices. I enjoy building reliable systems that transform complex business requirements into intelligent, production-ready solutions that deliver measurable business value.
+    </p>
+
+    <div class="about-focus-grid">
+      <div>
+        <strong>01</strong>
+        <span>Design scalable software applications, cloud-native architectures, and secure REST APIs for enterprise solutions.</span>
+      </div>
+
+      <div>
+        <strong>02</strong>
+        <span>Develop high-performance ETL pipelines, Lakehouse architectures, and real-time analytics using Azure, Databricks, Spark, and Python.</span>
+      </div>
+
+      <div>
+        <strong>03</strong>
+        <span>Build AI-powered applications and data-driven solutions by integrating machine learning workflows, automation, and modern cloud technologies.</span>
+      </div>
+    </div>
+  </article>
+</section>
+        <section id="experience" class="section dashboard-section experience-row" data-section-title="Experience">
+          <article class="dashboard-card timeline-dashboard reveal-card">
+            <div class="card-header"><div><p class="eyebrow">Professional story</p><h2>Experience Timeline</h2></div><span class="panel-pill">Live career log</span></div>
+   <div class="vertical-timeline">
+
+  <article class="timeline-company">
+    <div class="company-logo">V</div>
+    <div>
+      <h3>Senior Data Engineer <span>Vizio</span></h3>
+      <p class="duration">Dec 2024 — Present</p>
+      <p>
+        Leading the development of scalable Azure Lakehouse platforms and AI-driven data engineering solutions using Databricks, Delta Lake, Azure Data Factory, and PySpark.
+      </p>
+
+      <div class="tech-badges">
+        <span>Azure</span>
+        <span>Databricks</span>
+        <span>PySpark</span>
+        <span>Delta Lake</span>
+      </div>
+
+      <ul>
+        <li>Built real-time ETL pipelines supporting AI-powered analytics and supply chain insights.</li>
+        <li>Designed Medallion (Bronze, Silver, Gold) Lakehouse architecture with Azure Databricks.</li>
+        <li>Developed scalable batch and streaming pipelines using Python, PySpark, and Spark SQL.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="timeline-company">
+    <div class="company-logo">D</div>
+    <div>
+      <h3>Data Engineer <span>Dish Network</span></h3>
+      <p class="duration">Jan 2023 — Nov 2024</p>
+      <p>
+        Engineered enterprise-scale AWS data pipelines and real-time streaming solutions for analytics and machine learning platforms.
+      </p>
+
+      <div class="tech-badges">
+        <span>AWS</span>
+        <span>Glue</span>
+        <span>Spark</span>
+        <span>Kinesis</span>
+      </div>
+
+      <ul>
+        <li>Developed production ETL pipelines using AWS Glue, Spark, Python, and Amazon S3.</li>
+        <li>Built streaming architectures using Kinesis, Lambda, and CloudFormation.</li>
+        <li>Supported ML workflows with SageMaker integration and automated deployments.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="timeline-company">
+    <div class="company-logo">G</div>
+    <div>
+      <h3>Data Engineer <span>GE Healthcare</span></h3>
+      <p class="duration">May 2022 — Nov 2022</p>
+      <p>
+        Developed Azure-based reporting and analytics solutions for healthcare operations using Power BI, Azure SQL, Databricks, and Azure Data Factory.
+      </p>
+
+      <div class="tech-badges">
+        <span>Power BI</span>
+        <span>Azure SQL</span>
+        <span>ADF</span>
+        <span>Databricks</span>
+      </div>
+
+      <ul>
+        <li>Built interactive Power BI dashboards with Row-Level Security.</li>
+        <li>Automated data ingestion using Azure Data Factory and PySpark.</li>
+        <li>Optimized SQL queries for operational reporting and analytics.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="timeline-company">
+    <div class="company-logo">U</div>
+    <div>
+      <h3>Data Engineer <span>UnAcademy</span></h3>
+      <p class="duration">Sep 2020 — Jul 2021</p>
+      <p>
+        Built scalable ETL frameworks and analytics solutions supporting learner engagement and educational insights.
+      </p>
+
+      <div class="tech-badges">
+        <span>Python</span>
+        <span>PySpark</span>
+        <span>Power BI</span>
+        <span>SQL</span>
+      </div>
+
+      <ul>
+        <li>Designed ETL frameworks for batch and streaming data processing.</li>
+        <li>Implemented Medallion architecture for analytics and ML workloads.</li>
+        <li>Improved data quality and dashboard performance through optimized Spark processing.</li>
+      </ul>
+    </div>
+  </article>
+
+</div>
+          </article>
+        </section>
+        <section id="projects" class="section dashboard-section projects-row" data-section-title="Projects">
+          <div class="dashboard-card full-card reveal-card"><div class="card-header"><div><p class="eyebrow">Selected work</p><h2>Featured Projects</h2></div><span class="panel-pill">4 product cards</span></div><div class="project-grid">
+            <article class="project-card tilt-card"><div class="project-shot">🤖</div><h3>AI Portfolio Assistant</h3><p>Voice-enabled portfolio guide using browser speech APIs and smooth section navigation.</p><div class="tech-badges"><span>JavaScript</span><span>Flask</span><span>AI UX</span></div><div class="project-actions"><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a><a href="#overview">Live Demo</a></div></article>
+            <article class="project-card tilt-card"><div class="project-shot">☁️</div><h3>AWS Data Pipeline</h3><p>Serverless ingestion workflow for analytics-ready datasets and operational reporting.</p><div class="tech-badges"><span>AWS</span><span>Glue</span><span>Redshift</span></div><div class="project-actions"><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a><a href="#overview">Live Demo</a></div></article>
+            <article class="project-card tilt-card"><div class="project-shot">💬</div><h3>RAG Chatbot</h3><p>Document-aware assistant with retrieval, embeddings, prompt controls, and source-grounded answers.</p><div class="tech-badges"><span>Python</span><span>LangChain</span><span>FAISS</span></div><div class="project-actions"><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a><a href="#overview">Live Demo</a></div></article>
+            <article class="project-card tilt-card"><div class="project-shot">📊</div><h3>Sales Dashboard</h3><p>Interactive product dashboard for KPIs, trend analysis, and SQL-backed business insights.</p><div class="tech-badges"><span>Power BI</span><span>SQL</span><span>DAX</span></div><div class="project-actions"><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a><a href="#overview">Live Demo</a></div></article>
+          </div></div>
+        </section>
+<section id="skills" class="section dashboard-section skills-row" data-section-title="Skills">
+  <article class="dashboard-card full-card reveal-card">
+
+    <div class="card-header">
+      <div>
+        <p class="eyebrow">Technical Skills</p>
+        <h2>Core Technologies</h2>
+      </div>
+      <span class="panel-pill">Cloud • AI • Data</span>
+    </div>
+
+    <div class="skill-dashboard">
+
+      <div>
+        <h3>Data Engineering</h3>
+        <span>PySpark</span>
+        <span>Databricks</span>
+        <span>Delta Lake</span>
+        <span>ETL</span>
+      </div>
+
+      <div>
+        <h3>Cloud</h3>
+        <span>Azure</span>
+        <span>AWS</span>
+        <span>ADF</span>
+        <span>AWS Glue</span>
+      </div>
+
+      <div>
+        <h3>Programming</h3>
+        <span>Python</span>
+        <span>SQL</span>
+        <span>Spark SQL</span>
+        <span>REST APIs</span>
+      </div>
+
+    </div>
+
+  </article>
+</section>
+
+        <section id="achievements" class="section dashboard-section achievements-row" data-section-title="Achievements"><article class="dashboard-card full-card reveal-card"><p class="eyebrow">Impact metrics</p><h2>Achievements</h2><div class="achievement-grid"><div><strong>5+</strong><span>Years Experience</span></div><div><strong>20+</strong><span>Projects Completed</span></div><div><strong>35+</strong><span>Technologies</span></div><div><strong>150+</strong><span>GitHub Stars</span></div><div><strong>300+</strong><span>LeetCode Problems</span></div><div><strong>12+</strong><span>Open Source PRs</span></div><div><strong>10+</strong><span>Hackathons</span></div><div><strong>15+</strong><span>Articles</span></div></div></article></section>
+         <section id="education" class="section dashboard-section education-row" data-section-title="Education">
+          <article class="dashboard-card full-card reveal-card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Academic background</p>
+                <h2>Education</h2>
+              </div>
+              <span class="panel-pill">Computer Science • Data Science • AI</span>
+            </div>
+
+            <div class="education-list">
+              <div class="education-card">
+                <h3>Campbellsville University</h3>
+                <p class="degree">Master of Science</p>
+                <span>Data Science &amp; Artificial Intelligence</span>
+              </div>
+
+              <div class="education-card">
+                <h3>Northwest Missouri State University</h3>
+                <p class="degree">Master of Science</p>
+                <span>Computer Science</span>
+              </div>
+
+              <div class="education-card">
+                <h3>Jawaharlal Nehru Technological University</h3>
+                <p class="degree">Bachelor of Technology</p>
+                <span>Computer Science</span>
+              </div>
+            </div>
+          </article>
+        </section>
+        <section id="contact" class="section dashboard-section contact-row" data-section-title="Contact"><article class="dashboard-card contact-dashboard reveal-card"><p class="eyebrow">Let’s connect</p><h2>Build something amazing together.</h2><p>I’m open to software engineering, data, cloud, and AI-focused roles.</p><div class="contact-links"><a href="mailto:ravali@example.com">vallireddy27@gmail.com</a><a href="https://github.com/ravalireddy-24" target="_blank" rel="noreferrer">GitHub</a></div></article></section>
+      </div>
+      <aside id="assistantPanel" class="assistant-panel dashboard-assistant" aria-label="Portfolio avatar assistant">
+        <div id="avatarShell" class="avatar-shell is-idle" aria-label="Interactive AI avatar" data-avatar-state="idle"><div class="avatar-halo" aria-hidden="true"></div><div class="avatar-loader" aria-hidden="true"></div><div class="listening-ripples" aria-hidden="true"><span></span><span></span><span></span></div><button id="avatarMicBtn" class="avatar-mic-btn" type="button" aria-label="Start voice command near avatar"><span class="voice-icon" aria-hidden="true"></span></button><div class="avatar-image-wrap"><video id="assistantAvatar" class="assistant-avatar" muted playsinline preload="metadata" aria-label="Animated AI assistant avatar"><source src="{{ url_for('static', filename='images/avatar.webm') }}" type="video/webm" />Your browser does not support the avatar video.</video></div><div class="avatar-state-chip" aria-hidden="true"><span class="state-dot"></span><span id="avatarStatusLabel">Ready</span></div></div>        <div class="assistant-card" role="status" aria-live="polite">
+          <div class="assistant-card-header"><div><p class="eyebrow">Voice guide</p><h2 id="assistantTitle">Hi! I’m ready.</h2></div><span id="status" class="status-label">Ready</span></div>
+          <p id="assistantMessage">Ask me to show overview, about, experience, projects, skills, certifications, education or contact.</p>
+          <div class="voice-control-panel">
+            <button id="voiceBtn" class="voice-btn" type="button" aria-label="Start voice command"><span class="voice-icon" aria-hidden="true"></span><span id="voiceBtnText">Click microphone</span></button>
+            <div class="mic-copy"><strong>Speak a command</strong><span>Try “projects”, “experience”, or “contact”.</span></div>
+            <div class="mic-levels" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <p id="transcriptText" class="transcript-text">Transcript will appear here.</p>
+          <div class="quick-commands" aria-label="Portfolio commands"><button type="button" data-command="Overview">Overview</button><button type="button" data-command="experience">Experience</button><button type="button" data-command="projects">Projects</button><button type="button" data-command="skills">Skills</button><button type="button" data-command="education">Education</button></div>
+        </div>      </aside>
+    </div>
+        <a class="back-home-link floating-back-home" href="{{ url_for('home') }}" aria-label="Back to home page">← Back</a>
+  </main>
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</body>
+</html>
